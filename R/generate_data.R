@@ -8,46 +8,36 @@ generate_data <- function() {
     )
   )
 
-  # data <- data[,-c(3:4)] # delete useless column
-  #
-  # data <- data %>%
-  #   rename(country = Geography) # rename one column
-  #
-  # data <- data %>%
-  #   gather(c(3:44), key = year, value = values) # tidy data
-  #
-  # data <- data %>%
-  #   spread(Category, values) # tidy data
-  #
-  # colnames(data) <- colnames(data) %>%
-  #   tolower() %>%
-  #   gsub(pattern = " ", replacement = "_") # tolower variables names
-  #
-  # # data$country <- tolower(data$country) # tolower country column
-  #
-  # data <- as_tibble(data)
-  #
-  # data$country <- as.factor(data$country)
-  #
-  # data$year <- as.factor(data$year)
-  #
-  # data[, 3:19] <- sapply(data[, 3:19], as.numeric)
-  #
-  #
-  # # data.small <- data[, c(1, 2, 3, 9, 10 ,16)]
-  #
-  # data.long <- na.omit(gather(data, key="measure", value="value", c(3:19)))
-  # data.long <- na.omit(data.long)
-  #
-  #
-  # data$year= as.Date(as.numeric(paste(data$year, 1, 1, sep = "-"), "%Y%m%d"))
-  # data$year= as.integer(as.character(data$year))
-  #
-  # data[c(3:19)] = scale(data[c(3:19)])
-  #
-  #
+  # delete useless column
+  data <-
+    data[, -which(names(data) %in% c("Unit", "Current Constant"))]
+
+  # rename  column Geography
+  data <- data %>%
+    rename(country = Geography)
+
+  data <- data %>%
+    gather(c(3:44), key = year, value = values)
+
+  data <- data %>%
+    spread(Category, values)
+
+  colnames(data) <- colnames(data) %>%
+    tolower() %>%
+    gsub(pattern = " ", replacement = "_") # tolower variables names
+
+  data <- as_tibble(data)
+
+  data$country <- as.factor(data$country)
+
+  data$year <- as.factor(data$year)
+
+  data[, 3:19] <- sapply(data[, 3:19], as.numeric)
+  data <- gather(data, key="variable", value="value", c(3:19))
 
   return(data)
 
 }
+
+
 

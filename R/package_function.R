@@ -11,55 +11,22 @@
 #' @export
 country_function <- function(ctry, var){
 
-  # move to DESCRIPTIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  # library(readxl)
-  # library(here)
-  # library(tidyverse)
-  # library(dplyr)
+  data.long.function <- data %>%
+    dplyr::filter(variable %in% var & country %in% ctry)
 
-  #Deleting useless column
-  data <- data[,-c(3:4)]
-
-  #Renaming a certain variable
-  data <- data %>% rename(country = Geography)
-
-  #Tidying the data
-  data <- data %>% gather(c(3:44), key = year, value = values)
-
-  data <- data %>% spread(Category, values)
-
-  colnames(data) <- colnames(data) %>% gsub(pattern = " ", replacement = "_")
-
-  data <- as_tibble(data)
-
-  data$country <- as.factor(data$country)
-
-  data$year <- as.factor(data$year)
-
-  data[, 3:19] <- sapply(data[, 3:19], as.numeric)
-
-  data.long <- gather(data, key="Variable", value="Value", c(3:19))
-### -------------------------------------------------------------------------------------------------
-
-  data.long.function <- data.long %>%
-    filter(Variable %in% var & Country %in% ctry)
 
   plot_country <- data.long.function %>%
-    ggplot2::ggplot(aes(x = data.long.function$Year,
-               y = data.long.function$Value,
-               color = data.long.function$Country,
-               group = data.long.function$Country)) +
-    labs(title = paste(var), subtitle = 'by selected countries' , x = 'Year', y = paste(var), color = 'Country') +
-    scale_x_discrete(breaks=seq(1970,2020,5)) +
-    scale_y_continuous(labels = function(x) format(x, big.mark = "'",
+    ggplot2::ggplot(ggplot2::aes(x = data.long.function$year,
+               y = data.long.function$value,
+               color = data.long.function$country,
+               group = data.long.function$country)) +
+    ggplot2::labs(title = paste(var), subtitle = 'by selected countries' ,
+                  x = 'Year', y = paste(var), color = 'Country') +
+    ggplot2::scale_x_discrete(breaks=seq(1970,2020,5)) +
+    ggplot2::scale_y_continuous(labels = function(x) format(x, big.mark = "'",
                                                    scientific = FALSE)) +
-    geom_line()
+    ggplot2::geom_line()
 
-  return(plot_country)
+  print(plot_country)
 }
 
-
-#' @export
-test <- function() {
-  head(data)
-}
