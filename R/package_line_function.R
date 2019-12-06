@@ -25,7 +25,8 @@ country_function <- function(ctry, var){
     ggplot2::scale_x_discrete(breaks=seq(1970,2020,5)) +
     ggplot2::scale_y_continuous(labels = function(x) format(x, big.mark = "'",
                                                    scientific = FALSE)) +
-    ggplot2::geom_line()
+    ggplot2::geom_line()+
+    ggplot2::theme_bw()
 
   print(plot_country)
 }
