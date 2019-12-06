@@ -11,13 +11,11 @@
 #' @export
 country_function <- function(ctry, var){
 
-  library(readxl)
-  library(here)
-  library(tidyverse)
-  library(dplyr)
-
-  #Loading the data
-  data <- as.data.frame(read_excel(here('Passport_Stats.xls')))
+  # move to DESCRIPTIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # library(readxl)
+  # library(here)
+  # library(tidyverse)
+  # library(dplyr)
 
   #Deleting useless column
   data <- data[,-c(3:4)]
@@ -58,4 +56,10 @@ country_function <- function(ctry, var){
     geom_line()
 
   return(plot_country)
+}
+
+
+#' @export
+test <- function() {
+  head(data)
 }
