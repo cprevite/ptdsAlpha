@@ -1,4 +1,3 @@
 export(country_function)
-export(bubble_function)
 export(generate_data)
 importFrom(magrittr,"%>%")
