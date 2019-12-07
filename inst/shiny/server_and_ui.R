@@ -20,7 +20,7 @@ ui <- dashboardPage(
               fluidRow("Line graph"),
               fluidRow(
                 box(title = "Plot line", color = "blue", width = 11,
-                    selectInput(inputId =  "variable1", choices = unique(may),
+                    selectInput(inputId =  "variable1", choices = unique(data$country),
                                 label = "Select first variable", selected = "Switzerland"),
                     selectInput(inputId =  "variable2", choices =  unique(data$variable),
                                 label = "Select second variable", selected = "gdp"),
