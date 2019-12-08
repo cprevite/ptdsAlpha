@@ -48,7 +48,7 @@ ui <- dashboardPage(
                 ),
                 selectInput(
                   inputId =  "variable2",
-                  choices =  unique(data$variable),
+                  choices =  colnames(data)[3:19],
                   label = "Select second variable",
                   selected = "gdp"
                 ),
@@ -77,13 +77,13 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable3",
-                  choices = unique(data$variable),
+                  choices = colnames(data)[3:19],
                   label = "Select first variable",
                   selected = "gdp"
                 ),
                 selectInput(
                   inputId =  "variable4",
-                  choices =  unique(data$variable),
+                  choices =  colnames(data)[3:19],
                   label = "Select second variable",
                   selected = "productivity"
                 ),
@@ -134,7 +134,7 @@ ui <- dashboardPage(
                 ),
                 selectInput(
                   inputId =  "variable6",
-                  choices =  unique(data$variable),
+                  choices =  colnames(data)[3:19],
                   label = "Select a variable you want to forecast",
                   selected = "GDP"
                 ),
