@@ -3,12 +3,13 @@
 #' @description Data visualisation of two variables of the users choice
 #' in a two dimensional plot.
 #' A third dimension is represented by the size of the bubble
-#' @param x_var A \code{list} of variables to select
-#' @param y_var A \code{list} of variables to select
+#' @param x_var First variables to select
+#' @param y_var Second variables to select
 #' @return A \code{plot} representing two variables in a bubble chart
 #' @author Ana-Maria Casian
 #' @examples
 #' bubble_function ('gdp','productivity')
+#' @import plotly
 #' @export
 bubble_function <- function(x_var, y_var) {
 
@@ -32,3 +33,4 @@ bubble_function <- function(x_var, y_var) {
   print(plot_bubble)
 
 }
+

@@ -7,9 +7,9 @@
 bubble_function(x_var, y_var)
 }
 \arguments{
-\item{x_var}{A \code{list} of variables to select}
+\item{x_var}{First variables to select}
 
-\item{y_var}{A \code{list} of variables to select}
+\item{y_var}{Second variables to select}
 }
 \value{
 A \code{plot} representing two variables in a bubble chart
