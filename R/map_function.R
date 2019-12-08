@@ -14,15 +14,18 @@
 
 map_function <- function(yrs, col_val) {
   
+  #Here the data variable is the one initially used when we loaded the excel file and saved it to variable data
   data_map <- data %>% 
     group_by(country) %>% 
     filter(year == yrs) %>% 
     dplyr::select(col_val)
   
+  #We use the built-in database world from one of the libraries used to map the countries in a plot
   world <- map_data("world")
   
   mapbig <- left_join(data_map, world, by = c("country" = "region"))
   
+  #Below is a basically the whole mao being prepared and plotted.
   world_map <- ggplot() + theme(
     panel.background = element_rect(fill = "slategray1", color = NA),
     panel.grid = element_blank(),

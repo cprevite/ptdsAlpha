@@ -15,16 +15,20 @@
 
 barchart_function <- function(pol_var, eco_var, yrs) {
   
+  #Here I call the database 'world' from the library spData to be used later for mapping countries
   data(world)
   
+  #Extracting and filtering data in order to map it
   world_eu <- world %>% filter(continent == "Europe")
   world_eu <- left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "country"))
   eu_graph <- world_eu %>% 
     filter(year %in% yrs) %>% 
     dplyr::select(iso_a2, year, pol_var, eco_var)
   
+  #Making the geom column as null else it creates problem with the barchart. Hence disabled it.
   eu_graph$geom <- NULL
   
+  #Developing the barchart based on the variables and observations selected above.
   bargraphs <- ggplot(eu_graph) + geom_bar(aes_string(x = "iso_a2", 
                                                       weight = pol_var, 
                                                       fill = eco_var)) + 
