@@ -7,7 +7,7 @@
 country_function(ctry, var)
 }
 \arguments{
-\item{ctry}{A \code{list} of countries to selectcoun}
+\item{ctry}{A \code{list} of countries to select}
 
 \item{var}{A \code{list} of variables to select}
 }
@@ -15,7 +15,8 @@ country_function(ctry, var)
 A \code{plot} containing the line per variables and per countries
 }
 \description{
-Compute an linetype graph containing the desired variables per desired countries through year
+Compute a linetype graph containing the desired variables per
+desired countries through year
 }
 \examples{
 country_function(c('Italy', 'France', 'Spain'),'Productivity')

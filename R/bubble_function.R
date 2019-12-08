@@ -9,16 +9,18 @@
 #' @author Ana-Maria Casian
 #' @examples
 #' bubble_function ('gdp','productivity')
-#' @import plotly
+#' @import plotly tidyr
 #' @export
 bubble_function <- function(x_var, y_var) {
 
-   data <- data %>%
-    tidyr:: spread(variable, value)
+  #transform data
+  data <- data %>%
+    spread(variable, value)
   data <-  na.omit(data)
   data$year = as.integer(as.character(data$year))
 
-  plot_bubble <- plotly:: plot_ly(
+  #create bubble plot with function plot_ly
+  plot_bubble <- plot_ly(
     data,
     x = ~ data[[x_var]],
     y = ~ data[[y_var]],
@@ -30,7 +32,6 @@ bubble_function <- function(x_var, y_var) {
     mode = 'markers'
   )
 
-  print(plot_bubble)
+  return(plot_bubble)
 
 }
-
