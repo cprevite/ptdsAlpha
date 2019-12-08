@@ -127,19 +127,19 @@ ui <- dashboardPage(
                 color = "blue",
                 width = 11,
                 selectInput(
-                  inputId =  "variable1",
+                  inputId =  "variable5",
                   choices = unique(data$country),
                   label = "Select a country",
                   selected = "Switzerland"
                 ),
                 selectInput(
-                  inputId =  "variable2",
+                  inputId =  "variable6",
                   choices =  unique(data$variable),
                   label = "Select a variable you want to forecast",
                   selected = "GDP"
                 ),
                 sliderInput(
-                  inputId = "variable3",
+                  inputId = "variable7",
                   label = "Select the forecast length",
                   min = 0,
                   max = 50,
@@ -178,9 +178,9 @@ server <- function(input, output) {
     renderDygraph(
       forecast_function(
         dataset = data,
-        geo = input$variable1,
-        variable = input$variable2,
-        fc_length = input$variable3
+        geo = input$variable5,
+        variable = input$variable6,
+        fc_length = input$variable7
       )[[3]]
     )
 
