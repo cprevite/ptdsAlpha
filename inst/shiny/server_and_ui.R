@@ -29,6 +29,11 @@ ui <- dashboardPage(
                        tabName = "forecast_tab",
                        text = "Forecasting",
                        icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
+                       tabName = "comparaison_tab",
+                       text = "Comparaison",
+                       icon = icon("cog", lib = "glyphicon")
                      )
                    )),
 
@@ -158,6 +163,40 @@ ui <- dashboardPage(
 
                 )
               )
+            )),
+
+    tabItem(tabName = "comparaison_tab",
+            fluidRow("Comparaison"),
+            fluidRow(
+              box(
+                title = "Comparaison",
+                color = "blue",
+                width = 16,
+                selectInput(
+                  inputId =  "variable8",
+                  choices = unique(data$variable),
+                  label = "Select a variable you want to forecast",
+                  selected = "productivity"
+                ),
+                selectInput(
+                  inputId =  "variable9",
+                  choices =  unique(data$variable),
+                  label = "Select a variable you want to forecast",
+                  selected = "gdp"
+                ),
+                leafletOutput("map_eu")
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test")
+
+                )
+              )
             ))
     )
   ), theme = "flatly"
@@ -183,6 +222,9 @@ server <- function(input, output) {
         fc_length = input$variable7
       )[[3]]
     )
+
+  output$map_eu <-
+    renderLeaflet(comparison_function(input$variable8, input$variable9))
 
 }
 
