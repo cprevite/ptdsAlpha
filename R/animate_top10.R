@@ -16,13 +16,13 @@ animated_top10 <- function(var) {
 
   # create Rank variable
   prod_formatted <- data.long.function %>%
-    plotly::group_by(year) %>%
+    dplyr::group_by(year) %>%
     dplyr::mutate(
       Rank = rank(-Value) * 1,
       Value_rel = Value / Value[Rank == 1],
       Value_lbl = round(Value)
     ) %>%
-    plotly::group_by(country) %>%
+    dplyr::group_by(country) %>%
     dplyr::filter(Rank <= 10) %>%
     plotly::ungroup()
 
@@ -45,11 +45,11 @@ animated_top10 <- function(var) {
     ), color = NA) +
     ggplot2::geom_text(aes(y = 0, label = paste(country, " ")), vjust = 0.2, hjust = 1) +
     ggplot2::geom_text(aes(y = Value, label = Value_lbl, hjust = 0.05)) +
-    coord_flip(clip = "off", expand = FALSE) +
-    scale_y_continuous(labels = scales::comma) +
-    scale_x_reverse() +
-    guides(color = FALSE, fill = FALSE) +
-    theme(
+    ggplot2::coord_flip(clip = "off", expand = FALSE) +
+    ggplot2::scale_y_continuous(labels = scales::comma) +
+    ggplot2::scale_x_reverse() +
+    ggplot2::guides(color = FALSE, fill = FALSE) +
+    ggplot2::theme(
       axis.line = element_blank(),
       axis.text.x = element_blank(),
       axis.text.y = element_blank(),
