@@ -2,25 +2,26 @@
 % Please edit documentation in R/bubble_function.R
 \name{bubble_function}
 \alias{bubble_function}
-\title{Variables per Country through Year}
+\title{Bubble graph}
 \usage{
 bubble_function(x_var, y_var)
 }
 \arguments{
-\item{ctry}{A \code{list} of countries to selectcoun}
+\item{x_var}{A \code{list} of variables to select}
 
-\item{var}{A \code{list} of variables to select}
+\item{y_var}{A \code{list} of variables to select}
 }
 \value{
-A \code{plot} containing the line per variables and per countries
+A \code{plot} representing two variables in a bubble chart
 }
 \description{
-Compute an linetype graph containing the desired variables per desired countries through year
+Data visualisation of two variables of the users choice
+in a two dimensional plot.
+A third dimension is represented by the size of the bubble
 }
 \examples{
-country_function(c('Italy', 'France', 'Spain'),'Productivity')
-country_function('Italy', c('Productivity', 'GDP'))
+bubble_function ('gdp','productivity')
 }
 \author{
-Claudio Previte
+Ana-Maria Casian
 }

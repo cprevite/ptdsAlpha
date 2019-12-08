@@ -1,13 +1,14 @@
 
-#' @title Variables per Country through Year
-#' @description Compute an linetype graph containing the desired variables per desired countries through year
-#' @param ctry A \code{list} of countries to selectcoun
-#' @param var A \code{list} of variables to select
-#' @return A \code{plot} containing the line per variables and per countries
-#' @author Claudio Previte
+#' @title Bubble graph
+#' @description Data visualisation of two variables of the users choice
+#' in a two dimensional plot.
+#' A third dimension is represented by the size of the bubble
+#' @param x_var A \code{list} of variables to select
+#' @param y_var A \code{list} of variables to select
+#' @return A \code{plot} representing two variables in a bubble chart
+#' @author Ana-Maria Casian
 #' @examples
-#' country_function(c('Italy', 'France', 'Spain'),'Productivity')
-#' country_function('Italy', c('Productivity', 'GDP'))
+#' bubble_function ('gdp','productivity')
 #' @export
 bubble_function <- function(x_var, y_var) {
 
