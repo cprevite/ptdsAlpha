@@ -8,11 +8,17 @@
 #' @examples
 #' map_function(2008,'Productivity')
 #' map_function(1982, 'Greenhouse_Gas_Emissions')
+#' @import dplyr maptools ggmap hrbrthemes here tidyverse DataExplorer maps tmap mapview leaflet ggplot2 viridis readxl
+#' shiny sf raster spData magick gganimate reshape2 mapproj
 #' @export
 
 map_function <- function(yrs, col_val) {
-  data_map <-
-    data %>% group_by(country) %>% filter(year == yrs) %>% dplyr::select(col_val)
+  
+  data_map <- data %>% 
+    group_by(country) %>% 
+    filter(year == yrs) %>% 
+    dplyr::select(col_val)
+  
   world <- map_data("world")
   
   mapbig <- left_join(data_map, world, by = c("country" = "region"))

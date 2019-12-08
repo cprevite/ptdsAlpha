@@ -9,15 +9,20 @@
 #' @examples
 #' barchart_function('Greenhouse_Gas_Emissions,'Productivity', 1988)
 #' barchart_function('CO2_Emissions_from_Transport', 'GDP', 2017)
+#' @import dplyr maptools ggmap hrbrthemes here tidyverse DataExplorer maps tmap mapview leaflet ggplot2 viridis readxl
+#' shiny sf raster spData magick gganimate reshape2 mapproj
 #' @export
 
 barchart_function <- function(pol_var, eco_var, yrs) {
+  
   data(world)
   
   world_eu <- world %>% filter(continent == "Europe")
   world_eu <- left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "country"))
-  eu_graph <- world_eu %>% filter(year %in% yrs) %>% 
+  eu_graph <- world_eu %>% 
+    filter(year %in% yrs) %>% 
     dplyr::select(iso_a2, year, pol_var, eco_var)
+  
   eu_graph$geom <- NULL
   
   bargraphs <- ggplot(eu_graph) + geom_bar(aes_string(x = "iso_a2", 

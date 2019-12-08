@@ -8,9 +8,12 @@
 #' @examples
 #' comparison_function('Greenhouse_Gas_Emissions,'Productivity')
 #' comparison_function('CO2_Emissions_from_Transport', 'GDP')
+#' @import dplyr maptools ggmap hrbrthemes here tidyverse DataExplorer maps tmap mapview leaflet ggplot2 viridis readxl
+#' shiny sf raster spData magick gganimate reshape2 mapproj
 #' @export
 
 comparison_function <- function(pol_var, eco_var) {
+  
   data(world)
   
   world_eu <- world %>% filter(continent == "Europe")
