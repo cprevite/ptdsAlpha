@@ -25,11 +25,11 @@ forecast_function <- function(dataset,geo,variable,fc_length) {
 
 
   # pivoting the dataframe to fit the function
-  data <- dataset %>%
-    pivot_wider(
-      names_from = variable,
-      values_from = value
-    )
+  # data <- data %>%
+  #   pivot_wider(
+  #     names_from = variable,
+  #     values_from = value
+  #   )
 
   #---retrieving time serie from the country and variable specified---
   #-set the country-
