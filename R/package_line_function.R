@@ -1,13 +1,15 @@
 
 #' @title Variables per Country through Year
-#' @description Compute an linetype graph containing the desired variables per desired countries through year
-#' @param ctry A \code{list} of countries to selectcoun
+#' @description Compute a linetype graph containing the desired variables per
+#' desired countries through year
+#' @param ctry A \code{list} of countries to select
 #' @param var A \code{list} of variables to select
 #' @return A \code{plot} containing the line per variables and per countries
 #' @author Claudio Previte
 #' @examples
 #' country_function(c('Italy', 'France', 'Spain'),'Productivity')
 #' country_function('Italy', c('Productivity', 'GDP'))
+#' @import dplyr, ggplot2
 #' @export
 country_function <- function(ctry, var){
 
