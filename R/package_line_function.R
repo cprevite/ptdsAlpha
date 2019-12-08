@@ -13,10 +13,11 @@
 #' @export
 country_function <- function(ctry, var){
 
+  # filter variables
   data.long.function <- data %>%
     dplyr::filter(variable %in% var & country %in% ctry)
 
-
+# plot value of selected variables for selected countries on x axis (year)
   plot_country <- data.long.function %>%
     ggplot2::ggplot(ggplot2::aes(x = data.long.function$year,
                y = data.long.function$value,
