@@ -15,7 +15,7 @@ comparison_function(pol_var, eco_var)
 A \code{plot} containing four interactive maps of Europe based on the variables chosen
 }
 \description{
-Produces an interactive map of the European Union region over four different years to show the interaction
+Produces an interactive map of the European Union region over four different years to show the interaction 
 and change between the Economic and Pollution variables
 }
 \author{
