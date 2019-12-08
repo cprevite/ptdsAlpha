@@ -125,7 +125,7 @@ ui <- dashboardPage(
               box(
                 title = "Forecasting",
                 color = "blue",
-                width = 11,
+                width = 16,
                 selectInput(
                   inputId =  "variable5",
                   choices = unique(data$country),
