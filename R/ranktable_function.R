@@ -7,7 +7,7 @@
 #' @return A \code{table} containing the desired information and the rank for
 #' each countries
 #' @author Claudio Previte
-#' @example
+#' @examples
 #' ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
 #' @import dplyr kableExtra
 #' @export

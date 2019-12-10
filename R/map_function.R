@@ -1,6 +1,6 @@
-#' @title Pollution & Economic Overview of European countries 
+#' @title Pollution & Economic Overview of European countries
 #' @description Produces a colorful graphical output of the European map in regards to the chosen Economic or Pollution variables
-#' in a given year 
+#' in a given year
 #' @param yrs A \code{list} of years to select
 #' @param col_val A \code{list} of Economic and Pollution variables to select
 #' @return A \code{plot} containing the map of Europe based on the variable chosen
@@ -8,23 +8,22 @@
 #' @examples
 #' map_function(2008,'Productivity')
 #' map_function(1982, 'Greenhouse_Gas_Emissions')
-#' @import dplyr maptools ggmap hrbrthemes here tidyverse DataExplorer maps tmap mapview leaflet ggplot2 viridis readxl
-#' shiny sf raster spData magick gganimate reshape2 mapproj
+#' @import dplyr
 #' @export
 
 map_function <- function(yrs, col_val) {
-  
+
   #Here the data variable is the one initially used when we loaded the excel file and saved it to variable data
-  data_map <- data %>% 
-    group_by(country) %>% 
-    filter(year == yrs) %>% 
+  data_map <- data %>%
+    group_by(country) %>%
+    filter(year == yrs) %>%
     dplyr::select(col_val)
-  
+
   #We use the built-in database world from one of the libraries used to map the countries in a plot
   world <- map_data("world")
-  
+
   mapbig <- left_join(data_map, world, by = c("country" = "region"))
-  
+
   #Below is a basically the whole mao being prepared and plotted.
   world_map <- ggplot() + theme(
     panel.background = element_rect(fill = "slategray1", color = NA),
@@ -35,12 +34,12 @@ map_function <- function(yrs, col_val) {
     axis.title.x = element_blank(),
     axis.title.y = element_blank()
   )
-  
+
   europe_map <-
     world_map + coord_fixed(xlim = c(-9, 42.5),
                             ylim = c(36, 70.1),
                             ratio = 1.5)
-  
+
   europeview <- europe_map +
     geom_polygon(
       data = mapbig,
@@ -69,7 +68,7 @@ map_function <- function(yrs, col_val) {
         barwidth = unit(10, units = "mm")
       )
     )
-  
+
   return(europeview)
-  
+
 }

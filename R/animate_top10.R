@@ -3,7 +3,7 @@
 #' @param var A \code{list} of variables to select
 #' @return A \code{plot} containing an animated ranking
 #' @author Claudio Previte
-#' @example
+#' @examples
 #' animated_top10('Productivity')
 #' @import dplyr ggplot2
 #' @export
