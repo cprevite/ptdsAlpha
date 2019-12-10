@@ -9,7 +9,7 @@
 #'
 #' @return A \code{list} containing the time series created, the time series of
 #' the forecast and the dygraph \code{plot}
-#' @import dplyr stringr dygraphs forecast tidyr
+#' @import dplyr tidyr
 #' @export
 #'
 #' @examples
@@ -21,21 +21,15 @@
 #'
 #' @author Pierre-Emmanuel Got
 #'
-forecast_function <- function(dataset,geo,variable,fc_length) {
-
-
-  # pivoting the dataframe to fit the function
-  # data <- data %>%
-  #   pivot_wider(
-  #     names_from = variable,
-  #     values_from = value
-  #   )
-
-  #---retrieving time serie from the country and variable specified---
-  #-set the country-
-  data <- data %>%
-    filter(str_detect(country, paste0(geo)))
-
+forecast_function <-
+  function(dataset = data,
+           geo = 'France',
+           variable = 'GDP',
+           fc_length = 5) {
+  #---retrieving time serie from the Country and variable specified---
+  #-set the Country-
+  data <- dataset %>%
+    filter(Country==paste0(geo))
   #retrieve index of the desired variable:
   index <- which(colnames(data) %in% paste0(variable))
 
@@ -58,48 +52,38 @@ forecast_function <- function(dataset,geo,variable,fc_length) {
 }"
 
   #---creating the graph with dygraphs---
-  aarima <- auto.arima(data.ts, stepwise = FALSE)
-  dfcast <- forecast(object = data.ts, model = aarima, h = fc_length)
+  aarima <- forecast::auto.arima(data.ts, stepwise = FALSE)
+  dfcast <- forecast::forecast(object = data.ts, model = aarima, h = fc_length)
 
   data.fc <- dfcast %>%
   {cbind(actuals=.$x, forecast_mean=.$mean,
          lower_95=.$lower[,"95%"], upper_95=.$upper[,"95%"],
          lower_80=.$lower[,"80%"], upper_80=.$upper[,"80%"])}
 
-  # data.fc <-
-  # data.ts %>%
-  #   auto.arima(stepwise = FALSE) %>%
-  #   forecast(
-  #     h=fc_length
-  #     ) %>%
-  #   {cbind(actuals=.$x, forecast_mean=.$mean,
-  #          lower_95=.$lower[,"95%"], upper_95=.$upper[,"95%"],
-  #          lower_80=.$lower[,"80%"], upper_80=.$upper[,"80%"])}
-
   data.dg <-
-    dygraph(
+    dygraphs::dygraph(
       data.fc,
       main = paste0("FC display of ",
                     variable,
                     " over ",
                     fc_length,
-                    " years in ",
+                    " Years in ",
                     geo),
       ylab = paste0(variable)
     ) %>%
-    dyAxis("y", valueFormatter = interval_value_formatter) %>%
-    dySeries("actuals", color = "black") %>%
-    dySeries("forecast_mean", color = "blue", label = "forecast") %>%
-    dySeries(c("lower_80", "forecast_mean", "upper_80"),
+    dygraphs::dyAxis("y", valueFormatter = interval_value_formatter) %>%
+    dygraphs::dySeries("actuals", color = "black") %>%
+    dygraphs::dySeries("forecast_mean", color = "blue", label = "forecast") %>%
+    dygraphs::dySeries(c("lower_80", "forecast_mean", "upper_80"),
              label = "80%",
              color = "blue") %>%
-    dySeries(c("lower_95", "forecast_mean", "upper_95"),
+    dygraphs::dySeries(c("lower_95", "forecast_mean", "upper_95"),
              label = "95%",
              color = "blue") %>%
-    dyLegend(labelsSeparateLines = TRUE) %>%
-    dyRangeSelector() %>%
-    dyOptions(digitsAfterDecimal = 1) %>%
-    dyCSS(
+    dygraphs::dyLegend(labelsSeparateLines = TRUE) %>%
+    dygraphs::dyRangeSelector() %>%
+    dygraphs::dyOptions(digitsAfterDecimal = 1) %>%
+    dygraphs::dyCSS(
       textConnection(
         ".dygraph-legend
         {background-color: rgba(255, 255, 255, 0.5) !important; }"
@@ -111,6 +95,7 @@ forecast_function <- function(dataset,geo,variable,fc_length) {
     list(data_series = data.ts,
          data_forecast = data.fc,
          data_plot = data.dg)
+
   return(vals)
   }
 
