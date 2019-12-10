@@ -9,7 +9,7 @@
 #' @author Claudio Previte
 #' @examples
 #' ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
-#' @import dplyr kableExtra
+#' @import dplyr
 #' @export
 ranktable_function <-
   function(dataset = data,

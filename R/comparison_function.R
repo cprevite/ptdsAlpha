@@ -5,21 +5,19 @@
 #' @param eco_var A \code{list} of Economic variables to select
 #' @return A \code{plot} containing four interactive maps of Europe based on the variables chosen
 #' @author Redwan Hasan
-#' @examples
-#' comparison_function('Greenhouse_Gas_Emissions,'Productivity')
-#' comparison_function('CO2_Emissions_from_Transport', 'GDP')
 #' @import dplyr
 #' @export
 
-comparison_function <- function(dataset, pol_var="CO2_Emissions_from_Transport", eco_var="GDP") {
+comparison_function <- function(dataset = data, pol_var="CO2 Emissions from Transport", eco_var="GDP") {
 
   #Here I call the database 'world' from the library spData to be used later for mapping countries
 
 
   #Extracting and filtering data in order to map it
-  world_eu <- spData::world %>% filter(continent == "Europe")
+  world <- spData::world
+  world_eu <- world %>% filter(continent == "Europe")
   world_eu <-
-    left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
+    left_join(world_eu[,c(1, 2)], dataset, by = c("name_long" = "Country"))
   world_eu_4yrs <-
     world_eu %>% filter(Year %in% c(2000, 2005, 2010, 2015))
 
@@ -31,7 +29,7 @@ comparison_function <- function(dataset, pol_var="CO2_Emissions_from_Transport",
     tmap::tm_symbols(col = "black",
                border.col = "white",
                size = eco_var) +
-    tmap::tm_facets(by = "year",
+    tmap::tm_facets(by = "Year",
               nrow = 2,
               free.coords = FALSE)
 

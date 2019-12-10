@@ -7,7 +7,7 @@
 #' @author Jeremy Choppe
 #' @examples
 #' gif_function(data,'Greenhouse_Gas_Emissions')
-#' @import dplyr ggplot2
+#' @import dplyr
 #' @export
 
 gif_function <- function(dataset=data, var='Greenhouse_Gas_Emissions') {

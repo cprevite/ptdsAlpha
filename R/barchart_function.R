@@ -6,11 +6,7 @@
 #' @param yrs A \code{list} of all the years to be chosen
 #' @return A \code{plot} containing a barchart
 #' @author Redwan Hasan
-#' @examples
-#' barchart_function('Greenhouse_Gas_Emissions,'Productivity', 1988)
-#' barchart_function('CO2_Emissions_from_Transport', 'GDP', 2017)
-#' @import dplyr maptools ggmap hrbrthemes here tidyverse DataExplorer maps tmap mapview leaflet ggplot2 viridis readxl
-#' shiny sf raster spData magick gganimate reshape2 mapproj
+#' @import dplyr
 #' @export
 barchart_function <- function(dataset = data,
                               pol_var = 'CO2_Emissions',
@@ -43,7 +39,7 @@ barchart_function <- function(dataset = data,
   tmp_eco <- gsub(' ','_',eco_var)
 
   #Developing the barchart based on the variables and observations selected above.
-  bargraphs <- ggplot(eu_graph_function) + geom_bar(aes(
+  bargraphs <- ggplot(eu_graph_function) + geom_bar(ggplot2::aes(
     x = iso_a2,
     weight = tmp_pol,
     fill = tmp_eco
@@ -55,7 +51,3 @@ barchart_function <- function(dataset = data,
   return(bargraphs)
 }
 
-
-
-weight = eu_graph_function$Value[eu_graph_function$Variable == pol_var] ,
-fill = eu_graph_function$Value[eu_graph_function$Variable == eco_var]

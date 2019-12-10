@@ -11,64 +11,69 @@
 #' @import dplyr
 #' @export
 
-map_function <- function(yrs, col_val) {
+map_function <- function(dataset = data, yrs = '2000', col_val = 'GDP') {
 
   #Here the data variable is the one initially used when we loaded the excel file and saved it to variable data
-  data_map <- data %>%
-    group_by(country) %>%
-    filter(year == yrs) %>%
+  data_map <- dataset %>%
+    dplyr::group_by(Country) %>%
+    dplyr::filter(Year == yrs) %>%
     dplyr::select(col_val)
 
   #We use the built-in database world from one of the libraries used to map the countries in a plot
-  world <- map_data("world")
+  world <- ggplot2::map_data('world')
 
-  mapbig <- left_join(data_map, world, by = c("country" = "region"))
+  #world <- map_data("world")
+
+  mapbig <- dplyr::left_join(data_map, world, by = c("Country" = "region"))
 
   #Below is a basically the whole mao being prepared and plotted.
-  world_map <- ggplot() + theme(
-    panel.background = element_rect(fill = "slategray1", color = NA),
-    panel.grid = element_blank(),
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title.x = element_blank(),
-    axis.title.y = element_blank()
+  world_map <- ggplot2::ggplot() + ggplot2::theme(
+    panel.background = ggplot2::element_rect(fill = "slategray1", color = NA),
+    panel.grid = ggplot2::element_blank(),
+    axis.text.x = ggplot2::element_blank(),
+    axis.text.y = ggplot2::element_blank(),
+    axis.ticks = ggplot2::element_blank(),
+    axis.title.x = ggplot2::element_blank(),
+    axis.title.y = ggplot2::element_blank()
   )
 
   europe_map <-
-    world_map + coord_fixed(xlim = c(-9, 42.5),
+    world_map + ggplot2::coord_fixed(xlim = c(-9, 42.5),
                             ylim = c(36, 70.1),
                             ratio = 1.5)
 
   europeview <- europe_map +
-    geom_polygon(
+    ggplot2::geom_polygon(
       data = mapbig,
-      aes_string(
+      ggplot2::aes_string(
         fill = col_val,
         x = "long",
         y = "lat",
-        group = "group"
+        group = 'group'
       ),
       color = "grey70"
     ) +
-    labs(
+    ggplot2::labs(
       title = paste0(col_val),
       subtitle = paste0("for European countries in ", as.character(yrs)),
       caption = "Data: Euromonitor"
     )  +
-    theme(text = element_text(size = 15),
-          plot.title = element_text(face = "bold")) +
-    scale_fill_viridis(
+    ggplot2::theme(text = ggplot2::element_text(size = 15),
+          plot.title = ggplot2::element_text(face = "bold")) +
+    viridis::scale_fill_viridis(
       option = "plasma",
       direction = -1,
       name = "",
       na.value = "grey80",
-      guide = guide_colorbar(
-        barheight = unit(70, units = "mm"),
-        barwidth = unit(10, units = "mm")
+      guide = ggplot2::guide_colorbar(
+        barheight = ggplot2::unit(70, units = "mm"),
+        barwidth = ggplot2::unit(10, units = "mm")
       )
     )
 
   return(europeview)
 
 }
+
+
+

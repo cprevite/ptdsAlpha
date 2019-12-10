@@ -4,7 +4,12 @@
 \alias{ranktable_function}
 \title{RankTable by Years, Countries and Variables}
 \usage{
-ranktable_function(yrs, ctry, var)
+ranktable_function(
+  dataset = data,
+  yrs = "2000",
+  ctry = "Switzerland",
+  var = "GDP"
+)
 }
 \arguments{
 \item{yrs}{A \code{list} of Years to select}
@@ -20,6 +25,9 @@ each countries
 \description{
 Compute a table with the value of the selected variables for the
 selected countries and years, and the rank
+}
+\examples{
+ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
 }
 \author{
 Claudio Previte

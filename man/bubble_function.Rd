@@ -4,7 +4,7 @@
 \alias{bubble_function}
 \title{Bubble graph}
 \usage{
-bubble_function(x_var, y_var)
+bubble_function(dataset = data, x_var = "GDP", y_var = "Productivity")
 }
 \arguments{
 \item{x_var}{First variables to select}

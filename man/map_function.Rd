@@ -4,7 +4,7 @@
 \alias{map_function}
 \title{Pollution & Economic Overview of European countries}
 \usage{
-map_function(yrs, col_val)
+map_function(dataset = data, yrs = "2000", col_val = "GDP")
 }
 \arguments{
 \item{yrs}{A \code{list} of years to select}

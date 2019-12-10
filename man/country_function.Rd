@@ -4,7 +4,7 @@
 \alias{country_function}
 \title{Variables per Country through Year}
 \usage{
-country_function(ctry, var)
+country_function(dataset = data, ctry = "Switzerland", var = "GDP")
 }
 \arguments{
 \item{ctry}{A \code{list} of countries to select}

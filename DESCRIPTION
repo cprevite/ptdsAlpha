@@ -10,33 +10,5 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.0
-Imports: readxl,
-  here,
-  magrittr,
-  dplyr,
-  dygraphs,
-  stringr,
-  forecast,
-  tidyr,
-  maptools, 
-  ggmap, 
-  hrbrthemes, 
-  tidyverse, 
-  DataExplorer, 
-  maps, 
-  tmap, 
-  mapview,
-  leaflet,
-  ggplot2,
-  viridis,
-  shiny, 
-  sf,
-  raster,
-  spData,
-  magick,
-  gganimate,
-  reshape2,
-  mapproj,
-  plotly
-  
+Imports: 
   

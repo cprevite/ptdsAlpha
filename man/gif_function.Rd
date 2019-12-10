@@ -2,22 +2,23 @@
 % Please edit documentation in R/gif_function.R
 \name{gif_function}
 \alias{gif_function}
-\title{Animation of the European indicators over time}
+\title{Evolution of European indicators through time}
 \usage{
-gif_function(var)
+gif_function(dataset = data, var = "Greenhouse_Gas_Emissions")
 }
 \arguments{
-\item{pol_var}{A \code{list} of any variable to select}
+\item{var}{A \code{list} of any variable to select from the dataset}
 }
 \value{
-An \code{animation} containing the map of Europe based on the variable chosen
+An \code{animation} containing the map of Europe based on the
+variable chosen
 }
 \description{
-Produces a GIF about one variable and shows an EU chloropleth map with colors changing accordingly to the data evolution
+Displays a GIF showing the evolution of one variable through
+time over an EU chloropleth map
 }
 \examples{
-comparison_function('Greenhouse_Gas_Emissions')
-comparison_function('CO2_Emissions_from_Transport')
+gif_function(data,'Greenhouse_Gas_Emissions')
 }
 \author{
 Jeremy Choppe

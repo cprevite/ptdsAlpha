@@ -5,7 +5,7 @@
 #' @author Claudio Previte
 #' @examples
 #' animated_top10('Productivity')
-#' @import dplyr ggplot2
+#' @import dplyr
 #' @export
 animated_top10 <- function(dataset = data, var = 'Productivity') {
 
@@ -32,7 +32,7 @@ animated_top10 <- function(dataset = data, var = 'Productivity') {
   staticplot <-
     ggplot2::ggplot(
       prod_formatted,
-      aes(
+      ggplot2::aes(
         Rank,
         Value_rel,
         group = Country,
@@ -40,52 +40,52 @@ animated_top10 <- function(dataset = data, var = 'Productivity') {
         color = as.factor(Country)
       )
     ) +
-    ggplot2::geom_tile(aes(
+    ggplot2::geom_tile(ggplot2::aes(
       y = Value / 2,
       height = Value,
       width = 0.9
     ), color = NA) +
-    ggplot2::geom_text(aes(y = 0, label = paste(Country, " ")), vjust = 0.2, hjust = 1) +
-    ggplot2::geom_text(aes(y = Value, label = Value_lbl, hjust = -0.2, vjust = 0)) +
+    ggplot2::geom_text(ggplot2::aes(y = 0, label = paste(Country, " ")), vjust = 0.2, hjust = 1) +
+    ggplot2::geom_text(ggplot2::aes(y = Value, label = Value_lbl, hjust = -0.2, vjust = 0)) +
     ggplot2::coord_flip(clip = "off", expand = FALSE) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::scale_x_reverse() +
     ggplot2::guides(color = FALSE, fill = FALSE) +
     ggplot2::theme(
-      axis.line = element_blank(),
-      axis.text.x = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
+      axis.line = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.title.x = ggplot2::element_blank(),
+      axis.title.y = ggplot2::element_blank(),
       legend.position = "none",
-      panel.background = element_blank(),
-      panel.border = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_line(size = .1, color = "grey"),
-      panel.grid.minor.x = element_line(size = .1, color = "grey"),
-      plot.title = element_text(
+      panel.background = ggplot2::element_blank(),
+      panel.border = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major.x = ggplot2::element_line(size = .1, color = "grey"),
+      panel.grid.minor.x = ggplot2::element_line(size = .1, color = "grey"),
+      plot.title = ggplot2::element_text(
         size = 28,
         hjust = 0.5,
         face = "bold",
         colour = "grey",
         vjust = -1
       ),
-      plot.subtitle = element_text(
+      plot.subtitle = ggplot2::element_text(
         size = 18,
         hjust = 0.5,
         face = "italic",
         color = "grey"
       ),
-      plot.caption = element_text(
+      plot.caption = ggplot2::element_text(
         size = 25,
         hjust = 0.95,
         face = "bold",
         color = "grey"
       ),
-      plot.background = element_blank(),
-      plot.margin = margin(2, 2, 2, 4, "cm")
+      plot.background = ggplot2::element_blank(),
+      plot.margin = ggplot2::margin(2, 2, 2, 4, "cm")
     )
 
   # animate the the staticplot
@@ -94,7 +94,7 @@ animated_top10 <- function(dataset = data, var = 'Productivity') {
                       transition_length = 30,
                       state_length = 30) +
     gganimate::view_follow(fixed_x = TRUE)  +
-    labs(
+    ggplot2::labs(
       title = paste(var, sep = '\n'),
       subtitle  =  "Top 10 Countries per Year",
       caption  = "{closest_state}"

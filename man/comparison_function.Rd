@@ -4,7 +4,11 @@
 \alias{comparison_function}
 \title{Interactive map of the European region showing the change betweem Economic and Pollution variables over time}
 \usage{
-comparison_function(pol_var, eco_var)
+comparison_function(
+  dataset = data,
+  pol_var = "CO2 Emissions from Transport",
+  eco_var = "GDP"
+)
 }
 \arguments{
 \item{pol_var}{A \code{list} of Pollution variables to select}
@@ -15,7 +19,7 @@ comparison_function(pol_var, eco_var)
 A \code{plot} containing four interactive maps of Europe based on the variables chosen
 }
 \description{
-Produces an interactive map of the European Union region over four different years to show the interaction 
+Produces an interactive map of the European Union region over four different years to show the interaction
 and change between the Economic and Pollution variables
 }
 \author{

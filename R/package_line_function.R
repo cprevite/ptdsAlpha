@@ -9,7 +9,7 @@
 #' @examples
 #' country_function(c('Italy', 'France', 'Spain'),'Productivity')
 #' country_function('Italy', c('Productivity', 'GDP'))
-#' @import dplyr ggplot2
+#' @import dplyr
 #' @export
 country_function <-
   function(dataset = data,

@@ -4,7 +4,7 @@
 \alias{animated_top10}
 \title{Animated Top10 Countries per Variables}
 \usage{
-animated_top10(var)
+animated_top10(dataset = data, var = "Productivity")
 }
 \arguments{
 \item{var}{A \code{list} of variables to select}
@@ -14,6 +14,9 @@ A \code{plot} containing an animated ranking
 }
 \description{
 Compute an animated ranking with the 10 top countries per year
+}
+\examples{
+animated_top10('Productivity')
 }
 \author{
 Claudio Previte
