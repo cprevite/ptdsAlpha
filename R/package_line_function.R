@@ -11,18 +11,20 @@
 #' country_function('Italy', c('Productivity', 'GDP'))
 #' @import dplyr ggplot2
 #' @export
-country_function <- function(ctry, var){
+country_function <- function(ctry = 'Switzerland', var = 'GDP'){
+
+  dataGather <- gather(data, key="Variable", value="Value", c(3:19))
 
   # filter variables
-  data.long.function <- data %>%
-    dplyr::filter(variable %in% var & country %in% ctry)
+  dataCountry_function <- dataGather %>%
+    dplyr::filter(Variable %in% var & Country %in% ctry)
 
 # plot value of selected variables for selected countries on x axis (year)
-  plot_country <- data.long.function %>%
-    ggplot2::ggplot(ggplot2::aes(x = data.long.function$year,
-               y = data.long.function$value,
-               color = data.long.function$country,
-               group = data.long.function$country)) +
+  plot_country <- dataCountry_function %>%
+    ggplot2::ggplot(ggplot2::aes(x = dataCountry_function$Year,
+               y = dataCountry_function$Value,
+               color = dataCountry_function$Country,
+               group = dataCountry_function$Country)) +
     ggplot2::labs(title = paste(var), subtitle = 'by selected countries' ,
                   x = 'Year', y = paste(var), color = 'Country') +
     ggplot2::scale_x_discrete(breaks=seq(1970,2020,5)) +
