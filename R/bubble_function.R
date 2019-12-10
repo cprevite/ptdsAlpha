@@ -11,27 +11,37 @@
 #' bubble_function ('gdp','productivity')
 #' @import plotly tidyr
 #' @export
-bubble_function <- function(x_var, y_var) {
+bubble_function <-
+  function(dataset = data,
+           x_var = "GDP",
+           y_var = "Productivity") {
+    #transform data
+    data <-  na.omit(dataset)
+    data$Year = as.integer(as.character(data$Year))
 
-  #transform data
-  data <- data %>%
-    spread(variable, value)
-  data <-  na.omit(data)
-  data$year = as.integer(as.character(data$year))
+    #font axis
+    f <- list(family = "Courier New, monospace",
+              size = 18,
+              color = "#7f7f7f")
+    x <- list(title = x_var,
+              titlefont = f)
+    y <- list(title = y_var,
+              titlefont = f)
 
-  #create bubble plot with function plot_ly
-  plot_bubble <- plot_ly(
-    data,
-    x = ~ data[[x_var]],
-    y = ~ data[[y_var]],
-    color = ~ data$country,
-    frame = ~ data$year,
-    text = ~ data$country,
-    hoverinfo = "text",
-    type = 'scatter',
-    mode = 'markers'
-  )
+    #create bubble plot with function plot_ly
+    plot_bubble <- plot_ly(
+      data,
+      x = ~ data[[x_var]],
+      y = ~ data[[y_var]],
+      color = ~ data$Country,
+      frame = ~ data$Year,
+      text = ~ data$Country,
+      hoverinfo = "text",
+      type = 'scatter',
+      mode = 'markers'
+    ) %>%
+      layout(xaxis = x, yaxis = y, title = "Bubble chart")
 
-  return(plot_bubble)
+    return(plot_bubble)
 
-}
+  }
