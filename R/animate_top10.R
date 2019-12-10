@@ -7,8 +7,9 @@
 #' animated_top10('Productivity')
 #' @import dplyr ggplot2
 #' @export
-animated_top10 <- function(var = 'Productivity') {
+animated_top10 <- function(dataset = data, var = 'Productivity') {
 
+  # transform data to long format
   dataGather <- gather(data, key="Variable", value="Value", c(3:19))
 
   # filter variable
@@ -45,7 +46,7 @@ animated_top10 <- function(var = 'Productivity') {
       width = 0.9
     ), color = NA) +
     ggplot2::geom_text(aes(y = 0, label = paste(Country, " ")), vjust = 0.2, hjust = 1) +
-    ggplot2::geom_text(aes(y = Value, label = Value_lbl, hjust = 0.05)) +
+    ggplot2::geom_text(aes(y = Value, label = Value_lbl, hjust = -0.2, vjust = 0)) +
     ggplot2::coord_flip(clip = "off", expand = FALSE) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::scale_x_reverse() +

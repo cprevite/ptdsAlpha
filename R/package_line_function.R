@@ -11,28 +11,43 @@
 #' country_function('Italy', c('Productivity', 'GDP'))
 #' @import dplyr ggplot2
 #' @export
-country_function <- function(ctry = 'Switzerland', var = 'GDP'){
+country_function <-
+  function(dataset = data,
+           ctry = 'Switzerland',
+           var = 'GDP') {
 
-  dataGather <- gather(data, key="Variable", value="Value", c(3:19))
+    #transform data to long format
+    dataGather <- gather(data, key = "Variable", value = "Value", c(3:19))
 
-  # filter variables
-  dataCountry_function <- dataGather %>%
-    dplyr::filter(Variable %in% var & Country %in% ctry)
+    # filter variables
+    dataCountry_function <- dataGather %>%
+      dplyr::filter(Variable %in% var & Country %in% ctry)
 
-# plot value of selected variables for selected countries on x axis (year)
-  plot_country <- dataCountry_function %>%
-    ggplot2::ggplot(ggplot2::aes(x = dataCountry_function$Year,
-               y = dataCountry_function$Value,
-               color = dataCountry_function$Country,
-               group = dataCountry_function$Country)) +
-    ggplot2::labs(title = paste(var), subtitle = 'by selected countries' ,
-                  x = 'Year', y = paste(var), color = 'Country') +
-    ggplot2::scale_x_discrete(breaks=seq(1970,2020,5)) +
-    ggplot2::scale_y_continuous(labels = function(x) format(x, big.mark = "'",
-                                                   scientific = FALSE)) +
-    ggplot2::geom_line()+
-    ggplot2::theme_bw()
+    # plot value of selected variables for selected countries on x axis (year)
+    plot_country <- dataCountry_function %>%
+      ggplot2::ggplot(
+        ggplot2::aes(
+          x = dataCountry_function$Year,
+          y = dataCountry_function$Value,
+          color = dataCountry_function$Country,
+          group = dataCountry_function$Country
+        )
+      ) +
+      ggplot2::labs(
+        title = paste(var),
+        subtitle = 'by selected countries' ,
+        x = 'Year',
+        y = paste(var),
+        color = 'Country'
+      ) +
+      ggplot2::scale_x_discrete(breaks = seq(1970, 2020, 5)) +
+      ggplot2::scale_y_continuous(
+        labels = function(x)
+          format(x, big.mark = "'",
+                 scientific = FALSE)
+      ) +
+      ggplot2::geom_line() +
+      ggplot2::theme_bw()
 
-  print(plot_country)
-}
-
+    print(plot_country)
+  }
