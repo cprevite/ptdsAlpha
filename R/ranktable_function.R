@@ -11,25 +11,24 @@
 #' ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
 #' @import dplyr kableExtra
 #' @export
-ranktable_function <- function(yrs, ctry, var){
+ranktable_function <- function(yrs = '2000', ctry = 'Switzerland', var = 'GDP'){
+
+  dataGather <- gather(data, key="Variable", value="Value", c(3:19))
 
   # create rank variable and total rank
-  data.ranktable.function <- data.long %>%
-    dplyr::group_by(year, Variable) %>%
+  dataRanktable <- dataGather %>%
+    dplyr::group_by(Year, Variable) %>%
     dplyr::mutate(Rank = rank(-round(Value), na.last = 'keep'), Total = round(max(Rank, na.rm = T))) %>%
-    dplyr::group_by(country) %>%
-    dplyr::filter(country %in% ctry & Variable %in% var & year %in% yrs) %>%
-    dplyr::mutate(Rank = ifelse(Rank > 10,
-                         cell_spec(Rank, color = "red", bold = T),
-                         cell_spec(Rank, color = "green", italic = T))) %>%
+    dplyr::group_by(Country) %>%
+    dplyr::filter(Country %in% ctry & Variable %in% var & Year %in% yrs) %>%
     kableExtra::kable(col.names = c("Country",
                         "Year",
-                        "Variable(s)",
+                        "Variable",
                         "Value",
                         "Rank",
                         'Total')) %>%
     kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
 
 
-  return(data.ranktable.function)
+  return(dataRanktable)
 }

@@ -7,21 +7,23 @@
 #' animated_top10('Productivity')
 #' @import dplyr ggplot2
 #' @export
-animated_top10 <- function(var) {
+animated_top10 <- function(var = 'Productivity') {
+
+  dataGather <- gather(data, key="Variable", value="Value", c(3:19))
 
   # filter variable
-  data.long.function <- data.long %>%
+  dataAnimated_top10 <- dataGather %>%
     dplyr::filter(Variable %in% var)
 
   # create Rank variable
-  prod_formatted <- data.long.function %>%
-    dplyr::group_by(year) %>%
+  prod_formatted <- dataAnimated_top10 %>%
+    dplyr::group_by(Year) %>%
     dplyr::mutate(
       Rank = rank(-Value) * 1,
       Value_rel = Value / Value[Rank == 1],
       Value_lbl = round(Value)
     ) %>%
-    dplyr::group_by(country) %>%
+    dplyr::group_by(Country) %>%
     dplyr::filter(Rank <= 10) %>%
     plotly::ungroup()
 
@@ -32,9 +34,9 @@ animated_top10 <- function(var) {
       aes(
         Rank,
         Value_rel,
-        group = country,
-        fill = as.factor(country),
-        color = as.factor(country)
+        group = Country,
+        fill = as.factor(Country),
+        color = as.factor(Country)
       )
     ) +
     ggplot2::geom_tile(aes(
@@ -42,7 +44,7 @@ animated_top10 <- function(var) {
       height = Value,
       width = 0.9
     ), color = NA) +
-    ggplot2::geom_text(aes(y = 0, label = paste(country, " ")), vjust = 0.2, hjust = 1) +
+    ggplot2::geom_text(aes(y = 0, label = paste(Country, " ")), vjust = 0.2, hjust = 1) +
     ggplot2::geom_text(aes(y = Value, label = Value_lbl, hjust = 0.05)) +
     ggplot2::coord_flip(clip = "off", expand = FALSE) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
@@ -87,10 +89,10 @@ animated_top10 <- function(var) {
 
   # animate the the staticplot
   anim <- staticplot +
-    gganimate::transition_states(year,
+    gganimate::transition_states(Year,
                       transition_length = 30,
                       state_length = 30) +
-    view_follow(fixed_x = TRUE)  +
+    gganimate::view_follow(fixed_x = TRUE)  +
     labs(
       title = paste(var, sep = '\n'),
       subtitle  =  "Top 10 Countries per Year",
