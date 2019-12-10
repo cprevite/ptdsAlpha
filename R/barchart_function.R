@@ -12,40 +12,25 @@ barchart_function <- function(dataset = data,
                               pol_var = 'CO2_Emissions',
                               eco_var = 'Productivity',
                               yrs = 2000) {
-  browser()
   #Here I call the database 'world' from the library spData to be used later for mapping countries
-  world <- spData::world
+  world=spData::world
 
   #Extracting and filtering data in order to map it
   world_eu <- world %>% filter(continent == "Europe")
-  world_eu <- left_join(world_eu[,c(1, 2)], dataset, by = c("name_long" = "Country"))
-
-  eu_graphGather <- gather(world_eu, key = "Variable", value = "Value", c(4:20))
-
-
-  eu_graph_function <- eu_graphGather %>%
+  world_eu <- left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
+  eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
-    dplyr::select(iso_a2, Year, Variable, Value)
-
-
+    dplyr::select(iso_a2, Year, pol_var, eco_var)
 
   #Making the geom column as null else it creates problem with the barchart. Hence disabled it.
-  eu_graph_function$geom <- NULL
-
-  # eu_graph_function$Variable <- str_replace_all(eu_graph_function$Variable,"[:blank:]","_")
-
-  #pasrsing problem->changing varname to underscored
-  tmp_pol <- gsub(' ','_',pol_var)
-  tmp_eco <- gsub(' ','_',eco_var)
+  eu_graph$geom <- NULL
 
   #Developing the barchart based on the variables and observations selected above.
-  bargraphs <- ggplot(eu_graph_function) + geom_bar(ggplot2::aes(
-    x = iso_a2,
-    weight = tmp_pol,
-    fill = tmp_eco
-  )) +
+  bargraphs <- ggplot(eu_graph) + geom_bar(aes_string(x = "iso_a2",
+                                                      weight = pol_var,
+                                                      fill = eco_var)) +
     xlab("Country code") +
-    ylab(tmp_pol) +
+    ylab(pol_var) +
     labs(title = paste0(pol_var, " comparison against ", eco_var),
          subtitle = paste0(yrs))
   return(bargraphs)
