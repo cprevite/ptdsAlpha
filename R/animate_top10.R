@@ -1,4 +1,3 @@
-
 #' @title Animated Top10 Countries per Variables
 #' @description Compute an animated ranking with the 10 top countries per year
 #' @param var A \code{list} of variables to select
@@ -6,7 +5,7 @@
 #' @author Claudio Previte
 #' @example
 #' animated_top10('Productivity')
-#' @import dplyr, ggplot2, plotly, gganimate
+#' @import dplyr ggplot2
 #' @export
 animated_top10 <- function(var) {
 
