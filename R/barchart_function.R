@@ -9,14 +9,23 @@
 #' @import dplyr
 #' @export
 barchart_function <- function(dataset = data,
-                              pol_var = 'CO2_Emissions',
+                              pol_var = 'CO2 Emissions',
                               eco_var = 'Productivity',
                               yrs = 2000) {
+
   #Here I call the database 'world' from the library spData to be used later for mapping countries
   world=spData::world
 
   #Extracting and filtering data in order to map it
   world_eu <- world %>% filter(continent == "Europe")
+
+  #rename Russian Federation and Macedonia in Russia and North Macedonia
+  world_eu$name_long <- world_eu$name_long %>%
+    gsub(pattern = 'Russian Federation', replacement = 'Russia')
+  world_eu$name_long <- world_eu$name_long %>%
+    gsub(pattern = 'Macedonia', replacement = 'North Macedonia')
+
+  #Continue extraction
   world_eu <- left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
   eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
@@ -25,13 +34,25 @@ barchart_function <- function(dataset = data,
   #Making the geom column as null else it creates problem with the barchart. Hence disabled it.
   eu_graph$geom <- NULL
 
+  #Resolve parsing errors by changing whitespaces into underscores
+  tmp_pol <- gsub(pattern = ' ',
+                  replacement = '_',
+                  x = pol_var)
+  tmp_eco <- gsub(pattern = ' ',
+                  replacement = '_',
+                  x = eco_var)
+  colnames(eu_graph)[which(colnames(eu_graph) == pol_var)] <- tmp_pol
+  colnames(eu_graph)[which(colnames(eu_graph) == eco_var)] <- tmp_eco
+
   #Developing the barchart based on the variables and observations selected above.
-  bargraphs <- ggplot(eu_graph) + geom_bar(aes_string(x = "iso_a2",
-                                                      weight = pol_var,
-                                                      fill = eco_var)) +
-    xlab("Country code") +
-    ylab(pol_var) +
-    labs(title = paste0(pol_var, " comparison against ", eco_var),
+  bargraphs <-
+    ggplot2::ggplot(eu_graph) +
+    ggplot2::geom_bar(ggplot2::aes_string(x = "iso_a2",
+                                          weight = tmp_pol,
+                                          fill = tmp_eco)) +
+    ggplot2::xlab("Country code") +
+    ggplot2::ylab(pol_var) +
+    ggplot2::labs(title = paste0(pol_var, " comparison against ", eco_var),
          subtitle = paste0(yrs))
   return(bargraphs)
 }
