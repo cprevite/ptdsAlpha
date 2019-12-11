@@ -6,7 +6,7 @@
 \usage{
 barchart_function(
   dataset = data,
-  pol_var = "CO2_Emissions",
+  pol_var = "CO2 Emissions",
   eco_var = "Productivity",
   yrs = 2000
 )

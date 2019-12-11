@@ -6,9 +6,9 @@
 \usage{
 ranktable_function(
   dataset = data,
-  yrs = "2000",
-  ctry = "Switzerland",
-  var = "GDP"
+  yrs = c("1990", "2000"),
+  ctry = c("France", "Switzerland"),
+  var = c("CO2 Emissions", "GDP")
 )
 }
 \arguments{
@@ -27,7 +27,10 @@ Compute a table with the value of the selected variables for the
 selected countries and years, and the rank
 }
 \examples{
-ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
+ranktable_function(
+         yrs = c('2001', '1992'),
+         ctry = c('Albania', 'Andorra'),
+         var  = c('GDP', 'Productivity'))
 }
 \author{
 Claudio Previte

@@ -4,7 +4,7 @@
 \alias{gif_function}
 \title{Evolution of European indicators through time}
 \usage{
-gif_function(dataset = data, var = "Greenhouse_Gas_Emissions")
+gif_function(dataset = data, var = "CO2 Emissions")
 }
 \arguments{
 \item{var}{A \code{list} of any variable to select from the dataset}
