@@ -8,20 +8,31 @@
 #' @import dplyr
 #' @export
 
-comparison_function <- function(dataset = data, pol_var="CO2 Emissions from Transport", eco_var="GDP") {
+comparison_function <-
+  function(dataset = data,
+           pol_var = "CO2 Emissions from Transport",
+           eco_var = "GDP") {
 
-  #Here I call the database 'world' from the library spData to be used later for mapping countries
+    #Call data 'world' from the 'spData' package
+    world <- spData::world
 
+    #Extracting and filtering data in order to map it
+    world_eu <- world %>% filter(continent == "Europe")
 
-  #Extracting and filtering data in order to map it
-  world <- spData::world
-  world_eu <- world %>% filter(continent == "Europe")
+    #Rename Russian Federation and Macedonia in Russia and North Macedonia
+    world_eu$name_long <- world_eu$name_long %>%
+      gsub(pattern = 'Russian Federation', replacement = 'Russia')
+    world_eu$name_long <- world_eu$name_long %>%
+      gsub(pattern = 'Macedonia', replacement = 'North Macedonia')
+
+  #Continue extraction
   world_eu <-
     left_join(world_eu[,c(1, 2)], dataset, by = c("name_long" = "Country"))
   world_eu_4yrs <-
     world_eu %>% filter(Year %in% c(2000, 2005, 2010, 2015))
 
-  #Using the tmap function along with the previous variables, plotting the map of europe for 4 different years
+  #Using the tmap function along with the previous variables,
+  #plotting the map of europe for 4 different years
   map_eu <- tmap::tm_shape(world_eu_4yrs) +
     tmap::tm_polygons() +
     tmap::tm_shape(world_eu_4yrs) +
