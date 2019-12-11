@@ -10,12 +10,13 @@
 #' @import dplyr
 #' @export
 
-gif_function <- function(dataset=data, var='Greenhouse_Gas_Emissions') {
+gif_function <- function(dataset = data, var = 'CO2 Emissions') {
 
+  #Call data 'world' from the 'spData' package
+  world <- spData::world
 
-  #selecting the desired world area, which is relevant to the dataset
-
-  world_eu <- spData::world %>% filter(continent == "Europe")
+  #Extracting and filtering data in order to map it
+  world_eu <- world %>% filter(continent == "Europe")
   world_eu <- world_eu[, c(1, 2)]
   world_eu <-
     left_join(world_eu, dataset, by = c("name_long" = "Country"))
@@ -23,15 +24,18 @@ gif_function <- function(dataset=data, var='Greenhouse_Gas_Emissions') {
 
   #setting the gif features with some tmap options and along years
   gif <-
-    tmap::tm_shape(world_eu) + tmap::tm_fill(col = var) + tmap::tm_polygons()  +
+    tmap::tm_shape(world_eu) +
+    tmap::tm_fill(col = var) +
+    tmap::tm_polygons()  +
     tmap::tm_facets(along = "Year", free.coords = FALSE)
 
   #setting working directory
   setwd("./gif_folder")
-  #defining the dimensions of the gif and where to save the file created
+
+  #defining the dimensions of the gif and saving it under 'var_tmap.gif'
   tmap::tmap_animation(
     gif,
-    filename = "gif",
+    filename = paste0(var,'_tmap.gif'),
     delay = 30,
     width = 1000,
     height = 900
