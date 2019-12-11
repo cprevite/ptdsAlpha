@@ -26,76 +26,80 @@ forecast_function <-
            geo = 'France',
            variable = 'GDP',
            fc_length = 5) {
-  #---retrieving time serie from the Country and variable specified---
-  #-set the Country-
-  data <- dataset %>%
-    filter(Country==paste0(geo))
-  #retrieve index of the desired variable:
-  index <- which(colnames(data) %in% paste0(variable))
+    #---retrieving time serie from the Country and variable specified---
 
-  #-creates the time series-
-  data.ts <-
-    ts(data[, index], frequency = 1, start = c(1980))
+    #-set the Country-
+    data <- dataset %>%
+      filter(Country==paste0(geo))
+    #retrieve index of the desired variable:
+    index <- which(colnames(data) %in% paste0(variable))
 
-  #---graphical adjustments for the graph as a js function---
-  #credits: https://towardsdatascience.com/how-to-create-better-interactive-forecast-plots-using-r-and-dygraph-29bdd7146066
+    #-creates the time series-
+    data.ts <-
+      ts(data[, index], frequency = 1, start = c(1980))
 
-  interval_value_formatter <- "function(num, opts, seriesName, g, row, col) {
-  value = g.getValue(row, col);
-  if(value[0] != value[2]) {
-  lower = Dygraph.numberValueFormatter(value[0], opts);
-  upper = Dygraph.numberValueFormatter(value[2], opts);
-  return '[' + lower + ', ' + upper + ']';
-  } else {
-  return Dygraph.numberValueFormatter(num, opts);
-  }
-}"
+    #-manage missing data-
+    data.ts <- na.omit(data.ts)
 
-  #---creating the graph with dygraphs---
-  aarima <- forecast::auto.arima(data.ts, stepwise = FALSE)
-  dfcast <- forecast::forecast(object = data.ts, model = aarima, h = fc_length)
+    #---graphical adjustments for the graph as a js function---
+    #credits: https://towardsdatascience.com/how-to-create-better-interactive-forecast-plots-using-r-and-dygraph-29bdd7146066
 
-  data.fc <- dfcast %>%
-  {cbind(actuals=.$x, forecast_mean=.$mean,
-         lower_95=.$lower[,"95%"], upper_95=.$upper[,"95%"],
-         lower_80=.$lower[,"80%"], upper_80=.$upper[,"80%"])}
+    interval_value_formatter <- "function(num, opts, seriesName, g, row, col) {
+    value = g.getValue(row, col);
+    if(value[0] != value[2]) {
+    lower = Dygraph.numberValueFormatter(value[0], opts);
+    upper = Dygraph.numberValueFormatter(value[2], opts);
+    return '[' + lower + ', ' + upper + ']';
+    } else {
+    return Dygraph.numberValueFormatter(num, opts);
+    }
+  }"
 
-  data.dg <-
-    dygraphs::dygraph(
-      data.fc,
-      main = paste0("FC display of ",
-                    variable,
-                    " over ",
-                    fc_length,
-                    " Years in ",
-                    geo),
-      ylab = paste0(variable)
-    ) %>%
-    dygraphs::dyAxis("y", valueFormatter = interval_value_formatter) %>%
-    dygraphs::dySeries("actuals", color = "black") %>%
-    dygraphs::dySeries("forecast_mean", color = "blue", label = "forecast") %>%
-    dygraphs::dySeries(c("lower_80", "forecast_mean", "upper_80"),
-             label = "80%",
-             color = "blue") %>%
-    dygraphs::dySeries(c("lower_95", "forecast_mean", "upper_95"),
-             label = "95%",
-             color = "blue") %>%
-    dygraphs::dyLegend(labelsSeparateLines = TRUE) %>%
-    dygraphs::dyRangeSelector() %>%
-    dygraphs::dyOptions(digitsAfterDecimal = 1) %>%
-    dygraphs::dyCSS(
-      textConnection(
-        ".dygraph-legend
-        {background-color: rgba(255, 255, 255, 0.5) !important; }"
-      )
-    )
+    #---creating the graph with dygraphs---
+    aarima <- forecast::auto.arima(data.ts, stepwise = FALSE)
+    dfcast <-
+      forecast::forecast(object = data.ts, model = aarima, h = fc_length)
 
-  #---returning the time series, the forecast and the graph in a list---
-  vals <-
-    list(data_series = data.ts,
-         data_forecast = data.fc,
-         data_plot = data.dg)
+    data.fc <- dfcast %>%
+    {cbind(actuals=.$x, forecast_mean=.$mean,
+           lower_95=.$lower[,"95%"], upper_95=.$upper[,"95%"],
+           lower_80=.$lower[,"80%"], upper_80=.$upper[,"80%"])}
 
-  return(vals)
-  }
+    data.dg <-
+      dygraphs::dygraph(
+        data.fc,
+        main = paste0(fc_length,
+                      "-years forecast of ",
+                      variable,
+                      " in ",
+                      geo),
+        ylab = paste0(variable)
+      ) %>%
+      dygraphs::dyAxis("y", valueFormatter = interval_value_formatter) %>%
+      dygraphs::dySeries("actuals", color = "black") %>%
+      dygraphs::dySeries("forecast_mean", color = "blue", label = "forecast") %>%
+      dygraphs::dySeries(c("lower_80", "forecast_mean", "upper_80"),
+                         label = "80%",
+                         color = "blue") %>%
+      dygraphs::dySeries(c("lower_95", "forecast_mean", "upper_95"),
+                         label = "95%",
+                         color = "blue") %>%
+      dygraphs::dyLegend(labelsSeparateLines = TRUE) %>%
+      dygraphs::dyRangeSelector() %>%
+      dygraphs::dyOptions(digitsAfterDecimal = 1) %>%
+      dygraphs::dyCSS(
+        textConnection(
+          ".dygraph-legend
+          {background-color: rgba(255, 255, 255, 0.5) !important; }"
+        )
+        )
+
+    #---returning the time series, the forecast and the graph in a list---
+    vals <-
+      list(data_series = data.ts,
+           data_forecast = data.fc,
+           data_plot = data.dg)
+
+    return(vals)
+    }
 
