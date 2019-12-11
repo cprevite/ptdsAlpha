@@ -166,10 +166,15 @@ ui <- dashboardPage(
 server <- function(input, output) {
 
   output$plot_country <-
-    renderPlotly(plot(country_function(input$variable1, input$variable2)))
+    renderPlotly(plot(country_function(dataset = data,
+                                       ctry = input$variable1,
+                                       var = input$variable2)))
 
   output$plot_bubble <-
-    renderPlotly((bubble_function(input$variable3, input$variable4)))
+    renderPlotly((bubble_function(
+      dataset = data,
+      x_var = input$variable3,
+      y_var = input$variable4)))
 
   output$data_table <-
     renderDataTable(data, options = list(dom = 't'))
