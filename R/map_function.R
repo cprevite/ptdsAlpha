@@ -11,22 +11,28 @@
 #' @import dplyr
 #' @export
 
-map_function <- function(dataset = data, yrs = '2000', col_val = 'GDP') {
+map_function <-
+  function(dataset = data,
+           yrs = '2000',
+           col_val = 'GDP'
+  ) {
 
-  #Here the data variable is the one initially used when we loaded the excel file and saved it to variable data
+  #Here the data variable is the one initially used when we loaded the excel
+  #file and saved it to variable data
   data_map <- dataset %>%
     dplyr::group_by(Country) %>%
     dplyr::filter(Year == yrs) %>%
     dplyr::select(col_val)
 
-  #We use the built-in database world from one of the libraries used to map the countries in a plot
+  #We use the built-in database world from one of the libraries used to map the
+  #countries in a plot
   world <- ggplot2::map_data('world')
 
   #world <- map_data("world")
 
   mapbig <- dplyr::left_join(data_map, world, by = c("Country" = "region"))
 
-  #Below is a basically the whole mao being prepared and plotted.
+  #Prepare and plot the map
   world_map <- ggplot2::ggplot() + ggplot2::theme(
     panel.background = ggplot2::element_rect(fill = "slategray1", color = NA),
     panel.grid = ggplot2::element_blank(),
