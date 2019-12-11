@@ -37,6 +37,8 @@ generate_data <- function() {
 
   #assign shorter names to columns to enhance graphic display
   newnames <- c(
+    "Country",
+    "Years",
     "CO2 Emissions from Fossil Fuels",
     "CO2 Emissions from Transport",
     "CO2 Emissions",
@@ -55,7 +57,7 @@ generate_data <- function() {
     "Productivity in Other Services",
     "Productivity per Hour Worked")
 
-  colnames(data)[3:19] <- newnames
+  colnames(data) <- newnames
 
   #reorder the dataframe so that :
   # - columns 3:8 --> pollution variables
