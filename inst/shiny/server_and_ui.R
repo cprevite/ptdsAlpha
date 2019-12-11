@@ -4,7 +4,7 @@ library(semantic.dashboard)
 library(plotly)
 library(DT)
 library(ptdsAlpha)
-library(dygraphs)
+
 
 ui <- dashboardPage(
   dashboardHeader(),
@@ -42,7 +42,7 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable1",
-                  choices = unique(data$country),
+                  choices = unique(data$Country),
                   label = "Select first variable",
                   selected = "Switzerland"
                 ),
@@ -128,7 +128,7 @@ ui <- dashboardPage(
                 width = 16,
                 selectInput(
                   inputId =  "variable5",
-                  choices = unique(data$country),
+                  choices = unique(data$Country),
                   label = "Select a country",
                   selected = "Switzerland"
                 ),
@@ -145,7 +145,7 @@ ui <- dashboardPage(
                   max = 50,
                   value = 5
                 ),
-                dygraphOutput("plot_forecast")
+                dygraphs::dygraphOutput("plot_forecast")
               ),
               tabBox(
                 title = "Comments",
@@ -175,7 +175,7 @@ server <- function(input, output) {
     renderDataTable(data, options = list(dom = 't'))
 
   output$plot_forecast <-
-    renderDygraph(
+    dygraphs::renderDygraph(
       forecast_function(
         dataset = data,
         geo = input$variable5,
