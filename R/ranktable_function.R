@@ -8,17 +8,23 @@
 #' each countries
 #' @author Claudio Previte
 #' @examples
-#' ranktable_function(c(2001, 1992), c('Albania', 'Andorra'), c('GDP', 'Productivity'))
+#' ranktable_function(
+#'          yrs = c('2001', '1992'),
+#'          ctry = c('Albania', 'Andorra'),
+#'          var  = c('GDP', 'Productivity'))
 #' @import dplyr
 #' @export
 ranktable_function <-
   function(dataset = data,
-           yrs = '2000',
-           ctry = 'Switzerland',
-           var = 'GDP') {
+           yrs = c('1990','2000'),
+           ctry = c('France','Switzerland'),
+           var = c('CO2 Emissions','GDP')) {
 
     #transform data to long format
-    dataGather <- gather(data, key = "Variable", value = "Value", c(3:19))
+    dataGather <- tidyr::gather(data,
+                                key = "Variable",
+                                value = "Value",
+                                c(3:19))
 
     # create rank variable and total rank
     dataRanktable <- dataGather %>%
