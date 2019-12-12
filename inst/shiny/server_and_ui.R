@@ -44,7 +44,8 @@ ui <- dashboardPage(
                   inputId =  "variable1",
                   choices = unique(data$Country),
                   label = "Select first variable",
-                  selected = "Switzerland"
+                  selected = "Switzerland",
+                  multiple = T
                 ),
                 selectInput(
                   inputId =  "variable2",
