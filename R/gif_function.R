@@ -11,7 +11,6 @@
 #' @export
 
 gif_function <- function(dataset = data, var = 'CO2 Emissions') {
-
   #Call data 'world' from the 'spData' package
   world <- spData::world
 
@@ -20,7 +19,7 @@ gif_function <- function(dataset = data, var = 'CO2 Emissions') {
   world_eu <- world_eu[, c(1, 2)]
   world_eu <-
     left_join(world_eu, dataset, by = c("name_long" = "Country"))
-  world_eu <- world_eu[-1, ]
+  world_eu <- world_eu[-1,]
 
   #setting the gif features with some tmap options and along years
   gif <-
@@ -29,19 +28,6 @@ gif_function <- function(dataset = data, var = 'CO2 Emissions') {
     tmap::tm_polygons()  +
     tmap::tm_facets(along = "Year", free.coords = FALSE)
 
-  #setting working directory
-  setwd("./gif_folder")
-
-  #defining the dimensions of the gif and saving it under 'var_tmap.gif'
-  tmap::tmap_animation(
-    gif,
-    filename = paste0(var,'_tmap.gif'),
-    delay = 30,
-    width = 1000,
-    height = 900
-  )
-
-  #resetting working directory
-  setwd("../")
+  return(gif)
 
 }
