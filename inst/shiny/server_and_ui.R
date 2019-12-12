@@ -43,14 +43,14 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable1",
                   choices = unique(data$Country),
-                  label = "Select first variable",
+                  label = "Select one or more Countries",
                   selected = "Switzerland",
                   multiple = T
                 ),
                 selectInput(
                   inputId =  "variable2",
                   choices =  colnames(data)[3:19],
-                  label = "Select second variable",
+                  label = "Select Variable",
                   selected = "gdp"
                 ),
                 plotlyOutput("plot_country")
