@@ -11,6 +11,26 @@ ui <- dashboardPage(
   dashboardSidebar(side = "left",
                    sidebarMenu(
                      menuItem(
+                       tabName = "data_tab",
+                       text = "Data Table",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
+                       tabName = "ranktable_tab",
+                       text = "Rank",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
+                       tabName = "maps_tab",
+                       text = "Maps",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
+                       tabName = "barchart_tab",
+                       text = "Barchart",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
                        tabName = "line_plot_tab",
                        text = "Line chart",
                        icon = icon("cog", lib = "glyphicon")
@@ -20,9 +40,17 @@ ui <- dashboardPage(
                        text = "Bubble chart",
                        icon = icon("cog", lib = "glyphicon")
                      ),
+
+
                      menuItem(
-                       tabName = "data_tab",
-                       text = "Data Table",
+                       tabName = "Top_10",
+                       text = "Top 10",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+
+                     menuItem(
+                       tabName = "comparable_tab",
+                       text = "Comparable maps",
                        icon = icon("cog", lib = "glyphicon")
                      ),
                      menuItem(
@@ -30,9 +58,130 @@ ui <- dashboardPage(
                        text = "Forecasting",
                        icon = icon("cog", lib = "glyphicon")
                      )
+
                    )),
 
   dashboardBody(tabItems(
+    tabItem(tabName = "data_tab",
+            fluidRow("Data Table"),
+            fluidRow(
+              box(
+                title = "Data table",
+                color = "blue",
+                ribbon = FALSE,
+                title_side = "top left",
+                width = 14,
+                tags$div(
+                  dataTableOutput("data_table"),
+                  style = paste0("color:", semantic_palette[["blue"]], ";")
+                )
+              )
+            )),
+    tabItem(tabName = "ranktable_tab",
+            fluidRow("Rank Table"),
+            fluidRow(
+              box(
+                title = "Rank table",
+                color = "blue",
+                ribbon = FALSE,
+                title_side = "top left",
+                width = 14,
+                height =16,
+                selectInput(
+                  inputId =  "variable12",
+                  choices = unique(data$Year),
+                  multiple = TRUE,
+                  label = "Select first variable",
+                  selected = "1992"
+                ),
+                selectInput(
+                  inputId =  "variable13",
+                  choices =  unique(data$Country),
+                  label = "Select second variable",
+                  selected = "Switzerland"
+                ), selectInput(
+                  inputId =  "variable14",
+                  choices = colnames(data)[3:19],
+                  label = "Select first variable",
+                  selected = "GDP"
+                ),
+                tags$div(
+                  htmlOutput("rank_table"),
+                  style = paste0("color:", semantic_palette[["blue"]], ";")
+                )
+              )
+            )),
+    tabItem(tabName = "maps_tab",
+            fluidRow(),
+            fluidRow(
+              box(
+                title = "Maps",
+                color = "blue",
+                width = 11,
+                selectInput(
+                  inputId =  "variable11",
+                  choices = colnames(data)[3:19],
+                  label = "Select first variable",
+                  selected = "GDP"
+                ),
+                imageOutput("plot_map")
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test")
+
+                )
+              )
+            )),
+
+
+
+
+
+
+
+
+
+    tabItem(tabName = "barchart_tab",
+            fluidRow(),
+            fluidRow(
+              box(
+                title = "Barchart",
+                color = "blue",
+                width = 11,
+                selectInput(
+                  inputId =  "variable8",
+                  choices = colnames(data)[3:8],
+                  label = "Select first variable",
+                  selected = "CO2 Emissions"
+                ),
+                selectInput(
+                  inputId =  "variable9",
+                  choices =  colnames(data)[9:19],
+                  label = "Select a variable you want to forecast",
+                  selected = "Productivity"
+                ),
+
+                plotlyOutput("plot_barchart")
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test")
+
+                )
+              )
+            )),
+
     tabItem(tabName = "line_plot_tab",
             fluidRow("Line graph"),
             fluidRow(
@@ -43,15 +192,16 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable1",
                   choices = unique(data$Country),
-                  label = "Select one or more Countries",
-                  selected = "Switzerland",
-                  multiple = T
+                  multiple = TRUE,
+                  label = "Select first variable",
+                  selected = "Switzerland"
                 ),
                 selectInput(
                   inputId =  "variable2",
                   choices =  colnames(data)[3:19],
-                  label = "Select Variable",
-                  selected = "gdp"
+                  multiple = TRUE,
+                  label = "Select second variable",
+                  selected = "GDP"
                 ),
                 plotlyOutput("plot_country")
               ),
@@ -80,15 +230,15 @@ ui <- dashboardPage(
                   inputId =  "variable3",
                   choices = colnames(data)[3:19],
                   label = "Select first variable",
-                  selected = "gdp"
+                  selected = "GDP"
                 ),
                 selectInput(
                   inputId =  "variable4",
                   choices =  colnames(data)[3:19],
                   label = "Select second variable",
-                  selected = "productivity"
+                  selected = "Productivity"
                 ),
-                plotlyOutput("plot_bubble")
+                plotlyOutput("plot_bubble")%>% withSpinner(color="#0dc5c1")
               ),
               tabBox(
                 title = "Comments",
@@ -103,19 +253,65 @@ ui <- dashboardPage(
               )
             )),
 
-    tabItem(tabName = "data_tab",
-            fluidRow("Data Table"),
+
+    tabItem(tabName = "Top_10",
+            fluidRow(),
             fluidRow(
               box(
-                title = "Data table",
+                title = "Top 10",
                 color = "blue",
-                ribbon = FALSE,
-                title_side = "top left",
-                width = 14,
-                tags$div(
-                  dataTableOutput("data_table")
-                  ,
-                  style = paste0("color:", semantic_palette[["blue"]], ";")
+                width = 16,
+                selectInput(
+                  inputId =  "variable10",
+                  choices = colnames(data)[3:9],
+                  label = "Select first variable",
+                  selected = "CO2 Emissions"
+                ),
+                imageOutput("plot_top_10")%>% withSpinner(color="#0dc5c1")
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test")
+
+                )
+              )
+            )),
+
+    tabItem(tabName = "comparable_tab",
+            fluidRow("Comparable graph"),
+            fluidRow(
+              box(
+                title = "Comparable",
+                color = "blue",
+                width = 11,
+                selectInput(
+                  inputId =  "variable15",
+                  choices = colnames(data)[3:19],
+                  label = "Select first variable",
+                  selected = "GDP"
+                ),
+                selectInput(
+                  inputId =  "variable16",
+                  choices =  colnames(data)[3:19],
+                  label = "Select second variable",
+                  selected = "Productivity"
+                ),
+                leafletOutput("plot_comparable")
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test")
+
                 )
               )
             )),
@@ -160,7 +356,9 @@ ui <- dashboardPage(
                 )
               )
             ))
-    )
+
+
+  )
   ), theme = "flatly"
 )
 
@@ -178,7 +376,20 @@ server <- function(input, output) {
       y_var = input$variable4)))
 
   output$data_table <-
-    renderDataTable(data, options = list(dom = 't'))
+
+    renderDataTable(
+      data%>%gather(key = "Variable", value = "Value", c(3:19)),caption = htmltools::tags$caption(
+        style = "caption-side: top; text-align: left;",
+        "Note. ",
+        htmltools::em("Please select the variables of interest")
+      ),
+      filter = list(
+        position = 'top',
+        clear = TRUE,
+        plain = FALSE
+      ),
+      options = list(scrollX = TRUE)
+    )
 
   output$plot_forecast <-
     dygraphs::renderDygraph(
@@ -190,6 +401,76 @@ server <- function(input, output) {
       )[[3]]
     )
 
+
+  output$plot_barchart <-
+    renderPlotly(plot(
+      barchart_function(
+        dataset = data,
+        pol_var = input$variable8,
+        eco_var = input$variable9
+      )
+    ))
+
+
+  output$plot_comparable <-
+    renderLeaflet(
+      comparison_function (
+        dataset = data,
+        eco_var  = input$variable15,
+        pol_var = input$variable16
+      )
+    )
+
+
+  output$rank_table <-
+    renderText(
+      ranktable_function(
+        dataset = data,
+        yrs = input$variable12,
+        ctry = input$variable13,
+        var = input$variable14
+      )
+    )
+
+
+
+  output$plot_top_10 <-
+    renderImage({
+      # A temp file to save the output.
+      # This file will be removed later by renderImage
+      outfile <- tempfile(fileext='.gif')
+
+      # now make the animation
+      gganimate::anim_save("outfile.gif",
+                           animated_top10(dataset = data,
+                                          var = input$variable10))
+
+
+
+      # Return a list containing the filename
+      list(src = "outfile.gif",
+           contentType = 'image/gif',
+           width = 500,
+           height = 450,
+           alt = "This is alternate text"
+      )})
+
+  output$plot_map <-
+    renderImage({
+
+      outfile2 <- tempfile(fileext='.gif')
+
+      # now make the animation
+      gganimate::anim_save("outfile2.gif",
+                           read.gif("GDP_tmap.gif"))
+
+      # Return a list containing the filename
+      list(src = "GDP_tmap.gif",
+           contentType = 'image/gif'
+           # width = 400,
+           # height = 300,
+           # alt = "This is alternate text"
+      )})
 }
 
 shinyApp(ui, server)
