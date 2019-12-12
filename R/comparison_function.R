@@ -1,6 +1,7 @@
 #' @title Interactive map of the European region showing the change betweem Economic and Pollution variables over time
 #' @description Produces an interactive map of the European Union region over four different years to show the interaction
 #' and change between the Economic and Pollution variables
+#' @param yrs A \code{list} of years to select
 #' @param pol_var A \code{list} of Pollution variables to select
 #' @param eco_var A \code{list} of Economic variables to select
 #' @return A \code{plot} containing four interactive maps of Europe based on the variables chosen
@@ -10,6 +11,7 @@
 
 comparison_function <-
   function(dataset = data,
+           yrs = 2000,
            pol_var = "CO2 Emissions from Transport",
            eco_var = "GDP") {
 
@@ -29,7 +31,7 @@ comparison_function <-
   world_eu <-
     left_join(world_eu[,c(1, 2)], dataset, by = c("name_long" = "Country"))
   world_eu_4yrs <-
-    world_eu %>% filter(Year %in% c(2000, 2005, 2010, 2015))
+    world_eu %>% filter(Year %in% yrs)
 
   #Using the tmap function along with the previous variables,
   #plotting the map of europe for 4 different years
@@ -41,9 +43,9 @@ comparison_function <-
                border.col = "white",
                size = eco_var) +
     tmap::tm_facets(by = "Year",
-              nrow = 2,
+              nrow = 1,
               free.coords = FALSE)
 
-  tmap::tmap_mode("view")
-  return(map_eu)
+
+  return(tmap::tmap_leaflet(map_eu))
 }

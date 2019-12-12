@@ -4,12 +4,8 @@
 \alias{forecast_function}
 \title{Forecast of a variable over a number of years}
 \usage{
-forecast_function(
-  dataset = data,
-  geo = "France",
-  variable = "GDP",
-  fc_length = 5
-)
+forecast_function(dataset = data, geo = "France", variable = "GDP",
+  fc_length = 5)
 }
 \arguments{
 \item{dataset}{a preprocessed dataset from which information is extracted}
