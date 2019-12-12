@@ -10,7 +10,7 @@
 #' @export
 barchart_function <- function(dataset = data,
                               pol_var = 'CO2 Emissions',
-                              eco_var = 'Productivity',
+                              eco_var = 'Productivity in Primary Sector',
                               yrs = 2000) {
 
   #Here I call the database 'world' from the library spData to be used later for mapping countries
@@ -26,7 +26,7 @@ barchart_function <- function(dataset = data,
     gsub(pattern = 'Macedonia', replacement = 'North Macedonia')
 
   #Continue extraction
-  world_eu <- left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
+  world_eu <- dplyr::left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
   eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
     dplyr::select(iso_a2, Year, pol_var, eco_var)
@@ -50,10 +50,14 @@ barchart_function <- function(dataset = data,
     ggplot2::geom_bar(ggplot2::aes_string(x = "iso_a2",
                                           weight = tmp_pol,
                                           fill = tmp_eco)) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle=45, hjust=1),
+          plot.caption = element_text(hjust = 0)) +
     ggplot2::xlab("Country code") +
     ggplot2::ylab(pol_var) +
-    ggplot2::labs(title = paste0(pol_var, " comparison against ", eco_var),
-         subtitle = paste0(yrs))
+    ggplot2::labs(fill = '')
+
   return(bargraphs)
-}
+
+  }
 

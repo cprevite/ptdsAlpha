@@ -156,18 +156,29 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable8",
-                  choices = colnames(data)[3:8],
-                  label = "Select first variable",
+                  choices = colnames(data)[3:10],
+                  label = "Select a pollution variable",
                   selected = "CO2 Emissions"
                 ),
                 selectInput(
                   inputId =  "variable9",
-                  choices =  colnames(data)[9:19],
-                  label = "Select a variable you want to forecast",
+                  choices =  colnames(data)[11:19],
+                  label = "Select an economic variable",
                   selected = "Productivity"
                 ),
+                selectInput(
+                  inputId =  "variable99",
+                  choices =  unique(data$Year),
+                  label = "Select a year",
+                  selected = 2000
+                ),
 
-                plotlyOutput("plot_barchart")
+                plotlyOutput("plot_barchart"),
+                '* the economic variable as color fill of the bars', br(),
+                br(),
+                'Units:', br(), '- GDP: USD million', br(),
+                '- Productivity: USD per person employed', br(),
+                '- CO2 and Gas Emissions: 000 tonnes'
               ),
               tabBox(
                 title = "Comments",
@@ -176,7 +187,10 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "First Tab",
-                       content = "test")
+                       content = 'The height of the bars represent', br(),
+                       'the level of pollution.', br(),
+                       'The color of the bars represent the level of
+                       economic indicator')
 
                 )
               )
@@ -407,7 +421,8 @@ server <- function(input, output) {
       barchart_function(
         dataset = data,
         pol_var = input$variable8,
-        eco_var = input$variable9
+        eco_var = input$variable9,
+        yrs = input$variable99
       )
     ))
 
@@ -472,5 +487,6 @@ server <- function(input, output) {
            # alt = "This is alternate text"
       )})
 }
+
 
 shinyApp(ui, server)
