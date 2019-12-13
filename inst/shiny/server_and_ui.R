@@ -63,7 +63,7 @@ ui <- dashboardPage(
               box(
                 title = "Data table",
                 color = "blue",
-                ribbon = FALSE,
+                ribbon = TRUE,
                 title_side = "top left",
                 width = 14,
                 tags$div(
@@ -92,11 +92,13 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable13",
                   choices =  unique(data$Country),
+                  multiple = TRUE,
                   label = "Select second variable",
                   selected = "Switzerland"
                 ), selectInput(
                   inputId =  "variable14",
                   choices = colnames(data)[3:19],
+                  multiple = TRUE,
                   label = "Select first variable",
                   selected = "GDP"
                 ),
@@ -136,7 +138,7 @@ ui <- dashboardPage(
               box(
 
                 width = 11,
-                imageOutput("plot_map") %>% withSpinner(color = "#6d84ab"
+                imageOutput("plot_map",  width="100%", height ="80%") %>% withSpinner(color = "#6d84ab"
                   ))
               ),
 
@@ -210,11 +212,11 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable2",
                   choices =  colnames(data)[3:19],
-                  multiple = TRUE,
                   label = "Select second variable",
                   selected = "GDP"
                 ),
-                plotlyOutput("plot_country")
+                plotlyOutput("plot_country")%>% withSpinner(type = 8,color = "#6d84ab"
+                )
               ),
               tabBox(
                 title = "Comments",
@@ -237,6 +239,14 @@ ui <- dashboardPage(
                 title = "Plot line",
                 color = "blue",
                 width = 11,
+                pickerInput(
+                  inputId =  "variable3a",
+                  choices = unique(data$Country),
+                  options = list(`actions-box` = TRUE),
+                  multiple = TRUE,
+                  label = "Select first variable",
+                  selected = "Switzerland"
+                ),
                 selectInput(
                   inputId =  "variable3",
                   choices = colnames(data)[3:19],
@@ -392,6 +402,7 @@ server <- function(input, output) {
   output$plot_bubble <-
     renderPlotly((bubble_function(
       dataset = data,
+      ctry = input$variable3a,
       x_var = input$variable3,
       y_var = input$variable4)))
 
@@ -399,7 +410,7 @@ server <- function(input, output) {
 
     renderDataTable(
       data %>%
-        gather(key = "Variable", value = "Value", c(3:19)),
+        tidyr::gather(key = "Variable", value = "Value", c(3:19)),
                 caption = htmltools::tags$caption(style = "caption-side: top; text-align: left;",
                 "Note. ", htmltools::em("Please select the variables of interest")),
       filter = list(position = 'top',

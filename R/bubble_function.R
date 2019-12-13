@@ -13,11 +13,16 @@
 #' @export
 bubble_function <-
   function(dataset = data,
+           ctry = "Switzerland",
            x_var = "GDP",
            y_var = "Productivity") {
     #transform data
     data <-  na.omit(dataset)
     data$Year = as.integer(as.character(data$Year))
+
+    data_new <- data %>%
+      dplyr::filter(Country %in% ctry)
+
 
     #font axis
     f <- list(family = "Courier New, monospace",
@@ -31,11 +36,11 @@ bubble_function <-
     #create bubble plot with function plot_ly
     plot_bubble <- plot_ly(
       data,
-      x = ~ data[[x_var]],
-      y = ~ data[[y_var]],
-      color = ~ data$Country,
-      frame = ~ data$Year,
-      text = ~ data$Country,
+      x = ~ data_new[[x_var]],
+      y = ~ data_new[[y_var]],
+      color = ~ data_new$Country,
+      frame = ~ data_new$Year,
+      text = ~ data_new$Country,
       hoverinfo = "text",
       type = 'scatter',
       mode = 'markers'
