@@ -29,11 +29,6 @@ ui <- dashboardPage(
                        icon = icon("cog", lib = "glyphicon")
                      ),
                      menuItem(
-                       tabName = "line_plot_tab",
-                       text = "Line chart",
-                       icon = icon("cog", lib = "glyphicon")
-                     ),
-                     menuItem(
                        tabName = "bubble_tab",
                        text = "Bubble chart",
                        icon = icon("cog", lib = "glyphicon")
@@ -373,14 +368,14 @@ ui <- dashboardPage(
                 ),
                 selectInput(
                   inputId =  "variable17",
-                  choices = colnames(data)[3:19],
-                  label = "Select first variable",
+                  choices = colnames(data)[3:10],
+                  label = "Select pollution variable",
                   selected = "GDP"
                 ),
                 selectInput(
                   inputId =  "variable18",
-                  choices = colnames(data)[3:19],
-                  label = "Select first variable",
+                  choices = colnames(data)[11:19],
+                  label = "Select economic variable",
                   selected = "GDP"
                 )
 
@@ -481,7 +476,8 @@ server <- function(input, output) {
       barchart_function(
         dataset = data,
         pol_var = input$variable17,
-        eco_var = input$variable18
+        eco_var = input$variable18,
+        yrs = input$variable15
       )
     ))
 
@@ -491,7 +487,7 @@ server <- function(input, output) {
         dataset = data,
         pol_var = input$variable8,
         eco_var = input$variable9,
-        yrs = input$variable99
+        yrs = input$variable16
 
       )
     ))
