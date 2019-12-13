@@ -58,7 +58,6 @@ ui <- dashboardPage(
 
   dashboardBody(tabItems(
     tabItem(tabName = "data_tab",
-            fluidRow("Data Table"),
             fluidRow(
               box(
                 title = "Data table",
@@ -71,43 +70,90 @@ ui <- dashboardPage(
                   style = paste0("color:", semantic_palette[["blue"]], ";")
                 )
               )
-            )),
+            ),
+
+            fluidRow(
+              box(
+                title = "Information regarding the data",
+                color = "blue",
+                ribbon = TRUE,
+                title_side = "top left",
+                width = 14,
+                'Units:', br(), '- GDP: USD million', br(),
+                '- Productivity: USD per person employed', br(),
+                '- CO2 and Gas Emissions: 000 tonnes'
+
+              )
+            )
+        ),
     tabItem(tabName = "ranktable_tab",
-            fluidRow("Rank Table"),
+           fluidRow(
+              box(
+                title = "Filter data",
+                color = "blue",
+                ribbon = FALSE,
+                title_side = "top left",
+                width = 16,
+                height =16,
+                sidebarPanel(
+                  div(style="display: inline-block;vertical-align:top; width: 200px;",
+                      selectInput(
+                        inputId =  "variable12",
+                        choices = unique(data$Year),
+                        multiple = TRUE,
+                        label = "Select Year",
+                        selected = "1992"
+                      )),
+
+                  div(style="display: inline-block;vertical-align:top; width: 100px;",HTML("<br>")),
+
+                  div(style="display: inline-block;vertical-align:top; width: 200px;",
+                      selectInput(
+                        inputId =  "variable13",
+                        choices =  unique(data$Country),
+                        multiple = TRUE,
+                        label = "Select Country",
+                        selected = "Switzerland"
+                      )),
+
+                  div(style="display: inline-block;vertical-align:top; width: 100px;",HTML("<br>")),
+
+                  div(style="display: inline-block;vertical-align:top; width: 200px;",
+                      selectInput(
+                        inputId =  "variable14",
+                        choices = colnames(data)[3:19],
+                        label = "Select Variable",
+                        selected = "GDP"
+                      ))))),
+
+
+
+
+              fluidRow(
+                box(title = "Line plot",
+                    color = "blue",
+                    ribbon = FALSE,
+                    title_side = "top left",
+                    width = 16,
+                    height =16,
+                    plotlyOutput("plot_country", width = "100%", height = "80%") %>% withSpinner(type = 8, color = "#6d84ab"))),
+
+
             fluidRow(
               box(
                 title = "Rank table",
                 color = "blue",
                 ribbon = FALSE,
                 title_side = "top left",
-                width = 14,
+                width = 16,
                 height =16,
-                selectInput(
-                  inputId =  "variable12",
-                  choices = unique(data$Year),
-                  multiple = TRUE,
-                  label = "Select first variable",
-                  selected = "1992"
-                ),
-                selectInput(
-                  inputId =  "variable13",
-                  choices =  unique(data$Country),
-                  multiple = TRUE,
-                  label = "Select second variable",
-                  selected = "Switzerland"
-                ), selectInput(
-                  inputId =  "variable14",
-                  choices = colnames(data)[3:19],
-                  multiple = TRUE,
-                  label = "Select first variable",
-                  selected = "GDP"
-                ),
-                tags$div(
-                  htmlOutput("rank_table"),
-                  style = paste0("color:", semantic_palette[["blue"]], ";")
-                )
-              )
-            )),
+                dataTableOutput("rank_table")))
+
+
+
+            ),
+
+
     tabItem(tabName = "maps_tab",
             fluidRow(),
             fluidRow(
@@ -194,42 +240,42 @@ ui <- dashboardPage(
             )),
 
 
-
-    tabItem(tabName = "line_plot_tab",
-            fluidRow("Line graph"),
-            fluidRow(
-              box(
-                title = "Plot line",
-                color = "blue",
-                width = 11,
-                selectInput(
-                  inputId =  "variable1",
-                  choices = unique(data$Country),
-                  multiple = TRUE,
-                  label = "Select first variable",
-                  selected = "Switzerland"
-                ),
-                selectInput(
-                  inputId =  "variable2",
-                  choices =  colnames(data)[3:19],
-                  label = "Select second variable",
-                  selected = "GDP"
-                ),
-                plotlyOutput("plot_country")%>% withSpinner(type = 8,color = "#6d84ab"
-                )
-              ),
-              tabBox(
-                title = "Comments",
-                color = "blue",
-                width = 5,
-                collapsible = TRUE,
-                tabs = list(
-                  list(menu = "First Tab",
-                       content = "test")
-
-                )
-              )
-            )),
+#
+#     tabItem(tabName = "line_plot_tab",
+#             fluidRow("Line graph"),
+#             fluidRow(
+#               box(
+#                 title = "Plot line",
+#                 color = "blue",
+#                 width = 11,
+#                 selectInput(
+#                   inputId =  "variable1",
+#                   choices = unique(data$Country),
+#                   multiple = TRUE,
+#                   label = "Select first variable",
+#                   selected = "Switzerland"
+#                 ),
+#                 selectInput(
+#                   inputId =  "variable2",
+#                   choices =  colnames(data)[3:19],
+#                   label = "Select second variable",
+#                   selected = "GDP"
+#                 ),
+#                 plotlyOutput("plot_country")%>% withSpinner(type = 8,color = "#6d84ab"
+#                 )
+#               ),
+#               tabBox(
+#                 title = "Comments",
+#                 color = "blue",
+#                 width = 5,
+#                 collapsible = TRUE,
+#                 tabs = list(
+#                   list(menu = "First Tab",
+#                        content = "test")
+#
+#                 )
+#               )
+#             )),
 
 
     tabItem(tabName = "bubble_tab",
@@ -396,8 +442,8 @@ server <- function(input, output) {
 
   output$plot_country <-
     renderPlotly(plot(country_function(dataset = data,
-                                       ctry = input$variable1,
-                                       var = input$variable2)))
+                                       ctry = input$variable13,
+                                       var = input$variable14)))
 
   output$plot_bubble <-
     renderPlotly((bubble_function(
@@ -476,7 +522,7 @@ server <- function(input, output) {
 
 
   output$rank_table <-
-    renderText(
+    renderDataTable(
       ranktable_function(
         dataset = data,
         yrs = input$variable12,

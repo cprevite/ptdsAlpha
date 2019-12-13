@@ -33,14 +33,8 @@ ranktable_function <-
                     Total = round(max(Rank, na.rm = T))) %>%
       dplyr::group_by(Country) %>%
       dplyr::filter(Country %in% ctry &
-                      Variable %in% var & Year %in% yrs) %>%
-      kableExtra::kable(col.names = c("Country",
-                                      "Year",
-                                      "Variable",
-                                      "Value",
-                                      "Rank",
-                                      'Total')) %>%
-      kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+                      Variable %in% var & Year %in% yrs)
+
 
 
     return(dataRanktable)
