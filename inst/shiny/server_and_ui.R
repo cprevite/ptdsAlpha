@@ -24,13 +24,19 @@ ui <- dashboardPage(
                        icon = icon("cog", lib = "glyphicon")
                      ),
                      menuItem(
+                       tabName = "Top_10",
+                       text = "Top 10",
+                       icon = icon("cog", lib = "glyphicon")
+                     ),
+                     menuItem(
                        tabName = "maps_tab",
                        text = "Maps",
                        icon = icon("cog", lib = "glyphicon")
                      ),
+
                      menuItem(
-                       tabName = "line_plot_tab",
-                       text = "Line chart",
+                       tabName = "comparable_tab",
+                       text = "Comparable maps",
                        icon = icon("cog", lib = "glyphicon")
                      ),
                      menuItem(
@@ -38,16 +44,7 @@ ui <- dashboardPage(
                        text = "Bubble chart",
                        icon = icon("cog", lib = "glyphicon")
                      ),
-                     menuItem(
-                       tabName = "Top_10",
-                       text = "Top 10",
-                       icon = icon("cog", lib = "glyphicon")
-                     ),
-                     menuItem(
-                       tabName = "comparable_tab",
-                       text = "Comparable maps",
-                       icon = icon("cog", lib = "glyphicon")
-                     ),
+
                      menuItem(
                        tabName = "forecast_tab",
                        text = "Forecasting",
@@ -57,6 +54,7 @@ ui <- dashboardPage(
                    )),
 
   dashboardBody(tabItems(
+
     tabItem(tabName = "data_tab",
             fluidRow(
               box(
@@ -86,58 +84,68 @@ ui <- dashboardPage(
               )
             )
         ),
+
+
     tabItem(tabName = "ranktable_tab",
-           fluidRow(
+            fluidRow(
               box(
                 title = "Filter data",
                 color = "blue",
                 ribbon = FALSE,
                 title_side = "top left",
                 width = 16,
-                height =16,
+                height = 16,
                 sidebarPanel(
-                  div(style="display: inline-block;vertical-align:top; width: 200px;",
-                      selectInput(
-                        inputId =  "variable12",
-                        choices = unique(data$Year),
-                        multiple = TRUE,
-                        label = "Select Year",
-                        selected = "1992"
-                      )),
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
+                    selectInput(
+                      inputId =  "variable1",
+                      choices = unique(data$Year),
+                      multiple = TRUE,
+                      label = "Select Year",
+                      selected = "1992"
+                    )
+                  ),
 
-                  div(style="display: inline-block;vertical-align:top; width: 100px;",HTML("<br>")),
+                  div(style = "display: inline-block;vertical-align:top; width: 100px;", HTML("<br>")),
 
-                  div(style="display: inline-block;vertical-align:top; width: 200px;",
-                      selectInput(
-                        inputId =  "variable13",
-                        choices =  unique(data$Country),
-                        multiple = TRUE,
-                        label = "Select Country",
-                        selected = "Switzerland"
-                      )),
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
+                    selectInput(
+                      inputId =  "variable2",
+                      choices =  unique(data$Country),
+                      multiple = TRUE,
+                      label = "Select Country",
+                      selected = "Switzerland"
+                    )
+                  ),
 
-                  div(style="display: inline-block;vertical-align:top; width: 100px;",HTML("<br>")),
+                  div(style = "display: inline-block;vertical-align:top; width: 100px;", HTML("<br>")),
 
-                  div(style="display: inline-block;vertical-align:top; width: 200px;",
-                      selectInput(
-                        inputId =  "variable14",
-                        choices = colnames(data)[3:19],
-                        label = "Select Variable",
-                        selected = "GDP"
-                      ))))),
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
+                    selectInput(
+                      inputId =  "variable3",
+                      choices = colnames(data)[3:19],
+                      label = "Select Variable",
+                      selected = "GDP"
+                    )
+                  )
+                )
+              )
+            ),
 
-
-
-
-              fluidRow(
-                box(title = "Line plot",
-                    color = "blue",
-                    ribbon = FALSE,
-                    title_side = "top left",
-                    width = 16,
-                    height =16,
-                    plotlyOutput("plot_country", width = "100%", height = "80%") %>% withSpinner(type = 8, color = "#6d84ab"))),
-
+            fluidRow(
+              box(
+                title = "Line plot",
+                color = "blue",
+                ribbon = FALSE,
+                title_side = "top left",
+                width = 16,
+                height = 16,
+                plotlyOutput("plot_country", width = "100%", height = "80%") %>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" )
+              )
+            ),
 
             fluidRow(
               box(
@@ -146,12 +154,49 @@ ui <- dashboardPage(
                 ribbon = FALSE,
                 title_side = "top left",
                 width = 16,
-                height =16,
-                dataTableOutput("rank_table")))
+                height = 16,
+                dataTableOutput("rank_table")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" )
+              )
+            )),
 
-
-
+    tabItem(tabName = "Top_10",
+            fluidRow(),
+            fluidRow(
+              box(
+                title = "Filters",
+                color = "blue",
+                width = 11,
+                selectInput(
+                  inputId =  "variable4",
+                  choices = colnames(data)[3:9],
+                  label = "Select first variable",
+                  selected = "CO2 Emissions"
+                )
+              ),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = "test"),
+                  list(menu = "First Tab",
+                       content = "test")
+                )
+              )
             ),
+            fluidRow(box(
+              title = "Top 10",
+              color = "blue",
+              width = 11,
+              imageOutput("plot_top_10" , width = "100%", height = "90%")
+              %>% withSpinner(
+                color = "#6d84ab",
+                size = 1,
+                proxy.height = "300px"
+              )
+            ))),
 
 
     tabItem(tabName = "maps_tab",
@@ -162,7 +207,7 @@ ui <- dashboardPage(
                 color = "blue",
                 width = 11,
                 selectInput(
-                  inputId =  "variable11",
+                  inputId =  "variable5",
                   choices = colnames(data)[3:19],
                   label = "Select first variable",
                   selected = "GDP"
@@ -178,50 +223,9 @@ ui <- dashboardPage(
                     loop = FALSE,
                     playButton = "Play",
                     pauseButton = "Stop"
-                  ))
-                )),
-            fluidRow(
-              box(
-
-                width = 11,
-                imageOutput("plot_map",  width="100%", height ="80%") %>% withSpinner(color = "#6d84ab"
-                  ))
+                  )
+                )
               ),
-
-            fluidRow(),
-            fluidRow(
-
-              box(
-                title = "Barchart",
-                color = "blue",
-                width = 11,
-                selectInput(
-                  inputId =  "variable8",
-                  choices = colnames(data)[3:10],
-                  label = "Select a pollution variable",
-                  selected = "CO2 Emissions"
-                ),
-                selectInput(
-                  inputId =  "variable9",
-                  choices =  colnames(data)[11:19],
-                  label = "Select an economic variable",
-                  selected = "Productivity"
-                ),
-                selectInput(
-                  inputId =  "variable99",
-                  choices =  unique(data$Year),
-                  label = "Select a year",
-                  selected = 2000
-                ),
-
-                plotlyOutput("plot_barchart"),
-                '* the economic variable as color fill of the bars', br(),
-                br(),
-                'Units:', br(), '- GDP: USD million', br(),
-                '- Productivity: USD per person employed', br(),
-                '- CO2 and Gas Emissions: 000 tonnes'
-              ),
-
 
               tabBox(
                 title = "Comments",
@@ -229,53 +233,92 @@ ui <- dashboardPage(
                 width = 5,
                 collapsible = TRUE,
                 tabs = list(
-                  list(menu = "First Tab",
-                       content = 'The height of the bars represent', br(),
-                       'the level of pollution.', br(),
-                       'The color of the bars represent the level of
-                       economic indicator')
+                  list(
+                    menu = "Description",
+                    content = 'The height of the bars represent \nthe level of pollution
+                    \nThe color of the bars represent the level of
+                       economic indicator'
+                  )
 
                 )
               )
-            )),
+            ),
+            fluidRow(box(
+              width = 11,
+              imageOutput("plot_map",  width = "100%", height = "80%") %>% withSpinner(
+                color = "#6d84ab",
+                size = 1,
+                proxy.height = "300px"
+              )
+            )))
+            ,
 
 
-#
-#     tabItem(tabName = "line_plot_tab",
-#             fluidRow("Line graph"),
-#             fluidRow(
-#               box(
-#                 title = "Plot line",
-#                 color = "blue",
-#                 width = 11,
-#                 selectInput(
-#                   inputId =  "variable1",
-#                   choices = unique(data$Country),
-#                   multiple = TRUE,
-#                   label = "Select first variable",
-#                   selected = "Switzerland"
-#                 ),
-#                 selectInput(
-#                   inputId =  "variable2",
-#                   choices =  colnames(data)[3:19],
-#                   label = "Select second variable",
-#                   selected = "GDP"
-#                 ),
-#                 plotlyOutput("plot_country")%>% withSpinner(type = 8,color = "#6d84ab"
-#                 )
-#               ),
-#               tabBox(
-#                 title = "Comments",
-#                 color = "blue",
-#                 width = 5,
-#                 collapsible = TRUE,
-#                 tabs = list(
-#                   list(menu = "First Tab",
-#                        content = "test")
-#
-#                 )
-#               )
-#             )),
+
+
+    tabItem(tabName = "comparable_tab",
+            fluidRow("Comparable graph"),
+            fluidRow(
+              box(
+                title = "Filters",
+                color = "blue",
+                width = 16,
+                sidebarPanel(
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 150px;",
+                    selectInput(
+                      inputId =  "variable6",
+                      choices = unique(data$Year),
+                      label = "Select first year",
+                      selected = "2000"
+                    )
+                  ),
+
+                  div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
+
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 150px;",
+                    selectInput(
+                      inputId =  "variable7",
+                      choices = unique(data$Year),
+                      label = "Select second year",
+                      selected = "2010"
+                    )
+                  ),
+
+                  div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
+
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 150px;",
+                    selectInput(
+                      inputId =  "variable8",
+                      choices = colnames(data)[3:19],
+                      label = "Select first variable",
+                      selected = "GDP"
+                    )
+                  ),
+
+                  div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
+
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 150px;",
+
+                    selectInput(
+                      inputId =  "variable9",
+                      choices = colnames(data)[3:19],
+                      label = "Select first variable",
+                      selected = "GDP"
+                    )
+                  )
+
+                )
+              )
+            ),
+            fluidRow(column(8, leafletOutput("plot_comparable1", width = "550px", height = "300px")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" )),
+                     column(8,leafletOutput("plot_comparable2", width="550px",height="300px")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" ))),
+            fluidRow(column(8,plotlyOutput("plot_barchart1", width="550px",height="300px")),
+                     column(8,plotlyOutput("plot_barchart2", width="550px",height="300px")))
+            ),
 
 
     tabItem(tabName = "bubble_tab",
@@ -286,7 +329,7 @@ ui <- dashboardPage(
                 color = "blue",
                 width = 11,
                 pickerInput(
-                  inputId =  "variable3a",
+                  inputId =  "variable10",
                   choices = unique(data$Country),
                   options = list(`actions-box` = TRUE),
                   multiple = TRUE,
@@ -294,13 +337,13 @@ ui <- dashboardPage(
                   selected = "Switzerland"
                 ),
                 selectInput(
-                  inputId =  "variable3",
+                  inputId =  "variable11",
                   choices = colnames(data)[3:19],
                   label = "Select first variable",
                   selected = "GDP"
                 ),
                 selectInput(
-                  inputId =  "variable4",
+                  inputId =  "variable12",
                   choices =  colnames(data)[3:19],
                   label = "Select second variable",
                   selected = "Productivity"
@@ -322,76 +365,6 @@ ui <- dashboardPage(
                 )
               )
             )),
-
-
-    tabItem(tabName = "Top_10",
-            fluidRow(),
-            fluidRow(
-              box(
-                title = "Top 10",
-                color = "blue",
-                width = 16,
-                selectInput(
-                  inputId =  "variable10",
-                  choices = colnames(data)[3:9],
-                  label = "Select first variable",
-                  selected = "CO2 Emissions"
-                ),
-                imageOutput("plot_top_10") %>% withSpinner(color = "#6d84ab")
-              ),
-              tabBox(
-                title = "Comments",
-                color = "blue",
-                width = 5,
-                collapsible = TRUE,
-                tabs = list(
-                  list(menu = "First Tab",
-                       content = "test")
-
-                )
-              )
-            )),
-
-    tabItem(tabName = "comparable_tab",
-            fluidRow("Comparable graph"),
-            fluidRow(
-              box(
-                title = "Comparable",
-                color = "blue",
-                width = 16,
-                selectInput(
-                  inputId =  "variable15",
-                  choices = unique(data$Year),
-                  label = "Select first year",
-                  selected = "2000"
-                ),
-                selectInput(
-                  inputId =  "variable16",
-                  choices = unique(data$Year),
-                  label = "Select second year",
-                  selected = "2010"
-                ),
-                selectInput(
-                  inputId =  "variable17",
-                  choices = colnames(data)[3:19],
-                  label = "Select first variable",
-                  selected = "GDP"
-                ),
-                selectInput(
-                  inputId =  "variable18",
-                  choices = colnames(data)[3:19],
-                  label = "Select first variable",
-                  selected = "GDP"
-                )
-
-
-              )),
-            fluidRow(column(8, leafletOutput("plot_comparable1", width = "550px", height = "300px")),
-                     column(8,leafletOutput("plot_comparable2", width="550px",height="300px"))),
-            fluidRow(column(8,plotlyOutput("plot_barchart1", width="550px",height="300px")),
-                     column(8,plotlyOutput("plot_barchart2", width="550px",height="300px")))
-            ),
-
     tabItem(tabName = "forecast_tab",
             fluidRow("Forecasting"),
             fluidRow(
@@ -400,19 +373,19 @@ ui <- dashboardPage(
                 color = "blue",
                 width = 16,
                 selectInput(
-                  inputId =  "variable5",
+                  inputId =  "variable13",
                   choices = unique(data$Country),
                   label = "Select a country",
                   selected = "Switzerland"
                 ),
                 selectInput(
-                  inputId =  "variable6",
+                  inputId =  "variable14",
                   choices =  colnames(data)[3:19],
                   label = "Select a variable you want to forecast",
                   selected = "GDP"
                 ),
                 sliderInput(
-                  inputId = "variable7",
+                  inputId = "variable15",
                   label = "Select the forecast length",
                   min = 0,
                   max = 50,
@@ -440,131 +413,68 @@ ui <- dashboardPage(
 
 server <- function(input, output) {
 
-  output$plot_country <-
-    renderPlotly(plot(country_function(dataset = data,
-                                       ctry = input$variable13,
-                                       var = input$variable14)))
 
-  output$plot_bubble <-
-    renderPlotly((bubble_function(
-      dataset = data,
-      ctry = input$variable3a,
-      x_var = input$variable3,
-      y_var = input$variable4)))
 
   output$data_table <-
 
     renderDataTable(
       data %>%
         tidyr::gather(key = "Variable", value = "Value", c(3:19)),
-                caption = htmltools::tags$caption(style = "caption-side: top; text-align: left;",
-                "Note. ", htmltools::em("Please select the variables of interest")),
+      caption = htmltools::tags$caption(style = "caption-side: top; text-align: left;",
+                                        "Note. ", htmltools::em("Please select the variables of interest")),
       filter = list(position = 'top',
                     clear = TRUE,
                     plain = FALSE),
       options = list(scrollX = TRUE)
     )
 
-  output$plot_forecast <-
-    dygraphs::renderDygraph(
-      forecast_function(
-        dataset = data,
-        geo = input$variable5,
-        variable = input$variable6,
-        fc_length = input$variable7
-      )[[3]]
-    )
-
-
-  output$plot_barchart1 <-
-    renderPlotly(plot(
-      barchart_function(
-        dataset = data,
-        pol_var = input$variable17,
-        eco_var = input$variable18
-      )
-    ))
-
-  output$plot_barchart2 <-
-    renderPlotly(plot(
-      barchart_function(
-        dataset = data,
-        pol_var = input$variable8,
-        eco_var = input$variable9,
-        yrs = input$variable99
-
-      )
-    ))
-
-
-  output$plot_comparable1 <-
-    renderLeaflet(
-      comparison_function (
-        dataset = data,
-        yrs = input$variable15,
-        eco_var  = input$variable17,
-        pol_var = input$variable18
-
-      )
-    )
-
-  output$plot_comparable2 <-
-    renderLeaflet(
-      comparison_function (
-        dataset = data,
-        yrs = input$variable16,
-        eco_var  = input$variable17,
-        pol_var = input$variable18
-
-      )
-    )
-
-
 
   output$rank_table <-
     renderDataTable(
       ranktable_function(
         dataset = data,
-        yrs = input$variable12,
-        ctry = input$variable13,
-        var = input$variable14
+        yrs = input$variable1,
+        ctry = input$variable2,
+        var = input$variable3
       )
     )
 
-
+  output$plot_country <-
+    renderPlotly(plot(country_function(dataset = data,
+                                       ctry = input$variable2,
+                                       var = input$variable3)))
 
   output$plot_top_10 <-
     renderImage({
       # A temp file to save the output.
       # This file will be removed later by renderImage
-      outfile <- tempfile(fileext='.gif')
+      outfile <- tempfile(fileext = '.gif')
 
       # now make the animation
       gganimate::anim_save("outfile.gif",
                            animated_top10(dataset = data,
-                                          var = input$variable10))
-
-
+                                          var = input$variable4))
 
       # Return a list containing the filename
-      list(src = "outfile.gif",
-           contentType = 'image/gif',
-           width = 500,
-           height = 450,
-           alt = "This is alternate text"
-      )})
+      list(
+        src = "outfile.gif",
+        contentType = 'image/gif',
+        width = 500,
+        height = 450,
+        alt = "This is alternate text"
+      )
+    })
 
 
   output$plot_map <- renderImage({
     # A temp file to save the output.
     # This file will be removed later by renderImage
-    outfile2 <- tempfile(fileext='.gif')
+    outfile2 <- tempfile(fileext = '.gif')
 
     # now make the animation
 
-    gif=gif_function(dataset = data,
-                 var = input$variable11)
-
+    gif = gif_function(dataset = data,
+                       var = input$variable5)
 
     tmap::tmap_animation(
       gif,
@@ -574,15 +484,15 @@ server <- function(input, output) {
       height = 800
     )
 
-
-
     # Return a list containing the filename
-    list(src = "outfile2.gif",
-         contentType = 'image/gif',
-         width = 500,
-         height = 450,
-         alt = "This is alternate text"
-    )})
+    list(
+      src = "outfile2.gif",
+      contentType = 'image/gif',
+      width = 500,
+      height = 450,
+      alt = "This is alternate text"
+    )
+  })
 
 
   output$slider <- renderUI({
@@ -598,6 +508,77 @@ server <- function(input, output) {
                   pauseButton = "Stop"
                 ))
   })
+
+
+
+  output$plot_comparable1 <-
+    renderLeaflet(
+      comparison_function (
+        dataset = data,
+        yrs = input$variable6,
+        eco_var  = input$variable8,
+        pol_var = input$variable9
+
+      )
+    )
+
+  output$plot_comparable2 <-
+    renderLeaflet(
+      comparison_function (
+        dataset = data,
+        yrs = input$variable7,
+        eco_var  = input$variable8,
+        pol_var = input$variable9
+
+      )
+    )
+
+
+  output$plot_barchart1 <-
+    renderPlotly(plot(
+      barchart_function(
+        dataset = data,
+        pol_var = input$variable8,
+        eco_var = input$variable9,
+        yrs = input$variable6
+      )
+    ))
+
+  output$plot_barchart2 <-
+    renderPlotly(plot(
+      barchart_function(
+        dataset = data,
+        pol_var = input$variable8,
+        eco_var = input$variable9,
+        yrs = input$variable7
+
+      )
+    ))
+
+
+
+  output$plot_bubble <-
+    renderPlotly((bubble_function(
+      dataset = data,
+      ctry = input$variable10,
+      x_var = input$variable11,
+      y_var = input$variable12)))
+
+
+
+  output$plot_forecast <-
+    dygraphs::renderDygraph(
+      forecast_function(
+        dataset = data,
+        geo = input$variable13,
+        variable = input$variable14,
+        fc_length = input$variable15
+      )[[3]]
+    )
+
+
+
+
 
 }
 
