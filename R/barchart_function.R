@@ -55,7 +55,7 @@ barchart_function <- function(dataset = data,
           plot.caption = element_text(hjust = 0)) +
     ggplot2::xlab("Country code") +
     ggplot2::ylab(pol_var) +
-    ggplot2::labs(fill = '')
+    ggplot2::labs(title = yrs ,fill = '')
 
   return(bargraphs)
 

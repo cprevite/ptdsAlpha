@@ -44,7 +44,8 @@ comparison_function <-
                size = eco_var) +
     tmap::tm_facets(by = "Year",
               nrow = 1,
-              free.coords = FALSE)
+              free.coords = FALSE) +
+    tmap::tm_layout(title = yrs)
 
 
   return(tmap::tmap_leaflet(map_eu))

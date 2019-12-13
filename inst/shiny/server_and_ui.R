@@ -227,21 +227,6 @@ ui <- dashboardPage(
                 )
               ),
 
-              tabBox(
-                title = "Comments",
-                color = "blue",
-                width = 5,
-                collapsible = TRUE,
-                tabs = list(
-                  list(
-                    menu = "Description",
-                    content = 'The height of the bars represent \nthe level of pollution
-                    \nThe color of the bars represent the level of
-                       economic indicator'
-                  )
-
-                )
-              )
             ),
             fluidRow(box(
               width = 11,
@@ -292,8 +277,8 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 150px;",
                     selectInput(
                       inputId =  "variable8",
-                      choices = colnames(data)[3:19],
-                      label = "Select first variable",
+                      choices = colnames(data)[11:19],
+                      label = "Select economic variable",
                       selected = "GDP"
                     )
                   ),
@@ -305,13 +290,28 @@ ui <- dashboardPage(
 
                     selectInput(
                       inputId =  "variable9",
-                      choices = colnames(data)[3:19],
-                      label = "Select first variable",
+                      choices = colnames(data)[3:10],
+                      label = "Select pollution variable",
                       selected = "GDP"
                     )
                   )
 
                 )
+              )
+            ),
+            tabBox(
+              title = "Comments",
+              color = "blue",
+              width = 5,
+              collapsible = TRUE,
+              tabs = list(
+                list(
+                  menu = "Description",
+                  content = 'The height of the bars represent \nthe level of pollution.
+                    \nThe color of the bars represent the level of
+                       economic indicator.'
+                )
+
               )
             ),
             fluidRow(column(8, leafletOutput("plot_comparable1", width = "550px", height = "300px")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" )),
@@ -538,8 +538,8 @@ server <- function(input, output) {
     renderPlotly(plot(
       barchart_function(
         dataset = data,
-        pol_var = input$variable8,
-        eco_var = input$variable9,
+        eco_var = input$variable8,
+        pol_var = input$variable9,
         yrs = input$variable6
       )
     ))
@@ -548,8 +548,8 @@ server <- function(input, output) {
     renderPlotly(plot(
       barchart_function(
         dataset = data,
-        pol_var = input$variable8,
-        eco_var = input$variable9,
+        eco_var = input$variable8,
+        pol_var = input$variable9,
         yrs = input$variable7
 
       )
