@@ -227,21 +227,7 @@ ui <- dashboardPage(
                 )
               ),
 
-              tabBox(
-                title = "Comments",
-                color = "blue",
-                width = 5,
-                collapsible = TRUE,
-                tabs = list(
-                  list(
-                    menu = "Description",
-                    content = 'The height of the bars represent \nthe level of pollution
-                    \nThe color of the bars represent the level of
-                       economic indicator'
-                  )
 
-                )
-              )
             ),
             fluidRow(box(
               width = 11,
@@ -311,6 +297,20 @@ ui <- dashboardPage(
                     )
                   )
 
+                )
+              )
+            ),
+            tabBox(
+              title = "Comments",
+              color = "blue",
+              width = 5,
+              collapsible = TRUE,
+              tabs = list(
+                list(
+                  menu = "Description",
+                  content = 'The height of the bars represent \nthe level of pollution
+                    \nThe color of the bars represent the level of
+                       economic indicator'
                 )
               )
             ),
