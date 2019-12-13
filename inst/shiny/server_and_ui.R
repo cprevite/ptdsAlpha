@@ -292,8 +292,8 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 150px;",
                     selectInput(
                       inputId =  "variable8",
-                      choices = colnames(data)[3:19],
-                      label = "Select first variable",
+                      choices = colnames(data)[11:19],
+                      label = "Select economic variable",
                       selected = "GDP"
                     )
                   ),
@@ -305,8 +305,8 @@ ui <- dashboardPage(
 
                     selectInput(
                       inputId =  "variable9",
-                      choices = colnames(data)[3:19],
-                      label = "Select first variable",
+                      choices = colnames(data)[3:10],
+                      label = "Select pollution variable",
                       selected = "GDP"
                     )
                   )
