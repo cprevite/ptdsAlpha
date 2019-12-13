@@ -64,8 +64,8 @@ ui <- dashboardPage(
                 title_side = "top left",
                 width = 14,
                 tags$div(
-                  dataTableOutput("data_table"),
-                  style = paste0("color:", semantic_palette[["blue"]], ";")
+                  dataTableOutput("data_table")
+
                 )
               )
             ),
@@ -83,7 +83,7 @@ ui <- dashboardPage(
 
               )
             )
-        ),
+    ),
 
 
     tabItem(tabName = "ranktable_tab",
@@ -227,7 +227,21 @@ ui <- dashboardPage(
                 )
               ),
 
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 5,
+                collapsible = TRUE,
+                tabs = list(
+                  list(
+                    menu = "Description",
+                    content = 'The height of the bars represent \nthe level of pollution
+                    \nThe color of the bars represent the level of
+                       economic indicator'
+                  )
 
+                )
+              )
             ),
             fluidRow(box(
               width = 11,
@@ -237,7 +251,7 @@ ui <- dashboardPage(
                 proxy.height = "300px"
               )
             )))
-            ,
+    ,
 
 
 
@@ -278,8 +292,8 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 150px;",
                     selectInput(
                       inputId =  "variable8",
-                      choices = colnames(data)[11:19],
-                      label = "Select economic variable",
+                      choices = colnames(data)[3:19],
+                      label = "Select first variable",
                       selected = "GDP"
                     )
                   ),
@@ -291,8 +305,8 @@ ui <- dashboardPage(
 
                     selectInput(
                       inputId =  "variable9",
-                      choices = colnames(data)[3:10],
-                      label = "Select pollution variable",
+                      choices = colnames(data)[3:19],
+                      label = "Select first variable",
                       selected = "GDP"
                     )
                   )
@@ -300,25 +314,11 @@ ui <- dashboardPage(
                 )
               )
             ),
-            tabBox(
-              title = "Comments",
-              color = "blue",
-              width = 5,
-              collapsible = TRUE,
-              tabs = list(
-                list(
-                  menu = "Description",
-                  content = 'The height of the bars represent \nthe level of pollution.
-                    \nThe color of the bars represent the level of
-                       economic indicator.'
-                )
-              )
-            ),
             fluidRow(column(8, leafletOutput("plot_comparable1", width = "550px", height = "300px")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" )),
                      column(8,leafletOutput("plot_comparable2", width="550px",height="300px")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px" ))),
             fluidRow(column(8,plotlyOutput("plot_barchart1", width="550px",height="300px")),
                      column(8,plotlyOutput("plot_barchart2", width="550px",height="300px")))
-            ),
+    ),
 
 
     tabItem(tabName = "bubble_tab",
