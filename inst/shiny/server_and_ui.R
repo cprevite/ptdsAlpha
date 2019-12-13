@@ -308,9 +308,9 @@ ui <- dashboardPage(
               tabs = list(
                 list(
                   menu = "Description",
-                  content = 'The height of the bars represent \nthe level of pollution
+                  content = 'The height of the bars represent \nthe level of pollution.
                     \nThe color of the bars represent the level of
-                       economic indicator'
+                       economic indicator.'
                 )
               )
             ),
