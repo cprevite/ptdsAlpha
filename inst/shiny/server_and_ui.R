@@ -338,7 +338,7 @@ ui <- dashboardPage(
                       inputId =  "variable10",
                       label = 'Select country',
                       multiple = TRUE,
-                      choices = as.character(unique(get_data()$Country)),
+                      choices = as.character(unique(data_new$Country)),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -357,7 +357,7 @@ ui <- dashboardPage(
 
                       selectInput(
                         inputId =  "variable11",
-                        choices = colnames(data)[3:19],
+                        choices = colnames(data)[11:19],
                         label = "Select first variable",
                         multiple = TRUE,
                         selected = "GDP"
@@ -372,9 +372,9 @@ ui <- dashboardPage(
                  style = "display: inline-block;vertical-align:top; width: 200px;",
                  selectInput(
                    inputId =  "variable12",
-                   choices =  colnames(data)[3:19],
+                   choices =  colnames(data)[3:10],
                    label = "Select second variable",
-                   selected = "Productivity"
+                   selected = "CO2 Emissions"
                  )
                ))
               ),
@@ -597,9 +597,9 @@ server <- function(input, output) {
   output$plot_bubble <-
     renderPlotly((bubble_function(
 
-      ctry = input$variable10,
-      x_var = input$variable11,
-      y_var = input$variable12)))
+            ctry = input$variable10,
+      eco_var = input$variable11,
+      pol_var = input$variable12)))
 
 
 

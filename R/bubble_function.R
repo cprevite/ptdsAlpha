@@ -14,13 +14,13 @@
 bubble_function <-
   function(dataset = data,
            ctry = "Switzerland",
-           x_var = "GDP",
-           y_var = "Productivity") {
+           eco_var = "GDP",
+           pol_var = "CO2 Emissions") {
     #transform data
-    data <-  na.omit(dataset)
-    data$Year = as.integer(as.character(data$Year))
+    data_new <-  na.omit(data)
+    data_new$Year = as.integer(as.character(data_new$Year))
 
-    data_new <- data %>%
+    data_new <- data_new %>%
       dplyr::filter(Country %in% ctry)
 
 
@@ -28,16 +28,16 @@ bubble_function <-
     f <- list(family = "Courier New, monospace",
               size = 18,
               color = "#7f7f7f")
-    x <- list(title = x_var,
+    x <- list(title = eco_var,
               titlefont = f)
-    y <- list(title = y_var,
+    y <- list(title = pol_var,
               titlefont = f)
 
     #create bubble plot with function plot_ly
     plot_bubble <- plot_ly(
       data,
-      x = ~ data_new[[x_var]],
-      y = ~ data_new[[y_var]],
+      x = ~ data_new[[eco_var]],
+      y = ~ data_new[[pol_var]],
       color = ~ data_new$Country,
       frame = ~ data_new$Year,
       text = ~ data_new$Country,

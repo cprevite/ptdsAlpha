@@ -7,8 +7,8 @@
 bubble_function(
   dataset = data,
   ctry = "Switzerland",
-  x_var = "GDP",
-  y_var = "Productivity"
+  eco_var = "GDP",
+  pol_var = "CO2 Emissions"
 )
 }
 \arguments{
