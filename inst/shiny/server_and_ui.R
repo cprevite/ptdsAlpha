@@ -101,7 +101,7 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                       inputId =  "variable1",
-                      choices = unique(data$Year),
+                      choices = unique(get_data()$Year),
                       multiple = TRUE,
                       label = "Select Year",
                       selected = "1992"
@@ -114,7 +114,7 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                       inputId =  "variable2",
-                      choices =  unique(data$Country),
+                      choices =  unique(get_data()$Country),
                       multiple = TRUE,
                       label = "Select Country",
                       selected = "Switzerland"
@@ -254,7 +254,7 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 150px;",
                     selectInput(
                       inputId =  "variable6",
-                      choices = unique(data$Year),
+                      choices = unique(get_data()$Year),
                       label = "Select first year",
                       selected = "2000"
                     )
@@ -266,7 +266,7 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 150px;",
                     selectInput(
                       inputId =  "variable7",
-                      choices = unique(data$Year),
+                      choices = unique(get_data()$Year),
                       label = "Select second year",
                       selected = "2010"
                     )
@@ -338,7 +338,7 @@ ui <- dashboardPage(
                       inputId =  "variable10",
                       label = 'Select country',
                       multiple = TRUE,
-                      choices = as.character(unique(data$Country)),
+                      choices = as.character(unique(get_data()$Country)),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -411,7 +411,7 @@ ui <- dashboardPage(
                 width = 16,
                 selectInput(
                   inputId =  "variable13",
-                  choices = unique(data$Country),
+                  choices = unique(get_data()$Country),
                   label = "Select a country",
                   selected = "Switzerland"
                 ),
@@ -469,7 +469,7 @@ server <- function(input, output) {
   output$rank_table <-
     renderDataTable(
       ranktable_function(
-        dataset = data,
+
         yrs = input$variable1,
         ctry = input$variable2,
         var = input$variable3
@@ -477,7 +477,7 @@ server <- function(input, output) {
     )
 
   output$plot_country <-
-    renderPlotly(plot(country_function(dataset = data,
+    renderPlotly(plot(country_function(
                                        ctry = input$variable2,
                                        var = input$variable3)))
 
@@ -489,7 +489,7 @@ server <- function(input, output) {
 
       # now make the animation
       gganimate::anim_save("outfile.gif",
-                           animated_top10(dataset = data,
+                           animated_top10(
                                           var = input$variable4))
 
       # Return a list containing the filename
@@ -510,7 +510,7 @@ server <- function(input, output) {
 
     # now make the animation
 
-    gif = gif_function(dataset = data,
+    gif = gif_function(
                        var = input$variable5)
 
     tmap::tmap_animation(
@@ -551,7 +551,7 @@ server <- function(input, output) {
   output$plot_comparable1 <-
     renderLeaflet(
       comparison_function (
-        dataset = data,
+
         yrs = input$variable6,
         eco_var  = input$variable8,
         pol_var = input$variable9
@@ -562,7 +562,7 @@ server <- function(input, output) {
   output$plot_comparable2 <-
     renderLeaflet(
       comparison_function (
-        dataset = data,
+
         yrs = input$variable7,
         eco_var  = input$variable8,
         pol_var = input$variable9
@@ -574,7 +574,7 @@ server <- function(input, output) {
   output$plot_barchart1 <-
     renderPlotly(plot(
       barchart_function(
-        dataset = data,
+
         eco_var = input$variable8,
         pol_var = input$variable9,
         yrs = input$variable6
@@ -584,7 +584,7 @@ server <- function(input, output) {
   output$plot_barchart2 <-
     renderPlotly(plot(
       barchart_function(
-        dataset = data,
+
         eco_var = input$variable8,
         pol_var = input$variable9,
         yrs = input$variable7
@@ -596,7 +596,7 @@ server <- function(input, output) {
 
   output$plot_bubble <-
     renderPlotly((bubble_function(
-      dataset = data,
+
       ctry = input$variable10,
       x_var = input$variable11,
       y_var = input$variable12)))
@@ -606,7 +606,7 @@ server <- function(input, output) {
   output$plot_forecast <-
     dygraphs::renderDygraph(
       forecast_function(
-        dataset = data,
+
         geo = input$variable13,
         variable = input$variable14,
         fc_length = input$variable15
