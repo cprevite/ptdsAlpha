@@ -7,6 +7,7 @@ library(ptdsAlpha)
 library(shinyWidgets)
 library(shinycssloaders)
 library(leaflet)
+library(shinyjs)
 
 
 ui <- dashboardPage(
@@ -16,39 +17,39 @@ ui <- dashboardPage(
                      menuItem(
                        tabName = "data_tab",
                        text = "Data Table",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("file", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "ranktable_tab",
                        text = "Rank",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "Top_10",
                        text = "Top 10",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "maps_tab",
                        text = "Maps",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      ),
 
                      menuItem(
                        tabName = "comparable_tab",
                        text = "Comparable maps",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "bubble_tab",
                        text = "Bubble chart",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      ),
 
                      menuItem(
                        tabName = "forecast_tab",
                        text = "Forecasting",
-                       icon = icon("cog", lib = "glyphicon")
+                       icon = icon("bookmark", lib = "glyphicon")
                      )
 
                    )),
@@ -225,7 +226,7 @@ ui <- dashboardPage(
                     pauseButton = "Stop"
                   )
                 )
-              ),
+              )
 
             ),
             fluidRow(box(
@@ -322,37 +323,73 @@ ui <- dashboardPage(
 
 
     tabItem(tabName = "bubble_tab",
-            fluidRow("Buble graph"),
+            fluidRow("Filters"),
             fluidRow(
               box(
                 title = "Plot line",
                 color = "blue",
-                width = 11,
-                pickerInput(
-                  inputId =  "variable10",
-                  choices = unique(data$Country),
-                  options = list(`actions-box` = TRUE),
-                  multiple = TRUE,
-                  label = "Select first variable",
-                  selected = "Switzerland"
-                ),
-                selectInput(
-                  inputId =  "variable11",
-                  choices = colnames(data)[3:19],
-                  label = "Select first variable",
-                  selected = "GDP"
-                ),
-                selectInput(
-                  inputId =  "variable12",
-                  choices =  colnames(data)[3:19],
-                  label = "Select second variable",
-                  selected = "Productivity"
-                ),
+                width = 16,
+                style="height:200px;",
+
+                sidebarPanel(
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 300px;",
+                    pickerInput(
+                      inputId =  "variable10",
+                      label = 'Select country',
+                      multiple = TRUE,
+                      choices = as.character(unique(data$Country)),
+                      options = pickerOptions(
+                        actionsBox = TRUE,
+                        virtualScroll = TRUE,
+                        size = 5
+                      )
+                    )
+                  ),
+
+                  div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
+
+                  div(
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
+                    useShinyjs(),
+                    div(
+                      id = "form",
+
+                      selectInput(
+                        inputId =  "variable11",
+                        choices = colnames(data)[3:19],
+                        label = "Select first variable",
+                        multiple = TRUE,
+                        selected = "GDP"
+                      ))
+
+                  )
+               ,
+               div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
+
+
+               div(
+                 style = "display: inline-block;vertical-align:top; width: 200px;",
+                 selectInput(
+                   inputId =  "variable12",
+                   choices =  colnames(data)[3:19],
+                   label = "Select second variable",
+                   selected = "Productivity"
+                 )
+               ))
+              ),
+              actionButton("resetAll", "Reset all")),
+
+            fluidRow(
+              box(
+                title = "Plot line",
+                color = "blue",
+                width = 16,
                 plotlyOutput("plot_bubble") %>%
                   withSpinner(type = 3 ,
                               color.background = "#6d84ab",
                               color = "#6d84ab")
-              ),
+              )),
               tabBox(
                 title = "Comments",
                 color = "blue",
@@ -364,7 +401,7 @@ ui <- dashboardPage(
 
                 )
               )
-            )),
+            ),
     tabItem(tabName = "forecast_tab",
             fluidRow("Forecasting"),
             fluidRow(
@@ -577,7 +614,8 @@ server <- function(input, output) {
     )
 
 
-
+  observeEvent(input$resetAll, {
+    reset("form")})
 
 
 }
