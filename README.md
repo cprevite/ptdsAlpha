@@ -10,9 +10,15 @@ The main goal of our project is to display economic and pollution indicators of 
 
 ## Our Shiny App
 
-We created different functions thas we stored in our project package. 
-We implemented a continuous animation of the top 10 ranking. We forecasted each variable's future values with specific time series models.
-We developed animated GIFs showing the evolution through time of European indicators. We plotted comparison maps.
+We created different functions that we stored in our project package. Below is the list of the main contents of our App:
+
+- Continuous animation of the top 10 ranked countries in various economic and pollution indicators. This gives us an overview of how European countries have changed relative to these important variables over the years.
+- Animated GIFs showing the overall evolution of the European countries through a period of 40 years in regards to the pollution and economic indicators in our data, giving us a visual overview of the performance of the countries.
+- Interactive map of Europe in order to provide a visual and informative comparison between the pollution and economic indicator between two years, which are separated by a 10-year period. This allows us to see the interaction between the indicators and even how each countries performed in them.
+- Bubble graph which shows the movement of countries across the indicators over the past 40 years.
+- Various maps, graphs, barcharts and tables in order to get a simple yet effective view of the data, figures and trends.
+- Forecast each variable's future values with specific time series models, in order anticipate how things might be in times to come.
+
 We then used the interactive web app creation platform [Shiny](https://shiny.rstudio.com/). The Shiny App displays the output of our functions.
 
 ### Prerequisites
