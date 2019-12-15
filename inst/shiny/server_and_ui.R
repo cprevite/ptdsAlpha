@@ -146,7 +146,7 @@ ui <- dashboardPage(
                     style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                       inputId =  "variable3",
-                      choices = colnames(data)[3:19],
+                      choices = colnames(get_data())[3:19],
                       label = "Select Variable",
                       selected = "GDP"
                     )
@@ -188,7 +188,7 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable4",
-                  choices = colnames(data)[3:9],
+                  choices = colnames(get_data())[3:9],
                   label = "Select first variable",
                   selected = "CO2 Emissions"
                 )
@@ -227,7 +227,7 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable5",
-                  choices = colnames(data)[3:19],
+                  choices = colnames(get_data())[3:19],
                   label = "Select first variable",
                   selected = "GDP"
                 )),
@@ -292,7 +292,7 @@ economic and pollution indicators over 40 years")
                     style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                       inputId =  "variable8",
-                      choices = colnames(data)[11:19],
+                      choices = colnames(get_data())[11:19],
                       label = "Select economic variable",
                       selected = "GDP"
                     )
@@ -305,7 +305,7 @@ economic and pollution indicators over 40 years")
 
                     selectInput(
                       inputId =  "variable9",
-                      choices = colnames(data)[3:10],
+                      choices = colnames(get_data())[3:10],
                       label = "Select pollution variable",
                       selected = "GDP"
                     )
@@ -354,7 +354,7 @@ economic and pollution indicators over 40 years")
                       inputId =  "variable10",
                       label = 'Select country',
                       multiple = TRUE,
-                      choices = as.character(unique(na.omit(data$Country))),
+                      choices = as.character(unique(na.omit(get_data()$Country))),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -369,7 +369,7 @@ economic and pollution indicators over 40 years")
                     style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                         inputId =  "variable11",
-                        choices = colnames(data)[11:19],
+                        choices = colnames(get_data())[11:19],
                         label = "Select first variable",
                         selected = "GDP"
                       ))
@@ -383,7 +383,7 @@ economic and pollution indicators over 40 years")
                  style = "display: inline-block;vertical-align:top; width: 200px;",
                  selectInput(
                    inputId =  "variable12",
-                   choices =  colnames(data)[3:10],
+                   choices =  colnames(get_data())[3:10],
                    label = "Select second variable",
                    selected = "CO2 Emissions"
                  )
@@ -431,7 +431,7 @@ economic and pollution indicators over 40 years")
                 ),
                 selectInput(
                   inputId =  "variable14",
-                  choices =  colnames(data)[3:19],
+                  choices =  colnames(get_data())[3:19],
                   label = "Select a variable you want to forecast",
                   selected = "GDP"
                 ),
