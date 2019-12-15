@@ -13,6 +13,7 @@ library(shinyjs)
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(side = "left",
+                   size ="wide",
                    sidebarMenu(
                      menuItem(
                        tabName = "welcome",
@@ -26,17 +27,17 @@ ui <- dashboardPage(
                      ),
                      menuItem(
                        tabName = "ranktable_tab",
-                       text = "Rank",
+                       text = "Line graph and rank table ",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "Top_10",
-                       text = "Top 10",
+                       text = "Top 10 countries",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "maps_tab",
-                       text = "Maps",
+                       text = "Interactive graphs",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
 
@@ -53,12 +54,12 @@ ui <- dashboardPage(
 
                      menuItem(
                        tabName = "forecast_tab",
-                       text = "Forecasting",
+                       text = "Forecasting graph",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
                        tabName = "about_us",
-                       text = "About Us",
+                       text = "Meet the team",
                        icon = icon("bookmark", lib = "glyphicon")
                      )
 
@@ -441,7 +442,7 @@ economic and pollution indicators over 40 years")
                   max = 50,
                   value = 5
                 ),
-                dygraphs::dygraphOutput("plot_forecast")
+                dygraphs::dygraphOutput("plot_forecast")%>%withSpinner(color = "#6d84ab", size = 1, proxy.height="300px")
               ),
               tabBox(
                 title = "Comments",
