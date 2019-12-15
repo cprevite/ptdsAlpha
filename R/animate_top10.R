@@ -1,5 +1,6 @@
 #' @title Animated Top10 Countries per Variables
-#' @description Compute an animated ranking with the 10 top countries per year
+#' @description Compute an animated ranking with the 10 top European countries
+#' per year in regards to a chosen economic or pollution variable
 #' @param var A \code{list} of variables to select
 #' @return A \code{plot} containing an animated ranking
 #' @author Claudio Previte
