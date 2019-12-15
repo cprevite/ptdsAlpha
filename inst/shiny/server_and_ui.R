@@ -75,7 +75,7 @@ ui <- dashboardPage(
                 'countries in the last four decades to check  ', br(),
                 'specific trends and correlations.', br(), br(),
                 'In this app, you can see:', br(), br(),
-                '- A continuous animation of the top 10 ranked', br(),
+                ' A continuous animation of the top 10 ranked', br(),
                 ' countries by economic and pollution indicators', br(), br(),
                 '- Animated GIFs showing the overall evolution of ', br(),
                 'economic and pollution indicators from  European ', br(),
@@ -86,8 +86,7 @@ ui <- dashboardPage(
                 '- A bubble graph which shows the movement of', br(),
                 'countries across indicators in the past 40 years', br(), br(),
                 '- Various maps, graphs, barcharts and tables ', br(),
-                'to get an effective view of the data,', br(), br(),
-                'figures and trends', br(), br(),
+                'to get an effective view of the data and trends', br(), br(),
                 '- Forecasts of each variable future values with', br(),
                 'specific time series models'
 
