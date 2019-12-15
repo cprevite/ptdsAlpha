@@ -25,8 +25,10 @@ barchart_function <- function(dataset = data,
   world_eu$name_long <- world_eu$name_long %>%
     gsub(pattern = 'Macedonia', replacement = 'North Macedonia')
 
-  #Continue extraction
+  #Left-joining two databases in order to extract the relevant column
   world_eu <- dplyr::left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
+
+  #Filtering out the years selected and the pollution and economic variables
   eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
     dplyr::select(iso_a2, Year, pol_var, eco_var)
