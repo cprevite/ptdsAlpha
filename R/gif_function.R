@@ -28,6 +28,16 @@ gif_function <- function(dataset = data, var = 'CO2 Emissions') {
     tmap::tm_polygons()  +
     tmap::tm_facets(along = "Year", free.coords = FALSE)
 
-  return(gif)
+
+  #defining the dimensions of the gif and saving it under 'var_tmap.gif'
+  tmap::tmap_animation(
+    gif,
+    filename = ("./gif_folder/tmap.gif"),
+    delay = 30,
+    width = 1000,
+    height = 900
+  )
+
+  return(tmap.gif)
 
 }
