@@ -68,14 +68,13 @@ ui <- dashboardPage(
 
     tabItem(tabName = "welcome",
 
-
             fluidRow(
-
                 imageOutput("welcome_page"),
-                'The main goal of our project is to display economic', br(),
-                'and pollution indicators of European countries in', br(),
-                'the last four decades to check specific trends and ', br(),
-                'correlations. In this app, you can see:', br(), br(),
+                'The main goal of our project is to display', br(),
+                'economic and pollution indicators of European ', br(),
+                'countries in the last four decades to check  ', br(),
+                'specific trends and correlations.', br(), br(),
+                'In this app, you can see:', br(), br(),
                 '- A continuous animation of the top 10 ranked', br(),
                 ' countries by economic and pollution indicators', br(), br(),
                 '- Animated GIFs showing the overall evolution of ', br(),
@@ -86,8 +85,9 @@ ui <- dashboardPage(
                 'pollution and economic indicator by year', br(), br(),
                 '- A bubble graph which shows the movement of', br(),
                 'countries across indicators in the past 40 years', br(), br(),
-                '- Various maps, graphs, barcharts and tables to get', br(),
-                'an effective view of the data, figures and trends', br(), br(),
+                '- Various maps, graphs, barcharts and tables ', br(),
+                'to get an effective view of the data,', br(), br(),
+                'figures and trends', br(), br(),
                 '- Forecasts of each variable future values with', br(),
                 'specific time series models'
 
@@ -348,6 +348,8 @@ economic and pollution indicators over 40 years")
                 sidebarPanel(
                   div(
                     style = "display: inline-block;vertical-align:top; width: 300px;",
+                    useShinyjs(),
+                    id = "form",
                     pickerInput(
                       inputId =  "variable10",
                       label = 'Select country',
@@ -365,18 +367,14 @@ economic and pollution indicators over 40 years")
 
                   div(
                     style = "display: inline-block;vertical-align:top; width: 200px;",
-                    useShinyjs(),
-                    div(
-                      id = "form",
-
-                      selectInput(
+                    selectInput(
                         inputId =  "variable11",
                         choices = colnames(data)[11:19],
                         label = "Select first variable",
                         selected = "GDP"
                       ))
 
-                  )
+
                ,
                div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
 
@@ -411,9 +409,9 @@ economic and pollution indicators over 40 years")
                 width = 5,
                 collapsible = TRUE,
                 tabs = list(
-                  list(menu = "First Tab",
+                  list(menu = "Info",
                        content = "Movement of countries across the indicators
-                       over the past 40 years.")
+                       over the past 10 years.")
 
                 )
               )
@@ -452,7 +450,7 @@ economic and pollution indicators over 40 years")
                 width = 5,
                 collapsible = TRUE,
                 tabs = list(
-                  list(menu = "First Tab",
+                  list(menu = "Info",
                        content = "Forecasts of each variable's future values
                        with specific time series models")
 
@@ -464,16 +462,15 @@ economic and pollution indicators over 40 years")
 
 
             fluidRow(
-
-             box(
-                title = "Ana Casian",
+              box(
+                title = "Pierre-Emmanuel Got",
                 color = "blue",
                 ribbon = TRUE,
-                collapsible = TRUE,
                 title_side = "top left",
                 width = 10,
                 imageOutput("us_photos1"),
-                style = "height:400px"),
+                style = "height:400px"
+              ),
               box(
                 title = "Claudio Previte",
                 color = "blue",
@@ -483,6 +480,15 @@ economic and pollution indicators over 40 years")
                 imageOutput("us_photos2"),
                 style = "height:400px"
               ),
+              box(
+                title = "Ana Casian",
+                color = "blue",
+                ribbon = TRUE,
+                collapsible = TRUE,
+                title_side = "top left",
+                width = 10,
+                imageOutput("us_photos3"),
+                style = "height:400px"),
 
               box(
                 title = "Redwan Hasan",
@@ -490,19 +496,10 @@ economic and pollution indicators over 40 years")
                 ribbon = TRUE,
                 title_side = "top left",
                 width = 10,
-                imageOutput("us_photos3"),
-                style = "height:400px"
-              ),
-
-              box(
-                title = "Pierre-Emmanuel Got",
-                color = "blue",
-                ribbon = TRUE,
-                title_side = "top left",
-                width = 10,
                 imageOutput("us_photos4"),
                 style = "height:400px"
               ),
+
 
               box(
                 title = "Jeremy Choppe",
@@ -553,7 +550,6 @@ server <- function(input, output) {
   output$rank_table <-
     renderDataTable(
       ranktable_function(
-
         yrs = input$variable1,
         ctry = input$variable2,
         var = input$variable3
@@ -562,8 +558,9 @@ server <- function(input, output) {
 
   output$plot_country <-
     renderPlotly(plot(country_function(
-                                       ctry = input$variable2,
-                                       var = input$variable3)))
+      ctry = input$variable2,
+      var = input$variable3
+    )))
 
   output$plot_top_10 <-
     renderImage({
@@ -573,8 +570,7 @@ server <- function(input, output) {
 
       # now make the animation
       gganimate::anim_save("outfile.gif",
-                           animated_top10(
-                                          var = input$variable4))
+                           animated_top10(var = input$variable4))
 
       # Return a list containing the filename
       list(
@@ -680,19 +676,16 @@ server <- function(input, output) {
     reset("form")})
 
 
-
-  output$us_photos1 <- renderImage({
-
+  output$us_photos1<- renderImage({
     list(
-      src = c("Ana.jpeg"),
+      src = c("Pierre.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "35%"
+      width = "40%"
     )
   },deleteFile = FALSE)
 
   output$us_photos2 <- renderImage({
-
     list(
       src = c("Claudio.jpg"),
       contentType = 'image/gif',
@@ -702,7 +695,16 @@ server <- function(input, output) {
   },deleteFile = FALSE)
 
   output$us_photos3 <- renderImage({
+    list(
+      src = c("Ana.jpeg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "35%"
+    )
+  },deleteFile = FALSE)
 
+
+  output$us_photos4 <- renderImage({
     list(
       src = c("Redwan.png"),
       contentType = 'image/gif',
@@ -711,23 +713,13 @@ server <- function(input, output) {
     )
   },deleteFile = FALSE)
 
-  output$us_photos4 <- renderImage({
-
-    list(
-      src = c("Pierre.jpg"),
-      contentType = 'image/gif',
-      alt = "This is alternate text",
-      width = "40%"
-    )
-  },deleteFile = FALSE)
 
   output$us_photos5 <- renderImage({
-
     list(
       src = c("Jeremy.jpeg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "25%"
+      width = "30%"
     )
   },deleteFile = FALSE)
 
