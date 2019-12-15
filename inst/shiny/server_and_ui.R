@@ -15,6 +15,11 @@ ui <- dashboardPage(
   dashboardSidebar(side = "left",
                    sidebarMenu(
                      menuItem(
+                       tabName = "welcome",
+                       text = "Welcome",
+                       icon = icon("file", lib = "glyphicon")
+                     ),
+                     menuItem(
                        tabName = "data_tab",
                        text = "Data Table",
                        icon = icon("file", lib = "glyphicon")
@@ -50,11 +55,30 @@ ui <- dashboardPage(
                        tabName = "forecast_tab",
                        text = "Forecasting",
                        icon = icon("bookmark", lib = "glyphicon")
+                     ),
+                     menuItem(
+                       tabName = "about_us",
+                       text = "About Us",
+                       icon = icon("bookmark", lib = "glyphicon")
                      )
 
                    )),
 
   dashboardBody(tabItems(
+
+    tabItem(tabName = "welcome",
+
+
+            fluidRow(
+
+                imageOutput("welcome_page"),
+                'Blablabla', br(), '- Blablabla', br(),
+                '- blablabla', br(),
+                '- blablabla'
+
+
+            )
+    ),
 
     tabItem(tabName = "data_tab",
             fluidRow(
@@ -65,26 +89,7 @@ ui <- dashboardPage(
                 title_side = "top left",
                 width = 14,
                 tags$div(
-                  dataTableOutput("data_table")
-
-                )
-              )
-            ),
-
-            fluidRow(
-              box(
-                title = "Information regarding the data",
-                color = "blue",
-                ribbon = TRUE,
-                title_side = "top left",
-                width = 14,
-                'Units:', br(), '- GDP: USD million', br(),
-                '- Productivity: USD per person employed', br(),
-                '- CO2 and Gas Emissions: 000 tonnes'
-
-              )
-            )
-    ),
+                  dataTableOutput("data_table"))))),
 
 
     tabItem(tabName = "ranktable_tab",
@@ -180,9 +185,7 @@ ui <- dashboardPage(
                 width = 5,
                 collapsible = TRUE,
                 tabs = list(
-                  list(menu = "First Tab",
-                       content = "test"),
-                  list(menu = "First Tab",
+                  list(menu = "Description",
                        content = "test")
                 )
               )
@@ -204,7 +207,7 @@ ui <- dashboardPage(
             fluidRow(),
             fluidRow(
               box(
-                title = "Maps",
+                title = "Filters",
                 color = "blue",
                 width = 11,
                 selectInput(
@@ -212,23 +215,18 @@ ui <- dashboardPage(
                   choices = colnames(data)[3:19],
                   label = "Select first variable",
                   selected = "GDP"
-                ),
-                sliderInput(
-                  "slider",
-                  "Speed",
-                  min = 1,
-                  max = 80,
-                  value = 30,
-                  animate = animationOptions(
-                    interval = 30,
-                    loop = FALSE,
-                    playButton = "Play",
-                    pauseButton = "Stop"
-                  )
-                )
-              )
+                )),
+                tabBox(
+                  title = "Comments",
+                  color = "blue",
+                  width = 5,
+                  collapsible = TRUE,
+                  tabs = list(
+                    list(menu = "Description",
+                         content = "test")
 
-            ),
+
+            ))),
             fluidRow(box(
               width = 11,
               imageOutput("plot_map",  width = "100%", height = "80%") %>% withSpinner(
@@ -275,7 +273,7 @@ ui <- dashboardPage(
                   div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
 
                   div(
-                    style = "display: inline-block;vertical-align:top; width: 150px;",
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
                     selectInput(
                       inputId =  "variable8",
                       choices = colnames(data)[11:19],
@@ -287,7 +285,7 @@ ui <- dashboardPage(
                   div(style = "display: inline-block;vertical-align:top; width: 50px;", HTML("<br>")),
 
                   div(
-                    style = "display: inline-block;vertical-align:top; width: 150px;",
+                    style = "display: inline-block;vertical-align:top; width: 200px;",
 
                     selectInput(
                       inputId =  "variable9",
@@ -303,7 +301,7 @@ ui <- dashboardPage(
             tabBox(
               title = "Comments",
               color = "blue",
-              width = 5,
+              width = 16,
               collapsible = TRUE,
               tabs = list(
                 list(
@@ -338,7 +336,7 @@ ui <- dashboardPage(
                       inputId =  "variable10",
                       label = 'Select country',
                       multiple = TRUE,
-                      choices = as.character(unique(data_new$Country)),
+                      choices = as.character(unique(na.omit(data$Country))),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -359,7 +357,6 @@ ui <- dashboardPage(
                         inputId =  "variable11",
                         choices = colnames(data)[11:19],
                         label = "Select first variable",
-                        multiple = TRUE,
                         selected = "GDP"
                       ))
 
@@ -386,9 +383,11 @@ ui <- dashboardPage(
                 color = "blue",
                 width = 16,
                 plotlyOutput("plot_bubble") %>%
-                  withSpinner(type = 3 ,
-                              color.background = "#6d84ab",
-                              color = "#6d84ab")
+                  withSpinner(
+                    color = "#6d84ab",
+                    size = 1,
+                    proxy.height = "300px"
+                  )
               )),
               tabBox(
                 title = "Comments",
@@ -441,7 +440,72 @@ ui <- dashboardPage(
 
                 )
               )
-            ))
+            )),
+
+    tabItem(tabName = "about_us",
+
+
+            fluidRow(
+
+             tabBox(
+                title = "Ana Casian",
+                color = "blue",
+                ribbon = TRUE,
+                collapsible = TRUE,
+                title_side = "top left",
+                width = 10,
+
+                tabs = list(
+                  list(menu = "First Tab",
+                       content = imageOutput("us_photos1")),
+                  list(menu = "First Tab",
+                       content = "image")
+
+              )),
+              box(
+                title = "Claudio Previte",
+                color = "blue",
+                ribbon = TRUE,
+                title_side = "top left",
+                width = 10,
+
+                imageOutput("us_photos2"),
+                tags$video(id="video2", type = "video/mp4",src = "video.mp4", controls = "controls"),
+                style = "height:300px"
+              ),
+
+              box(
+                title = "Redwan Hassan",
+                color = "blue",
+                ribbon = TRUE,
+                title_side = "top left",
+                width = 12,
+                imageOutput("us_photos3"),
+                style = "height:300px"
+              ),
+
+              box(
+                title = "Pierre-Emmanuel Got",
+                color = "blue",
+                ribbon = TRUE,
+                title_side = "top left",
+                width = 12,
+                imageOutput("us_photos4"),
+                style = "height:300px"
+              ),
+
+              box(
+                title = "Jeremy Choppe",
+                color = "blue",
+                ribbon = TRUE,
+                title_side = "top left",
+                width = 12,
+                imageOutput("us_photos5"),
+                style = "height:350px"
+              )
+
+            )
+    )
 
 
   )
@@ -450,6 +514,16 @@ ui <- dashboardPage(
 
 server <- function(input, output) {
 
+  output$welcome_page<- renderImage({
+
+    list(
+      src = c("pollution.jpg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "70%",
+      align = "right"
+    )
+  },deleteFile = FALSE)
 
 
   output$data_table <-
@@ -504,26 +578,10 @@ server <- function(input, output) {
 
 
   output$plot_map <- renderImage({
-    # A temp file to save the output.
-    # This file will be removed later by renderImage
-    outfile2 <- tempfile(fileext = '.gif')
-
-    # now make the animation
-
-    gif = gif_function(
-                       var = input$variable5)
-
-    tmap::tmap_animation(
-      gif,
-      filename = 'outfile2.gif',
-      delay = 30,
-      width = 1000,
-      height = 800
-    )
 
     # Return a list containing the filename
     list(
-      src = "outfile2.gif",
+      src = paste0(input$variable5,"_tmap.gif"),
       contentType = 'image/gif',
       width = 500,
       height = 450,
@@ -551,7 +609,6 @@ server <- function(input, output) {
   output$plot_comparable1 <-
     renderLeaflet(
       comparison_function (
-
         yrs = input$variable6,
         eco_var  = input$variable8,
         pol_var = input$variable9
@@ -562,7 +619,6 @@ server <- function(input, output) {
   output$plot_comparable2 <-
     renderLeaflet(
       comparison_function (
-
         yrs = input$variable7,
         eco_var  = input$variable8,
         pol_var = input$variable9
@@ -574,7 +630,6 @@ server <- function(input, output) {
   output$plot_barchart1 <-
     renderPlotly(plot(
       barchart_function(
-
         eco_var = input$variable8,
         pol_var = input$variable9,
         yrs = input$variable6
@@ -584,7 +639,6 @@ server <- function(input, output) {
   output$plot_barchart2 <-
     renderPlotly(plot(
       barchart_function(
-
         eco_var = input$variable8,
         pol_var = input$variable9,
         yrs = input$variable7
@@ -596,7 +650,6 @@ server <- function(input, output) {
 
   output$plot_bubble <-
     renderPlotly((bubble_function(
-
             ctry = input$variable10,
       eco_var = input$variable11,
       pol_var = input$variable12)))
@@ -606,7 +659,6 @@ server <- function(input, output) {
   output$plot_forecast <-
     dygraphs::renderDygraph(
       forecast_function(
-
         geo = input$variable13,
         variable = input$variable14,
         fc_length = input$variable15
@@ -616,6 +668,58 @@ server <- function(input, output) {
 
   observeEvent(input$resetAll, {
     reset("form")})
+
+
+
+  output$us_photos1 <- renderImage({
+
+    list(
+      src = c("Ana.jpeg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "30%"
+    )
+  },deleteFile = FALSE)
+
+  output$us_photos2 <- renderImage({
+
+    list(
+      src = c("Claudio.jpg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "35%"
+    )
+  },deleteFile = FALSE)
+
+  output$us_photos3 <- renderImage({
+
+    list(
+      src = c("Redwan.png"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "27%"
+    )
+  },deleteFile = FALSE)
+
+  output$us_photos4 <- renderImage({
+
+    list(
+      src = c("Pierre.jpg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "30%"
+    )
+  },deleteFile = FALSE)
+
+  output$us_photos5 <- renderImage({
+
+    list(
+      src = c("Jeremy.jpeg"),
+      contentType = 'image/gif',
+      alt = "This is alternate text",
+      width = "25%"
+    )
+  },deleteFile = FALSE)
 
 
 }
