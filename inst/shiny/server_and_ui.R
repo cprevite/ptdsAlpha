@@ -200,7 +200,8 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Description",
-                       content = "test")
+                       content = "Ranking of countries by economic and pollution
+                       indicators")
                 )
               )
             ),
@@ -237,7 +238,8 @@ ui <- dashboardPage(
                   collapsible = TRUE,
                   tabs = list(
                     list(menu = "Description",
-                         content = "test")
+                         content = "Evolution of
+economic and pollution indicators over 40 years")
 
 
             ))),
@@ -410,7 +412,8 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "First Tab",
-                       content = "test")
+                       content = "Movement of countries across the indicators
+                       over the past 40 years.")
 
                 )
               )
@@ -450,7 +453,8 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "First Tab",
-                       content = "test")
+                       content = "Forecasts of each variable's future values
+                       with specific time series models")
 
                 )
               )
