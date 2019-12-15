@@ -72,10 +72,24 @@ ui <- dashboardPage(
             fluidRow(
 
                 imageOutput("welcome_page"),
-                'Blablabla', br(), '- Blablabla', br(),
-                '- blablabla', br(),
-                '- blablabla'
-
+                'The main goal of our project is to display economic', br(),
+                'and pollution indicators of European countries in', br(),
+                'the last four decades to check specific trends and ', br(),
+                'correlations. In this app, you can see:', br(), br(),
+                '- A continuous animation of the top 10 ranked', br(),
+                ' countries by economic and pollution indicators', br(), br(),
+                '- Animated GIFs showing the overall evolution of ', br(),
+                'economic and pollution indicators from  European ', br(),
+                'countries through a period of 40 years', br(), br(),
+                '- An interactive map of Europe in order to provide', br(),
+                ' a visual and informative comparison between the ', br(),
+                'pollution and economic indicator by year', br(), br(),
+                '- A bubble graph which shows the movement of', br(),
+                'countries across indicators in the past 40 years', br(), br(),
+                '- Various maps, graphs, barcharts and tables to get', br(),
+                'an effective view of the data, figures and trends', br(), br(),
+                '- Forecasts of each variable future values with', br(),
+                'specific time series models'
 
             )
     ),
