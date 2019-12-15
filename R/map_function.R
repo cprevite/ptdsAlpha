@@ -28,11 +28,10 @@ map_function <-
   #countries in a plot
   world <- ggplot2::map_data('world')
 
-  #world <- map_data("world")
-
+  #Left-joining 2 databases from which data were obtained.
   mapbig <- dplyr::left_join(data_map, world, by = c("Country" = "region"))
 
-  #Prepare and plot the map
+  #Prepare the outline of the map
   world_map <- ggplot2::ggplot() + ggplot2::theme(
     panel.background = ggplot2::element_rect(fill = "slategray1", color = NA),
     panel.grid = ggplot2::element_blank(),
@@ -43,11 +42,13 @@ map_function <-
     axis.title.y = ggplot2::element_blank()
   )
 
+  #Fixing the limits
   europe_map <-
     world_map + ggplot2::coord_fixed(xlim = c(-9, 42.5),
                             ylim = c(36, 70.1),
                             ratio = 1.5)
 
+  #Putting out the Europe map using all the variables above
   europeview <- europe_map +
     ggplot2::geom_polygon(
       data = mapbig,
