@@ -26,15 +26,12 @@ We then used the interactive web app creation platform [Shiny](https://shiny.rst
 You should install the *ptdsAlpha* package in your R console.
 You may aslo need to download the software [ImageMagick](https://imagemagick.org/script/download.php).
 
-## Get Started !
-
-To visualize better how to use our app, take a look at this short [video](https://www.youtube.com/) in which we will guide you step-by-step.
 
 ## Main references
 
 Here our some sources we used in order to create this project:  
 
-* [Eurostat](https://ec.europa.eu/eurostat/home)
+* [Euromonitor](https://www.euromonitor.com/sign-in)
 * M. Beckman, S. Guerrier, J. Lee, R. Molinari & S. Orso : An Introduction to Statistical Programming Methods with R
 * Wickham, Hadley. 2015. *R Packages*. O’Reilly.
 
