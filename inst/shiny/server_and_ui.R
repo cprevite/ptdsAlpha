@@ -536,7 +536,7 @@ server <- function(input, output) {
   output$data_table <-
 
     renderDataTable(
-      data %>%
+      get_data() %>%
         tidyr::gather(key = "Variable", value = "Value", c(3:19)),
       caption = htmltools::tags$caption(style = "caption-side: top; text-align: left;",
                                         "Note. ", htmltools::em("Please select the variables of interest")),
