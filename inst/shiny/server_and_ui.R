@@ -601,7 +601,7 @@ server <- function(input, output) {
       height = 450,
       alt = "This is alternate text"
     )
-  })
+  },deleteFile = FALSE)
 
 
   output$slider <- renderUI({
