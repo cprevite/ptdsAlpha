@@ -465,41 +465,33 @@ economic and pollution indicators over 40 years")
 
             fluidRow(
 
-             tabBox(
+             box(
                 title = "Ana Casian",
                 color = "blue",
                 ribbon = TRUE,
                 collapsible = TRUE,
                 title_side = "top left",
                 width = 10,
-
-                tabs = list(
-                  list(menu = "First Tab",
-                       content = imageOutput("us_photos1")),
-                  list(menu = "First Tab",
-                       content = "image")
-
-              )),
+                imageOutput("us_photos1"),
+                style = "height:400px"),
               box(
                 title = "Claudio Previte",
                 color = "blue",
                 ribbon = TRUE,
                 title_side = "top left",
                 width = 10,
-
                 imageOutput("us_photos2"),
-                tags$video(id="video2", type = "video/mp4",src = "video.mp4", controls = "controls"),
-                style = "height:300px"
+                style = "height:400px"
               ),
 
               box(
-                title = "Redwan Hassan",
+                title = "Redwan Hasan",
                 color = "blue",
                 ribbon = TRUE,
                 title_side = "top left",
-                width = 12,
+                width = 10,
                 imageOutput("us_photos3"),
-                style = "height:300px"
+                style = "height:400px"
               ),
 
               box(
@@ -507,9 +499,9 @@ economic and pollution indicators over 40 years")
                 color = "blue",
                 ribbon = TRUE,
                 title_side = "top left",
-                width = 12,
+                width = 10,
                 imageOutput("us_photos4"),
-                style = "height:300px"
+                style = "height:400px"
               ),
 
               box(
@@ -517,9 +509,9 @@ economic and pollution indicators over 40 years")
                 color = "blue",
                 ribbon = TRUE,
                 title_side = "top left",
-                width = 12,
+                width = 10,
                 imageOutput("us_photos5"),
-                style = "height:350px"
+                style = "height:400px"
               )
 
             )
@@ -695,7 +687,7 @@ server <- function(input, output) {
       src = c("Ana.jpeg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "30%"
+      width = "35%"
     )
   },deleteFile = FALSE)
 
@@ -705,7 +697,7 @@ server <- function(input, output) {
       src = c("Claudio.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "35%"
+      width = "40%"
     )
   },deleteFile = FALSE)
 
@@ -715,7 +707,7 @@ server <- function(input, output) {
       src = c("Redwan.png"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "27%"
+      width = "35%"
     )
   },deleteFile = FALSE)
 
@@ -725,7 +717,7 @@ server <- function(input, output) {
       src = c("Pierre.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "30%"
+      width = "40%"
     )
   },deleteFile = FALSE)
 
