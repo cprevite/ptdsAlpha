@@ -732,7 +732,7 @@ server <- function(input, output) {
 
   output$us_photos4 <- renderImage({
     list(
-      src = c("wwww/Redwan.png"),
+      src = c("www/Redwan.png"),
       contentType = 'image/gif',
       alt = "This is alternate text",
       width = "35%"
