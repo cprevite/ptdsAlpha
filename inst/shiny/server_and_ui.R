@@ -103,7 +103,17 @@ ui <- dashboardPage(
                 title_side = "top left",
                 width = 14,
                 tags$div(
-                  dataTableOutput("data_table"))))),
+                  dataTableOutput("data_table"))),
+              tabBox(
+                title = "Comments",
+                color = "blue",
+                width = 14,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "Description",
+                       content = "Ranking of countries by economic and pollution
+                       indicators")
+                )))),
 
 
     tabItem(tabName = "ranktable_tab",
@@ -189,7 +199,7 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable4",
                   choices = colnames(get_data())[3:9],
-                  label = "Select first variable",
+                  label = "Select variable",
                   selected = "CO2 Emissions"
                 )
               ),
@@ -201,7 +211,7 @@ ui <- dashboardPage(
                 tabs = list(
                   list(menu = "Description",
                        content = "Ranking of countries by economic and pollution
-                       indicators")
+                       indicators.")
                 )
               )
             ),
@@ -219,7 +229,6 @@ ui <- dashboardPage(
 
 
     tabItem(tabName = "maps_tab",
-            fluidRow(),
             fluidRow(
               box(
                 title = "Filters",
@@ -228,7 +237,7 @@ ui <- dashboardPage(
                 selectInput(
                   inputId =  "variable5",
                   choices = colnames(get_data())[3:19],
-                  label = "Select first variable",
+                  label = "Select variable",
                   selected = "GDP"
                 )),
                 tabBox(
@@ -239,11 +248,13 @@ ui <- dashboardPage(
                   tabs = list(
                     list(menu = "Description",
                          content = "Evolution of
-economic and pollution indicators over 40 years")
+economic and pollution indicators over 40 years.")
 
 
             ))),
             fluidRow(box(
+              title = "Interactive maps",
+              color = "blue",
               width = 11,
               imageOutput("plot_map",  width = "100%", height = "80%") %>% withSpinner(
                 color = "#6d84ab",
@@ -257,7 +268,6 @@ economic and pollution indicators over 40 years")
 
 
     tabItem(tabName = "comparable_tab",
-            fluidRow("Comparable graph"),
             fluidRow(
               box(
                 title = "Filters",
@@ -370,7 +380,7 @@ economic and pollution indicators over 40 years")
                     selectInput(
                         inputId =  "variable11",
                         choices = colnames(get_data())[11:19],
-                        label = "Select first variable",
+                        label = "Select economic variable",
                         selected = "GDP"
                       ))
 
@@ -384,7 +394,7 @@ economic and pollution indicators over 40 years")
                  selectInput(
                    inputId =  "variable12",
                    choices =  colnames(get_data())[3:10],
-                   label = "Select second variable",
+                   label = "Select pollution variable",
                    selected = "CO2 Emissions"
                  )
                ))
@@ -393,7 +403,7 @@ economic and pollution indicators over 40 years")
 
             fluidRow(
               box(
-                title = "Plot line",
+                title = "Bubble chart",
                 color = "blue",
                 width = 16,
                 plotlyOutput("plot_bubble") %>%
@@ -417,7 +427,6 @@ economic and pollution indicators over 40 years")
               )
             ),
     tabItem(tabName = "forecast_tab",
-            fluidRow("Forecasting"),
             fluidRow(
               box(
                 title = "Forecasting",
@@ -447,7 +456,7 @@ economic and pollution indicators over 40 years")
               tabBox(
                 title = "Comments",
                 color = "blue",
-                width = 5,
+                width = 16,
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Info",
