@@ -1,3 +1,9 @@
+#' @title Generating the data for the ptdsAlpha package
+#' @description Function that load the data
+#' @return 'data'
+#' @author Team Alpha
+#' @examples
+#' generate_data()
 #' @export
 generate_data <- function() {
 

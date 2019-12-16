@@ -1,14 +1,14 @@
 
 #' @title Bubble graph
-#' @description Data visualisation of two variables of the users choice
-#' in a two dimensional plot.
-#' A third dimension is represented by the size of the bubble
-#' @param x_var First variables to select
-#' @param y_var Second variables to select
+#' @description Data visualisation of one economic variable agianst one pollution variable of the users choice
+#' in a two dimensional plot, for the selected countries.
+#' @param ctry a \code{list} of countries to select
+#' @param eco_var Economic variable to select
+#' @param pol_var Pollution variable to select
 #' @return A \code{plot} representing two variables in a bubble chart
-#' @author Ana-Maria Casian
+#' @author Team Alpha
 #' @examples
-#' bubble_function ('gdp','productivity')
+#' bubble_function ('Switzerland','GDP','Productivity')
 #' @import plotly tidyr
 #' @export
 bubble_function <-
