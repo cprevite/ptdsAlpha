@@ -27,6 +27,9 @@ We then used the interactive web app creation platform [Shiny](https://shiny.rst
 You should install the *ptdsAlpha* package in your R console.
 You may also need to download the software [ImageMagick](https://imagemagick.org/script/download.php). 
 
+### Let's get started !
+
+Take a look at this [video](https://www.youtube.com/watch?v=uEFZz1qXLwo&feature=youtu.be) to be guided step-by-step in our app.
 
 ## Main references
 
