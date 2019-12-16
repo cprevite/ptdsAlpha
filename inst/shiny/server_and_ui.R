@@ -704,7 +704,7 @@ server <- function(input, output) {
 
   output$us_photos1<- renderImage({
     list(
-      src = c("Pierre.jpg"),
+      src = c("www/Pierre.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
       width = "40%"
@@ -714,7 +714,7 @@ server <- function(input, output) {
   output$us_photos2 <- renderImage({
     list(
       src = c("Claudio.jpg"),
-      contentType = 'image/gif',
+      contentType = 'www/image/gif',
       alt = "This is alternate text",
       width = "40%"
     )
@@ -723,7 +723,7 @@ server <- function(input, output) {
   output$us_photos3 <- renderImage({
     list(
       src = c("Ana.jpeg"),
-      contentType = 'image/gif',
+      contentType = 'www/image/gif',
       alt = "This is alternate text",
       width = "35%"
     )
@@ -733,7 +733,7 @@ server <- function(input, output) {
   output$us_photos4 <- renderImage({
     list(
       src = c("Redwan.png"),
-      contentType = 'image/gif',
+      contentType = 'wwww/image/gif',
       alt = "This is alternate text",
       width = "35%"
     )
@@ -743,7 +743,7 @@ server <- function(input, output) {
   output$us_photos5 <- renderImage({
     list(
       src = c("Jeremy.jpeg"),
-      contentType = 'image/gif',
+      contentType = 'www/image/gif',
       alt = "This is alternate text",
       width = "30%"
     )
