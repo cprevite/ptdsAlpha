@@ -8,7 +8,7 @@
 #' @return A \code{list} containing the time series created, the time series of
 #' the forecast and the dygraph \code{plot}
 #' @import dplyr tidyr
-#' @export#'
+#' @export
 #' @examples
 #' #store the function results in a variable
 #' my_fc <- forecast_function('France', 'GDP', 10)

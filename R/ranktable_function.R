@@ -29,7 +29,7 @@ ranktable_function <-
     # create rank variable and total rank
     dataRanktable <- dataGather %>%
       dplyr::group_by(Year, Variable) %>%
-      dplyr::mutate(Rank = rank(-round(Value), na.last = 'keep'),
+      dplyr::mutate(Value = round(Value,2),Rank = rank(-round(Value), na.last = 'keep'),
                     Total = round(max(Rank, na.rm = T))) %>%
       dplyr::group_by(Country) %>%
       dplyr::filter(Country %in% ctry &
