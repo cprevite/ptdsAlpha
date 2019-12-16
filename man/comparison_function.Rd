@@ -5,8 +5,12 @@
 \title{Interactive map of the European region showing the change between
 Economic and Pollution variables over time}
 \usage{
-comparison_function(dataset = data, yrs = 2000,
-  pol_var = "CO2 Emissions from Transport", eco_var = "GDP")
+comparison_function(
+  dataset = data,
+  yrs = 2000,
+  pol_var = "CO2 Emissions from Transport",
+  eco_var = "GDP"
+)
 }
 \arguments{
 \item{yrs}{A \code{list} of years to select}
