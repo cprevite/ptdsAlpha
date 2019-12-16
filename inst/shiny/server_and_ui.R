@@ -100,7 +100,7 @@ ui <- dashboardPage(
               column(
                 8,
                 imageOutput("welcome_page", width = "100%", height = "200px")
-              ),
+              )
 
 
             )
