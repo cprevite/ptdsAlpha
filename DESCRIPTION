@@ -10,4 +10,27 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
-Imports: 
+Imports:  shiny,
+          shiny.semantic,
+          semantic.dashboard,
+          plotly,
+          DT,
+          ptdsAlpha,
+          shinyWidgets,
+          shinycssloaders,
+          leaflet,
+          shinyjs,
+          dplyr,
+          tidyr,
+          forecast,
+          dygraphs,
+          tmap,
+          spData,
+          plotly,
+          ggplot2,
+          gganimate,
+          readxl
+          
+ 
+ 
+
