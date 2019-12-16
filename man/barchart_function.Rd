@@ -5,12 +5,8 @@
 \title{Barchart of the Economic and Pollution variable for the European
 countries in a certain year}
 \usage{
-barchart_function(
-  dataset = data,
-  pol_var = "CO2 Emissions",
-  eco_var = "Productivity in Primary Sector",
-  yrs = 2000
-)
+barchart_function(dataset = data, pol_var = "CO2 Emissions",
+  eco_var = "Productivity in Primary Sector", yrs = 2000)
 }
 \arguments{
 \item{pol_var}{A \code{list} of Pollution variables to select}

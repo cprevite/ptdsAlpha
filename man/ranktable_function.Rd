@@ -4,12 +4,8 @@
 \alias{ranktable_function}
 \title{RankTable by Years, Countries and Variables}
 \usage{
-ranktable_function(
-  dataset = data,
-  yrs = c("1990", "2000"),
-  ctry = c("France", "Switzerland"),
-  var = c("CO2 Emissions", "GDP")
-)
+ranktable_function(dataset = data, yrs = c("1990", "2000"),
+  ctry = c("France", "Switzerland"), var = c("CO2 Emissions", "GDP"))
 }
 \arguments{
 \item{yrs}{A \code{list} of Years to select}
