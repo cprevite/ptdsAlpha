@@ -4,8 +4,12 @@
 \alias{bubble_function}
 \title{Bubble graph}
 \usage{
-bubble_function(dataset = data, ctry = "Switzerland",
-  eco_var = "GDP", pol_var = "CO2 Emissions")
+bubble_function(
+  dataset = data,
+  ctry = "Switzerland",
+  eco_var = "GDP",
+  pol_var = "CO2 Emissions"
+)
 }
 \arguments{
 \item{ctry}{a \code{list} of countries to select}
