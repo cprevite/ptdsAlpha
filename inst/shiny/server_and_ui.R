@@ -70,8 +70,7 @@ ui <- dashboardPage(
     tabItem(tabName = "welcome",
 
             fluidRow(
-              imageOutput("welcome_page", width = "100%", height = "200px"),
-              column(4,
+              column(7,
                      tabBox(
                 title = "Project description",
                 color = "blue",
@@ -79,25 +78,29 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Description",
-                       content = " The main goal of our project is to display economic and
-                       \npollution indicators of European
-                       \ncountries in the last four decades to check
-                       \nspecific trends and correlations.
-                \nIn this app, you can see:
-                \nA continuous animation of the top 10 ranked,
+                       content = HTML(" The main goal of our project is to display economic and
+                       pollution indicators of European
+                       countries in the last four decades to check
+                       specific trends and correlations.
+                <br /><br />In this app, you can see:
+                <br /><br />- A continuous animation of the top 10 ranked,
                  countries by economic and pollution indicators,
-                - Animated GIFs showing the overall evolution of
+                <br /><br />- Animated GIFs showing the overall evolution of
                 economic and pollution indicators from  European
                 countries through a period of 40 years
-                - An interactive map of Europe in order to provide
+                <br /><br />- An interactive map of Europe in order to provide
                  a visual and informative comparison between the
                 pollution and economic indicator by year
-                - A bubble graph which shows the movement of
+                <br /><br />- A bubble graph which shows the movement of
                 countries across indicators in the past 40 years
-                - Various maps, graphs, barcharts and tables
+                <br /><br />- Various maps, graphs, barcharts and tables
                 to get an effective view of the data and trends
-                - Forecasts of each variable future values with,
-                specific time series models"))))
+                <br /><br />- Forecasts of each variable future values with,
+                specific time series models"))))),
+              column(
+                8,
+                imageOutput("welcome_page", width = "100%", height = "200px")
+              ),
 
 
             )
@@ -120,8 +123,10 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Description",
-                       content = "Ranking of countries by economic and pollution
-                       indicators")
+                       content = "Units:\n\n
+                       - GDP: USD million\n
+                       - Productivity: USD per person employed\n
+                       - Greenhouse Gas and CO2 Emissions: 000 tonnes")
                 )))),
 
 
@@ -374,6 +379,7 @@ economic and pollution indicators over 40 years.")
                       label = 'Select country',
                       multiple = TRUE,
                       choices = as.character(unique(na.omit(get_data())$Country)),
+                      selected = as.character(unique(na.omit(get_data())$Country)),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -542,7 +548,7 @@ server <- function(input, output) {
   output$welcome_page<- renderImage({
 
     list(
-      src = c("pollution.jpg"),
+      src = c("www/pollution.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
       width = "70%",
