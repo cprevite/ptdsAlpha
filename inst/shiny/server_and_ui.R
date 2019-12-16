@@ -78,25 +78,35 @@ ui <- dashboardPage(
                        collapsible = TRUE,
                        tabs = list(
                          list(menu = "Description",
-                              content = HTML(" The main goal of our project is to display economic and
-                       pollution indicators of European
-                       countries in the last four decades to check
-                       specific trends and correlations.
-                <br /><br />In this app, you can see:
-                <br /><br />- A continuous animation of the top 10 ranked,
-                 countries by economic and pollution indicators,
-                <br /><br />- Animated GIFs showing the overall evolution of
-                economic and pollution indicators from  European
-                countries through a period of 40 years
-                <br /><br />- An interactive map of Europe in order to provide
-                 a visual and informative comparison between the
-                pollution and economic indicator by year
-                <br /><br />- A bubble graph which shows the movement of
-                countries across indicators in the past 40 years
-                <br /><br />- Various maps, graphs, barcharts and tables
-                to get an effective view of the data and trends
-                <br /><br />- Forecasts of each variable future values with,
-                specific time series models"))))),
+                              content = HTML("Welcome to the ptdsAlpha application!
+ Originally motivated by the desire to have a simple and accessible tool to
+ analyze socio-economic and pollution data of european countries across the last
+ three decades, we developped ptdsAlpha!
+ <br /><br />
+ This ShinyApp is a dashboard application that helps you explore, understand,
+ analyze and visualize the chronological evolution of a variety of socio economic
+ and pollution variables of more than 35 European countries.
+ <br />
+ Wether you want to focus on the comparison of a variable for a set time or visualize its
+ evolution through time, the choice is yours. Moreover, if you want to have an insight on what
+ would the future looks like, try and use our forecasting tool!
+ <br />
+ If you want to know more about each of the different tabs, read what follows.
+ <br /><br />In this app, you can see:
+ <br /><br />- A continuous animation of the top 10 ranked,
+ countries by economic and pollution indicators,
+ <br /><br />- Animated GIFs showing the overall evolution of
+ economic and pollution indicators from  European
+ countries through a period of 40 years
+ <br /><br />- An interactive map of Europe in order to provide
+ a visual and informative comparison between the
+ pollution and economic indicator by year
+ <br /><br />- A bubble graph which shows the movement of
+ countries across indicators in the past 40 years
+ <br /><br />- Various maps, graphs, barcharts and tables
+ to get an effective view of the data and trends
+ <br /><br />- Forecasts of each variable future values with,
+ specific time series models"))))),
               column(
                 8,
                 imageOutput("welcome_page", width = "250%", height = "1200px")
