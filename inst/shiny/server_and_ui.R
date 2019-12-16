@@ -611,7 +611,7 @@ server <- function(input, output) {
 
     # Return a list containing the filename
     list(
-      src = paste0(input$variable5,"_tmap.gif"),
+      src = paste0("www/",input$variable5,"_tmap.gif"),
       contentType = 'image/gif',
       width = 500,
       height = 450,
