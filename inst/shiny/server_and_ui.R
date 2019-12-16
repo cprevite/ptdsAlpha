@@ -37,13 +37,13 @@ ui <- dashboardPage(
                      ),
                      menuItem(
                        tabName = "maps_tab",
-                       text = "Interactive graphs",
+                       text = "Time map",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
 
                      menuItem(
                        tabName = "comparable_tab",
-                       text = "Comparable maps",
+                       text = "Comparative maps",
                        icon = icon("bookmark", lib = "glyphicon")
                      ),
                      menuItem(
@@ -222,7 +222,7 @@ ui <- dashboardPage(
                 width = 11,
                 selectInput(
                   inputId =  "variable4",
-                  choices = colnames(get_data())[3:9],
+                  choices = colnames(get_data())[3:19],
                   label = "Select variable",
                   selected = "CO2 Emissions"
                 )
@@ -598,23 +598,15 @@ server <- function(input, output) {
 
   output$plot_top_10 <-
     renderImage({
-      # A temp file to save the output.
-      # This file will be removed later by renderImage
-      outfile <- tempfile(fileext = '.gif')
-
-      # now make the animation
-      gganimate::anim_save("outfile.gif",
-                           animated_top10(var = input$variable4))
-
       # Return a list containing the filename
       list(
-        src = "outfile.gif",
+        src = paste0("www/",input$variable4,"_t10.gif"),
         contentType = 'image/gif',
         width = 500,
         height = 450,
         alt = "This is alternate text"
       )
-    })
+    },deleteFile = FALSE)
 
 
   output$plot_map <- renderImage({
