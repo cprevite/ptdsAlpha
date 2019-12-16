@@ -70,26 +70,35 @@ ui <- dashboardPage(
     tabItem(tabName = "welcome",
 
             fluidRow(
-                imageOutput("welcome_page"),
-                'The main goal of our project is to display', br(),
-                'economic and pollution indicators of European ', br(),
-                'countries in the last four decades to check  ', br(),
-                'specific trends and correlations.', br(), br(),
-                'In this app, you can see:', br(), br(),
-                ' A continuous animation of the top 10 ranked', br(),
-                ' countries by economic and pollution indicators', br(), br(),
-                '- Animated GIFs showing the overall evolution of ', br(),
-                'economic and pollution indicators from  European ', br(),
-                'countries through a period of 40 years', br(), br(),
-                '- An interactive map of Europe in order to provide', br(),
-                ' a visual and informative comparison between the ', br(),
-                'pollution and economic indicator by year', br(), br(),
-                '- A bubble graph which shows the movement of', br(),
-                'countries across indicators in the past 40 years', br(), br(),
-                '- Various maps, graphs, barcharts and tables ', br(),
-                'to get an effective view of the data and trends', br(), br(),
-                '- Forecasts of each variable future values with', br(),
-                'specific time series models'
+              imageOutput("welcome_page", width = "100%", height = "200px"),
+              column(4,
+                     tabBox(
+                title = "Project description",
+                color = "blue",
+                width = 3,
+                collapsible = TRUE,
+                tabs = list(
+                  list(menu = "Description",
+                       content = " The main goal of our project is to display economic and
+                       \npollution indicators of European
+                       \ncountries in the last four decades to check
+                       \nspecific trends and correlations.
+                \nIn this app, you can see:
+                \nA continuous animation of the top 10 ranked,
+                 countries by economic and pollution indicators,
+                - Animated GIFs showing the overall evolution of
+                economic and pollution indicators from  European
+                countries through a period of 40 years
+                - An interactive map of Europe in order to provide
+                 a visual and informative comparison between the
+                pollution and economic indicator by year
+                - A bubble graph which shows the movement of
+                countries across indicators in the past 40 years
+                - Various maps, graphs, barcharts and tables
+                to get an effective view of the data and trends
+                - Forecasts of each variable future values with,
+                specific time series models"))))
+
 
             )
     ),
