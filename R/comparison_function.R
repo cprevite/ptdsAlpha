@@ -1,11 +1,17 @@
-#' @title Interactive map of the European region showing the change betweem Economic and Pollution variables over time
-#' @description Produces an interactive map of the European Union region over four different years to show the interaction
+#' @title Interactive map of the European region showing the change between
+#' Economic and Pollution variables over time
+#' @description Produces two interactive maps of the European region over
+#' two different years to show the interaction
 #' and change between the Economic and Pollution variables
 #' @param yrs A \code{list} of years to select
 #' @param pol_var A \code{list} of Pollution variables to select
 #' @param eco_var A \code{list} of Economic variables to select
-#' @return A \code{plot} containing four interactive maps of Europe based on the variables chosen
-#' @author Redwan Hasan
+#' @return  \code{Plots} containing interactive maps of Europe based
+#' on the variables chosen
+#' @author Team Alpha
+#' @examples
+#' comparison_function(yrs = 2000,
+#' pol_var = "CO2 Emissions from Transport", eco_var = "GDP")
 #' @import dplyr
 #' @export
 

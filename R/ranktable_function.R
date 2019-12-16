@@ -6,12 +6,12 @@
 #' @param var A \code{list} of Variables to select
 #' @return A \code{table} containing the desired information and the rank for
 #' each countries
-#' @author Claudio Previte
+#' @author Team Alpha
 #' @examples
 #' ranktable_function(
 #'          yrs = c('2001', '1992'),
 #'          ctry = c('Albania', 'Andorra'),
-#'          var  = c('GDP', 'Productivity'))
+#'          var  = c('GDP'))
 #' @import dplyr
 #' @export
 ranktable_function <-

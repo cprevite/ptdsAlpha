@@ -4,9 +4,9 @@
 #' @param var A \code{list} of any variable to select from the dataset
 #' @return An \code{animation} containing the map of Europe based on the
 #' variable chosen
-#' @author Jeremy Choppe
+#' @author Team Alpha
 #' @examples
-#' gif_function(data,'Greenhouse_Gas_Emissions')
+#' gif_function('Greenhouse_Gas_Emissions')
 #' @import dplyr
 #' @export
 

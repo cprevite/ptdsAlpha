@@ -1,11 +1,16 @@
-#' @title Barchart of the Economic and Pollution variable for the European countries in a certain year
-#' @description Produces a barchart with the chosen Economic and Pollution variable in order to view the standing of the
+#' @title Barchart of the Economic and Pollution variable for the European
+#' countries in a certain year
+#' @description Produces a barchart with the chosen Economic and Pollution
+#' variable in order to view the standing of the
 #' European countries in a chosen year.
 #' @param pol_var A \code{list} of Pollution variables to select
 #' @param eco_var A \code{list} of Economic variables to select
 #' @param yrs A \code{list} of all the years to be chosen
 #' @return A \code{plot} containing a barchart
-#' @author Redwan Hasan
+#' @author Team Alpha
+#' @examples
+#' barchart_function(pol_var = "CO2 Emissions",
+#' eco_var = "Productivity in Primary Sector", yrs = 2000)
 #' @import dplyr
 #' @export
 barchart_function <- function(dataset = data,
@@ -13,7 +18,8 @@ barchart_function <- function(dataset = data,
                               eco_var = 'Productivity in Primary Sector',
                               yrs = 2000) {
 
-  #Here I call the database 'world' from the library spData to be used later for mapping countries
+  #Here I call the database 'world' from the library spData to be used
+  #later for mapping countries
   world=spData::world
 
   #Extracting and filtering data in order to map it
@@ -26,14 +32,16 @@ barchart_function <- function(dataset = data,
     gsub(pattern = 'Macedonia', replacement = 'North Macedonia')
 
   #Left-joining two databases in order to extract the relevant column
-  world_eu <- dplyr::left_join(world_eu[,c(1, 2)], data, by = c("name_long" = "Country"))
+  world_eu <-
+    dplyr::left_join(world_eu[, c(1, 2)], data, by = c("name_long" = "Country"))
 
   #Filtering out the years selected and the pollution and economic variables
   eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
     dplyr::select(iso_a2, Year, pol_var, eco_var)
 
-  #Making the geom column as null else it creates problem with the barchart. Hence disabled it.
+  #Making the geom column as null else it creates problem with the barchart.
+  #Hence disabled it.
   eu_graph$geom <- NULL
 
   #Resolve parsing errors by changing whitespaces into underscores
@@ -46,7 +54,8 @@ barchart_function <- function(dataset = data,
   colnames(eu_graph)[which(colnames(eu_graph) == pol_var)] <- tmp_pol
   colnames(eu_graph)[which(colnames(eu_graph) == eco_var)] <- tmp_eco
 
-  #Developing the barchart based on the variables and observations selected above.
+  #Developing the barchart based on the variables and
+  #observations selected above.
   bargraphs <-
     ggplot2::ggplot(eu_graph) +
     ggplot2::geom_bar(ggplot2::aes_string(x = "iso_a2",

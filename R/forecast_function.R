@@ -2,24 +2,19 @@
 #' @description Given data, a country, a variable and a forecasting length,
 #' produces a time series and a forecast of the variable over time, and an
 #' interactive plot of the forecast
-#' @param dataset a preprocessed dataset from which information is extracted
 #' @param geo a country that is contained in the dataset
 #' @param variable a variable that is contained in the dataset
 #' @param fc_length a integer representing the number of years of the forecast
-#'
 #' @return A \code{list} containing the time series created, the time series of
 #' the forecast and the dygraph \code{plot}
 #' @import dplyr tidyr
-#' @export
-#'
+#' @export#'
 #' @examples
 #' #store the function results in a variable
-#' my_fc <- forecast_function(data, 'France', 'GDP', 10)
+#' my_fc <- forecast_function('France', 'GDP', 10)
 #' #plot the interactive dygraph plot
 #' my_fc$plot
-#'
-#'
-#' @author Pierre-Emmanuel Got
+#' @author Team Alpha
 #'
 forecast_function <-
   function(dataset = data,
