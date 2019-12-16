@@ -1,10 +1,11 @@
 #' @title Pollution & Economic Overview of European countries
-#' @description Produces a colorful graphical output of the European map in regards to the chosen Economic or Pollution variables
+#' @description Produces a colorful graphical output of the European map in
+#' regards to the chosen Economic or Pollution variables
 #' in a given year
 #' @param yrs A \code{list} of years to select
 #' @param col_val A \code{list} of Economic and Pollution variables to select
 #' @return A \code{plot} containing the map of Europe based on the variable chosen
-#' @author Redwan Hasan
+#' @author Team Alpha
 #' @examples
 #' map_function(2008,'Productivity')
 #' map_function(1982, 'Greenhouse_Gas_Emissions')

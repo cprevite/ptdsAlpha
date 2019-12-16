@@ -1,17 +1,16 @@
 #' @title Animated Top10 Countries per Variables
 #' @description Compute an animated ranking with the 10 top European countries
 #' per year in regards to a chosen economic or pollution variable
-#' @param var A \code{list} of variables to select
+#' @param var A variable to select
 #' @return A \code{plot} containing an animated ranking
-#' @author Claudio Previte
+#' @author Team Alpha
 #' @examples
 #' animated_top10('Productivity')
 #' @import dplyr
 #' @export
 animated_top10 <- function(dataset = data, var = 'Productivity') {
-
   # transform data to long format
-  dataGather <- gather(data, key="Variable", value="Value", c(3:19))
+  dataGather <- gather(data, key = "Variable", value = "Value", c(3:19))
 
   # filter variable
   dataAnimated_top10 <- dataGather %>%
@@ -46,8 +45,15 @@ animated_top10 <- function(dataset = data, var = 'Productivity') {
       height = Value,
       width = 0.9
     ), color = NA) +
-    ggplot2::geom_text(ggplot2::aes(y = 0, label = paste(Country, " ")), vjust = 0.2, hjust = 1) +
-    ggplot2::geom_text(ggplot2::aes(y = Value, label = Value_lbl, hjust = -0.2, vjust = 0)) +
+    ggplot2::geom_text(ggplot2::aes(y = 0, label = paste(Country, " ")),
+                       vjust = 0.2,
+                       hjust = 1) +
+    ggplot2::geom_text(ggplot2::aes(
+      y = Value,
+      label = Value_lbl,
+      hjust = -0.2,
+      vjust = 0
+    )) +
     ggplot2::coord_flip(clip = "off", expand = FALSE) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::scale_x_reverse() +
@@ -92,8 +98,8 @@ animated_top10 <- function(dataset = data, var = 'Productivity') {
   # animate the the staticplot
   anim <- staticplot +
     gganimate::transition_states(Year,
-                      transition_length = 30,
-                      state_length = 30) +
+                                 transition_length = 30,
+                                 state_length = 30) +
     gganimate::view_follow(fixed_x = TRUE)  +
     ggplot2::labs(
       title = paste(var, sep = '\n'),
