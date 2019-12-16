@@ -10,7 +10,7 @@
 #' @export
 animated_top10 <- function(dataset = data, var = 'Productivity') {
   # transform data to long format
-  dataGather <- gather(data, key = "Variable", value = "Value", c(3:19))
+  dataGather <- tidyr::gather(data, key = "Variable", value = "Value", c(3:19))
 
   # filter variable
   dataAnimated_top10 <- dataGather %>%

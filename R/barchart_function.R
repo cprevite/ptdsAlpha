@@ -38,7 +38,7 @@ barchart_function <- function(dataset = data,
   #Filtering out the years selected and the pollution and economic variables
   eu_graph <- world_eu %>%
     filter(Year %in% yrs) %>%
-    dplyr::select(iso_a2, Year, pol_var, eco_var)
+    dplyr::select(iso_a2,name_long, Year, pol_var, eco_var)
 
   #Making the geom column as null else it creates problem with the barchart.
   #Hence disabled it.
@@ -58,7 +58,7 @@ barchart_function <- function(dataset = data,
   #observations selected above.
   bargraphs <-
     ggplot2::ggplot(eu_graph) +
-    ggplot2::geom_bar(ggplot2::aes_string(x = "iso_a2",
+    ggplot2::geom_bar(ggplot2::aes_string(x = "name_long",
                                           weight = tmp_pol,
                                           fill = tmp_eco)) +
     theme_bw() +

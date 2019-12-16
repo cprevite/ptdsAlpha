@@ -18,7 +18,7 @@ country_function <-
            var = 'GDP') {
 
     #transform data to long format
-    dataGather <- gather(data, key = "Variable", value = "Value", c(3:19))
+    dataGather <- tidyr::gather(data, key = "Variable", value = "Value", c(3:19))
 
     # filter variables
     dataCountry_function <- dataGather %>%
