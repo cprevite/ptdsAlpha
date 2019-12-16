@@ -70,15 +70,15 @@ ui <- dashboardPage(
     tabItem(tabName = "welcome",
 
             fluidRow(
-              column(7,
+              column(8,
                      tabBox(
-                title = "Project description",
-                color = "blue",
-                width = 3,
-                collapsible = TRUE,
-                tabs = list(
-                  list(menu = "Description",
-                       content = HTML(" The main goal of our project is to display economic and
+                       title = "Project description",
+                       color = "blue",
+                       width = 4,
+                       collapsible = TRUE,
+                       tabs = list(
+                         list(menu = "Description",
+                              content = HTML(" The main goal of our project is to display economic and
                        pollution indicators of European
                        countries in the last four decades to check
                        specific trends and correlations.
@@ -99,7 +99,7 @@ ui <- dashboardPage(
                 specific time series models"))))),
               column(
                 8,
-                imageOutput("welcome_page", width = "100%", height = "200px")
+                imageOutput("welcome_page", width = "250%", height = "1200px")
               )
 
 
@@ -551,8 +551,8 @@ server <- function(input, output) {
       src = c("www/pollution.jpg"),
       contentType = 'image/gif',
       alt = "This is alternate text",
-      width = "70%",
-      align = "right"
+      width = "60%"
+
     )
   },deleteFile = FALSE)
 
