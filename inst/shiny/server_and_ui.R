@@ -123,10 +123,10 @@ ui <- dashboardPage(
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Description",
-                       content = "Units:\n\n
-                       - GDP: USD million\n
-                       - Productivity: USD per person employed\n
-                       - Greenhouse Gas and CO2 Emissions: 000 tonnes")
+                       content = HTML("Units:<br />
+                       - GDP: USD million<br />
+                       - Productivity: USD per person employed<br />
+                       - Greenhouse Gas and CO2 Emissions: 000 tonnes"))
                 )))),
 
 
