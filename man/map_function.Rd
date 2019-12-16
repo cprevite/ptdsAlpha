@@ -15,7 +15,8 @@ map_function(dataset = data, yrs = "2000", col_val = "GDP")
 A \code{plot} containing the map of Europe based on the variable chosen
 }
 \description{
-Produces a colorful graphical output of the European map in regards to the chosen Economic or Pollution variables
+Produces a colorful graphical output of the European map in
+regards to the chosen Economic or Pollution variables
 in a given year
 }
 \examples{
@@ -23,5 +24,5 @@ map_function(2008,'Productivity')
 map_function(1982, 'Greenhouse_Gas_Emissions')
 }
 \author{
-Redwan Hasan
+Team Alpha
 }

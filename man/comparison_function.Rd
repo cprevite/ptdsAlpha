@@ -2,7 +2,8 @@
 % Please edit documentation in R/comparison_function.R
 \name{comparison_function}
 \alias{comparison_function}
-\title{Interactive map of the European region showing the change betweem Economic and Pollution variables over time}
+\title{Interactive map of the European region showing the change between
+Economic and Pollution variables over time}
 \usage{
 comparison_function(dataset = data, yrs = 2000,
   pol_var = "CO2 Emissions from Transport", eco_var = "GDP")
@@ -15,12 +16,18 @@ comparison_function(dataset = data, yrs = 2000,
 \item{eco_var}{A \code{list} of Economic variables to select}
 }
 \value{
-A \code{plot} containing four interactive maps of Europe based on the variables chosen
+\code{Plots} containing interactive maps of Europe based
+on the variables chosen
 }
 \description{
-Produces an interactive map of the European Union region over four different years to show the interaction
+Produces two interactive maps of the European region over
+two different years to show the interaction
 and change between the Economic and Pollution variables
 }
+\examples{
+comparison_function(yrs = 2000,
+pol_var = "CO2 Emissions from Transport", eco_var = "GDP")
+}
 \author{
-Redwan Hasan
+Team Alpha
 }

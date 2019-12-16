@@ -2,7 +2,8 @@
 % Please edit documentation in R/barchart_function.R
 \name{barchart_function}
 \alias{barchart_function}
-\title{Barchart of the Economic and Pollution variable for the European countries in a certain year}
+\title{Barchart of the Economic and Pollution variable for the European
+countries in a certain year}
 \usage{
 barchart_function(dataset = data, pol_var = "CO2 Emissions",
   eco_var = "Productivity in Primary Sector", yrs = 2000)
@@ -18,9 +19,14 @@ barchart_function(dataset = data, pol_var = "CO2 Emissions",
 A \code{plot} containing a barchart
 }
 \description{
-Produces a barchart with the chosen Economic and Pollution variable in order to view the standing of the
+Produces a barchart with the chosen Economic and Pollution
+variable in order to view the standing of the
 European countries in a chosen year.
 }
+\examples{
+barchart_function(pol_var = "CO2 Emissions",
+eco_var = "Productivity in Primary Sector", yrs = 2000)
+}
 \author{
-Redwan Hasan
+Team Alpha
 }

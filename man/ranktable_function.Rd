@@ -26,8 +26,8 @@ selected countries and years, and the rank
 ranktable_function(
          yrs = c('2001', '1992'),
          ctry = c('Albania', 'Andorra'),
-         var  = c('GDP', 'Productivity'))
+         var  = c('GDP'))
 }
 \author{
-Claudio Previte
+Team Alpha
 }

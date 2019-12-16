@@ -7,17 +7,18 @@
 animated_top10(dataset = data, var = "Productivity")
 }
 \arguments{
-\item{var}{A \code{list} of variables to select}
+\item{var}{A variable to select}
 }
 \value{
 A \code{plot} containing an animated ranking
 }
 \description{
-Compute an animated ranking with the 10 top countries per year
+Compute an animated ranking with the 10 top European countries
+per year in regards to a chosen economic or pollution variable
 }
 \examples{
 animated_top10('Productivity')
 }
 \author{
-Claudio Previte
+Team Alpha
 }

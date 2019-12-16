@@ -8,21 +8,22 @@ bubble_function(dataset = data, ctry = "Switzerland",
   eco_var = "GDP", pol_var = "CO2 Emissions")
 }
 \arguments{
-\item{x_var}{First variables to select}
+\item{ctry}{a \code{list} of countries to select}
 
-\item{y_var}{Second variables to select}
+\item{eco_var}{Economic variable to select}
+
+\item{pol_var}{Pollution variable to select}
 }
 \value{
 A \code{plot} representing two variables in a bubble chart
 }
 \description{
-Data visualisation of two variables of the users choice
-in a two dimensional plot.
-A third dimension is represented by the size of the bubble
+Data visualisation of one economic variable agianst one pollution variable of the users choice
+in a two dimensional plot, for the selected countries.
 }
 \examples{
-bubble_function ('gdp','productivity')
+bubble_function ('Switzerland','GDP','Productivity')
 }
 \author{
-Ana-Maria Casian
+Team Alpha
 }

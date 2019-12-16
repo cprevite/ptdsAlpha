@@ -12,16 +12,17 @@ country_function(dataset = data, ctry = "Switzerland", var = "GDP")
 \item{var}{A \code{list} of variables to select}
 }
 \value{
-A \code{plot} containing the line per variables and per countries
+A \code{plot} containing the line per countries for the selected
+countries
 }
 \description{
 Compute a linetype graph containing the desired variables per
-desired countries through year
+desired countries through year. Multiple choices is allowed for the country
+variable
 }
 \examples{
 country_function(c('Italy', 'France', 'Spain'),'Productivity')
-country_function('Italy', c('Productivity', 'GDP'))
 }
 \author{
-Claudio Previte
+Team Alpha
 }

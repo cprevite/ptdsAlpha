@@ -8,8 +8,6 @@ forecast_function(dataset = data, geo = "France", variable = "GDP",
   fc_length = 5)
 }
 \arguments{
-\item{dataset}{a preprocessed dataset from which information is extracted}
-
 \item{geo}{a country that is contained in the dataset}
 
 \item{variable}{a variable that is contained in the dataset}
@@ -27,12 +25,10 @@ interactive plot of the forecast
 }
 \examples{
 #store the function results in a variable
-my_fc <- forecast_function(data, 'France', 'GDP', 10)
+my_fc <- forecast_function('France', 'GDP', 10)
 #plot the interactive dygraph plot
 my_fc$plot
-
-
 }
 \author{
-Pierre-Emmanuel Got
+Team Alpha
 }

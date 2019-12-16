@@ -18,8 +18,8 @@ Displays a GIF showing the evolution of one variable through
 time over an EU chloropleth map
 }
 \examples{
-gif_function(data,'Greenhouse_Gas_Emissions')
+gif_function('Greenhouse_Gas_Emissions')
 }
 \author{
-Jeremy Choppe
+Team Alpha
 }
