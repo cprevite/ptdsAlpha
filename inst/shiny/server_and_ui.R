@@ -340,7 +340,7 @@ economic and pollution indicators over 40 years")
             fluidRow("Filters"),
             fluidRow(
               box(
-                title = "Plot line",
+                title = "Filters",
                 color = "blue",
                 width = 16,
                 style="height:200px;",
@@ -354,7 +354,7 @@ economic and pollution indicators over 40 years")
                       inputId =  "variable10",
                       label = 'Select country',
                       multiple = TRUE,
-                      choices = as.character(unique(na.omit(get_data()$Country))),
+                      choices = as.character(unique(na.omit(get_data())$Country)),
                       options = pickerOptions(
                         actionsBox = TRUE,
                         virtualScroll = TRUE,
@@ -406,7 +406,7 @@ economic and pollution indicators over 40 years")
               tabBox(
                 title = "Comments",
                 color = "blue",
-                width = 5,
+                width = 16,
                 collapsible = TRUE,
                 tabs = list(
                   list(menu = "Info",
